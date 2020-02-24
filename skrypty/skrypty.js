@@ -1,4 +1,4 @@
-var testt=0;// nie bij za ten kod, to tak tylko na pocz¹tek XD
+var testt=0;// nie bij za ten kod, to tak tylko na poczÄ…tek XD
 function test(){
 	if(testt==0){
 	document.getElementById("jeden").style.zIndex="-1";
