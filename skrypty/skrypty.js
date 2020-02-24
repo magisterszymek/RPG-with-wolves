@@ -1,4 +1,4 @@
-function test(NrZakladki){
+function zakladka(NrZakladki){
 	switch(NrZakladki){
 		case 0:{
 		document.getElementById("zakladkaWalka").style.zIndex="0";

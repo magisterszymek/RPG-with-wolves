@@ -13,6 +13,7 @@ body {
 	border:none;
 	margin-left:-0.3%;
 	margin-right:-0.3%;
+	cursor:pointer;
 }
 .zakladka0 {
 	width: 100%;
