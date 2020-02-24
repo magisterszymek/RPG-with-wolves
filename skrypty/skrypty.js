@@ -1,13 +1,32 @@
-var testt=0;// nie bij za ten kod, to tak tylko na początek XD
-function test(){
-	if(testt==0){
-	document.getElementById("jeden").style.zIndex="-1";
-	document.getElementById("dwa").style.zIndex="0";
-	testt=1;
-	}	
-	else{
-	document.getElementById("jeden").style.zIndex="0";
-	document.getElementById("dwa").style.zIndex="-1";
-	testt=0
+function test(NrZakladki){
+	switch(NrZakladki){
+		case 0:{
+		document.getElementById("zakladkaWalka").style.zIndex="0";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
+		break;
+		}
+		case 1:{
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="0";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
+		break;
+		}
+		case 2:{
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="0";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
+		break;
+		}
+		case 3:{
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="0";
+		break;
+		}
 	}
 }
