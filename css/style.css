@@ -8,9 +8,11 @@ body {
 	height: 5%;
 }
 .przycisk {
-	width:10%;
+	width:25.384%;/*nawet nie pytaj XD*/
 	height:100%;
 	border:none;
+	margin-left:-0.3%;
+	margin-right:-0.3%;
 }
 .zakladka0 {
 	width: 100%;
