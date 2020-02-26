@@ -23,9 +23,17 @@
 		
 // Statystyki
 	// Gracz
-		var nick = Ruffus
-		var zdrowie = 50
-		var waluta = 20
+		var nick = Ruffus;
+		var zdrowie = 50;
+		var waluta = 20;
+
+	// Inne
+		var nazwaPrzeciwnik = 0;
+		var opisPrzeciwnik = 0;
+		var zdrowiePrzeciwnik = 0;
+		var pancerzPrzeciwnik = 0;
+		var obrażeniaPrzeciwnik = 0;
+		var zakresPrzeciwnik = 0;
 		
 // ---------- Koniec zmiennych ----------
 
