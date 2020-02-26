@@ -32,7 +32,7 @@
 		var opisPrzeciwnik = 0;
 		var zdrowiePrzeciwnik = 0;
 		var pancerzPrzeciwnik = 0;
-		var obrażeniaPrzeciwnik = 0;
+		var obrazeniaPrzeciwnik = 0;
 		var zakresPrzeciwnik = 0;
 		
 // ---------- Koniec zmiennych ----------
@@ -65,6 +65,35 @@ function zakladka(NrZakladki){
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
 		document.getElementById("zakladkaUstawienia").style.zIndex="0";
+		break;
+		}
+	}
+}
+
+function walka(biom, trudnosc){
+  WybierzPrzeciwnika(biom, trudnosc);
+}
+  
+function wybierzPrzeciwnika(biom, trudnosc){
+	let losowe = Math.floor((Math.random() * 3) + 1);
+	switch(biom){
+		case "las":{
+		nazwaPrzeciwnik = prze_las_[losowe][0];
+		opisPrzeciwnik = prze_las_[losowe][1];
+		zdrowiePrzeciwnik = prze_las_[losowe][2];
+		pancerzPrzeciwnik = prze_las_[losowe][3];
+		obrazeniaPrzeciwnik = prze_las_[losowe][4];
+		zakresPrzeciwnik = prze_las_[losowe][5];
+		break;
+		}
+		case "gory":
+		{
+		nazwaPrzeciwnik = prze_gory_[losowe][0];
+		opisPrzeciwnik = prze_gory_[losowe][1];
+		zdrowiePrzeciwnik = prze_gory_[losowe][2];
+		pancerzPrzeciwnik = prze_gory_[losowe][3];
+		obrazeniaPrzeciwnik = prze_gory_[losowe][4];
+		zakresPrzeciwnik = prze_gory_[losowe][5];
 		break;
 		}
 	}
