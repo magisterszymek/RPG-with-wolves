@@ -1,10 +1,10 @@
 body {
-	background: green;
 	margin: 0px;
 	padding: 0px;
+	overflow-x: hidden;
 }
 .pasek {
-	width: 99.6%;
+	width: 100%;
 	height: 5%;
 }
 .przycisk {
@@ -15,28 +15,28 @@ body {
 	margin-right:-0.3%;
 	cursor:pointer;
 }
-.zakladka0 {
+.zakladkaWalka {
 	width: 100%;
 	height: 95%;
 	position: absolute;
 	background: #0fbdb9;
 	z-index: 0;
 }
-.zakladka1 {
+.zakladkaEkwipunek {
 	width: 100%;
 	height: 95%;
 	position: absolute;
 	background: lime;
 	z-index: -1;
 }
-.zakladka2 {
+.zakladkaMenu {
 	width: 100%;
 	height: 95%;
 	position: absolute;
 	background: blue;
 	z-index: -1;
 }
-.zakladka3 {
+.zakladkaUstawienia {
 	width: 100%;
 	height: 95%;
 	position: absolute;
