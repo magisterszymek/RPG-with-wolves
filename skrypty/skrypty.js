@@ -17,13 +17,15 @@
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5, 0];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
-	var prze_las_1 = ["Wieśniak", "Musiał się zgubić.", 30, 0, 3, 2, 1];
-	var prze_las_2 = ["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2];
-	var prze_las_3 = ["Myśliwy", "Przygotowany na walkę.", 50, 0, 7, 2, 2];
+	var prze_las_ = [
+	["Wieśniak", "Musiał się zgubić.", 30, 0, 3, 2, 1],
+	["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2],
+	["Myśliwy", "Przygotowany na walkę.", 50, 0, 7, 2, 2]
+	];
 		
 // Statystyki
 	// Gracz
-		var nick = Ruffus;
+		var nick = "Ruffus";
 		var zdrowie = 50;
 		var waluta = 20;
 
@@ -71,11 +73,11 @@ function zakladka(NrZakladki){
 }
 
 function walka(biom, trudnosc){
-  WybierzPrzeciwnika(biom, trudnosc);
+  wybierzPrzeciwnika(biom, trudnosc);
 }
   
 function wybierzPrzeciwnika(biom, trudnosc){
-	let losowe = Math.floor((Math.random() * 3) + 1);
+	let losowe = Math.floor(Math.random() * 3);
 	switch(biom){
 		case "las":{
 		nazwaPrzeciwnik = prze_las_[losowe][0];
