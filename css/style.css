@@ -1,19 +1,25 @@
+:root {
+	/*Kolory zak³adek i przycisków do nich*/
+	--zakladka-walka-color: #0fbdb9;
+	--zakladka-ekwipunek-color: MediumSeaGreen;
+	--zakladka-menu-color: blue;
+	--zakladka-ustawienia-color: green;
+	/*Koniec kolorów i przycisków do nich*/
+}
 body {
 	margin: 0px;
 	padding: 0px;
 	overflow-x: hidden;
 }
-.pasek {
+.pasekNawigacji {
 	width: 100%;
 	height: 5%;
 	display: flex;
 }
 .przycisk {
-	width: 25.6%; /*nawet nie pytaj XD*/
+	width: 25%;
 	height: 100%;
 	border: none;
-	margin-left: -0.3%;
-	margin-right: -0.3%;
 	cursor: pointer;
 	flex-wrap: nowrap;
 }
@@ -21,27 +27,27 @@ body {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: #0fbdb9;
+	background: var(--zakladka-walka-color);
 	z-index: 0;
 }
 .zakladkaEkwipunek {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: lime;
+	background: var(--zakladka-ekwipunek-color);
 	z-index: -1;
 }
 .zakladkaMenu {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: blue;
+	background: var(--zakladka-menu-color);
 	z-index: -1;
 }
 .zakladkaUstawienia {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: green;
+	background: var(--zakladka-ustawienia-color);
 	z-index: -1;
 }
