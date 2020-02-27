@@ -6,14 +6,16 @@ body {
 .pasek {
 	width: 100%;
 	height: 5%;
+	display: flex;
 }
 .przycisk {
-	width:25.384%;/*nawet nie pytaj XD*/
-	height:100%;
-	border:none;
-	margin-left:-0.3%;
-	margin-right:-0.3%;
-	cursor:pointer;
+	width: 25.6%; /*nawet nie pytaj XD*/
+	height: 100%;
+	border: none;
+	margin-left: -0.3%;
+	margin-right: -0.3%;
+	cursor: pointer;
+	flex-wrap: nowrap;
 }
 .zakladkaWalka {
 	width: 100%;
