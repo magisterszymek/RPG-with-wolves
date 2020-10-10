@@ -101,6 +101,7 @@ function rozpocznijWalke(biom, trudnosc){
 				walkaTrwa = "true";
 				tymczasoweZdrowie = koncoweZdrowie;
 			} else { break; }
+		}
 		case "true":{
 			switch(walkaKoniec){
 				case "true":{
@@ -120,7 +121,6 @@ function rozpocznijWalke(biom, trudnosc){
 					setTimeout(walka(), 3000);
 				}
 			}
-		}
 		}
 	}
 }
