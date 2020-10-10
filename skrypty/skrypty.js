@@ -160,8 +160,13 @@ function walka(){
 		}
 }
   
+function obraz(losowe) {
+	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
+}
+  
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
+	obraz(losowe);
 	let losowe = Math.floor(Math.random() * 3);
 	switch(biom){
 		case "las":{
