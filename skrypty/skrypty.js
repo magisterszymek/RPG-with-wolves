@@ -18,9 +18,9 @@
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_las_ = [
-	["Wieśniak", "Musiał się zgubić.", 30, 0, 3, 2, 1],
+	["Wieśniak", "Musiał się zgubić.", 30, 2, 3, 2, 1],
 	["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2],
-	["Myśliwy", "Przygotowany na walkę.", 50, 0, 7, 2, 2]
+	["Myśliwy", "Przygotowany na walkę.", 50, 2, 7, 2, 2]
 	];
 		
 // Statystyki
@@ -31,9 +31,9 @@
 		var zdrowieBazowe = 50;		// Zdrowie Bazowe
 		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
 		var zdrowieKoncowe = 50;	// zdrowieEkwipunek + Zdrowie z buffów
-		var obrazeniaBazowe = 1;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 1;	// obrażeniaBazowe + Obrażenia z ekwipunku
-		var obrazeniaKoncowe = 1;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
+		var obrazeniaBazowe = 10;	// Obrażenia bazowe
+		var obrazeniaEkwipunek = 10;	// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaKoncowe = 10;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = 0;
@@ -96,67 +96,78 @@ function zakladka(NrZakladki){
 	}
 }
 
-function obraz(losowe) {
-	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
-}
-
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
-	switch(walkaTrwa){
-		case "false":{
-			if(zdrowieKoncowe >= 1 && blokadaWalki == "false"){
-				wybierzPrzeciwnika(biom, trudnosc);
-				walkaTrwa = "true";
-				tymczasoweZdrowie = koncoweZdrowie;
-			} else { break; }
-		}
-		case "true":{
-			switch(walkaKoniec){
-				case "true":{
-					loot(nazwaPrzeciwnik);
-					koncoweZdrowie = tymczasoweZdrowie;
-					tymczasoweZdrowie = 0;
-					maksymalneZdrowie = 0;
-					maksymalneZdrowiePrzeciwnik = 0;
-					nazwaPrzeciwnik = "Brak przeciwnika";
-					opisPrzeciwnik = "";
-					zdrowiePrzeciwnik = 0;
-					pancerzPrzeciwnik = 0;
-					obrazeniaPrzeciwnik = 0;
-					zakresPrzeciwnik = 0;
-					walkaKoniec = false;
-					break;
-				}
-				case "false":{
-					setTimeout(walka(), 3000);
-				}
-			}
-		}
+	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
+		wybierzPrzeciwnika(biom, trudnosc);
+		blokadaWalki = true;
+		interval = setInterval(walka, 3000);
 	}
 }
 
 	// Funkcja odpowiedzialna za loopa walki
 function walka(){
-	kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerz); // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
-	if(kalkulacja < 0){
-		kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-	}
-	zdrowieKoncowe = kalkulacja;
-	kalkulacja = obrazeniaKoncowe - pancerzPrzeciwnik; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
-	if(kalkulacja < 0){
-		kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-	}
-	zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	if(zdrowieKoncowe <= 0){
-		walkaKoniec = true;
-	}
+	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
+	walkaTrwa = true;
+//		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerz); // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+//		if(kalkulacja < 0){
+//			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+//		}
+//		zdrowieKoncowe = kalkulacja;
+//		kalkulacja = obrazeniaKoncowe - pancerzPrzeciwnik; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+//		if(kalkulacja < 0){
+//			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+//		}
+//		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+
+//TYMCZASOWE
+		zdrowieKoncowe = zdrowieKoncowe - obrazeniaPrzeciwnik;
+		zdrowiePrzeciwnik = zdrowiePrzeciwnik - obrazeniaKoncowe;
+
+		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
+		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
+			clearInterval(interval);
+			walkaKoniec = true;
+			walkaTrwa = false;
+			blokadaWalki = false;
+			loot(nazwaPrzeciwnik);
+			zdrowieKoncowe = tymczasoweZdrowie;
+			tymczasoweZdrowie = 0;
+			maksymalneZdrowiePrzeciwnik = 0;
+			nazwaPrzeciwnik = "Brak przeciwnika";
+			opisPrzeciwnik = "";
+			zdrowiePrzeciwnik = 0;
+			pancerzPrzeciwnik = 0;
+			obrazeniaPrzeciwnik = 0;
+			zakresPrzeciwnik = 0;
+			zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerz").innerHTML = pancerz;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+			document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+			document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+		}
+}
+  
+function obraz(losowe) {
+	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
 }
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
 	let losowe = Math.floor(Math.random() * 3);
+	obraz(losowe);
 	switch(biom){
 		case "las":{
 			nazwaPrzeciwnik = prze_las_[losowe][0];
@@ -178,9 +189,10 @@ function wybierzPrzeciwnika(biom, trudnosc){
 			break;
 		}
 	}
-	obraz(losowe);
 	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 	maksymalneZdrowie = zdrowieKoncowe;
+	zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
+	zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
@@ -189,7 +201,8 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
 	document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-	document.getElementsByClassName("zdrowieKoncowe").width = maksymalneZdrowie + "%";
+	document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+	document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
 }
 
 	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
@@ -197,15 +210,15 @@ function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
 		case "zwykly":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 			break;
 		}
 		case "potezny":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
+			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
 			break;
 		}
 		case "szybki":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[3];
+			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
 			break;
 		}
 	}
