@@ -7,10 +7,10 @@
 <body>
 	<div>
 		<div class="pasekNawigacji">
-			<button class="przycisk" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</button>
-			<button class="przycisk" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</button>
-			<button class="przycisk" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</button>
-			<button class="przycisk" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</button>
+			<div class="przycisk" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
+			<div class="przycisk" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
+			<div class="przycisk" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</div>
+			<div class="przycisk" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</div>
 		</div>
 		<div id="zakladkaWalka" class="zakladkaWalka">
 			<!-- zakładka jeden-->
@@ -39,7 +39,7 @@
 				</div>
 			</div>
 			<div class="mapa">
-				<button onclick=rozpocznijWalke("las", 1)>Kliknij</button>
+				<button onclick="wybierzPrzeciwnika('las', 1)">Kliknij</button>
 			</div>
 			<!-- zakładka jeden-->
 		</div>

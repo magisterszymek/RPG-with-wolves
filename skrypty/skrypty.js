@@ -149,7 +149,6 @@ function walka(){
 		walkaKoniec = true;
 	}
 }
-
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
@@ -176,7 +175,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 		}
 	}
 	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-	maksymalneZdrowie = koncoweZdrowie;
+	//maksymalneZdrowie = koncoweZdrowie;
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;

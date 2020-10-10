@@ -28,6 +28,8 @@ body {
 	border: none;
 	cursor: pointer;
 	flex-wrap: nowrap;
+	text-align: center;
+	line-height: 250%;
 }
 .zakladkaWalka {
 	width: 100%;
