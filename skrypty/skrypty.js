@@ -53,7 +53,7 @@
 		var blokadaWalki = false;
 		var walkaTrwa = false;
 		var walkaKoniec = false;
-		var wybranyCios = "null";
+		var wybranyCios = "zwykly";
 		var mnoznikObrazenCiosu = [1, 1.25, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 1; // Służy do przywracania zdrowia po walce
 		
@@ -197,3 +197,6 @@ function wybierzCios(nazwaCiosu){
 		
 function loot(nazwaPrzeciwnik){
 }
+
+// Inicjalizacja podstawowych funkcji
+wybierzCios("zwykly");
