@@ -211,4 +211,3 @@ function loot(nazwaPrzeciwnik){
 
 // Inicjalizacja podstawowych funkcji
 wybierzCios("zwykly");
-rozpocznijWalke("las", 1);
