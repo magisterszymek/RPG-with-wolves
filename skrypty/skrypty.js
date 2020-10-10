@@ -166,8 +166,8 @@ function obraz(losowe) {
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
-	obraz(losowe);
 	let losowe = Math.floor(Math.random() * 3);
+	obraz(losowe);
 	switch(biom){
 		case "las":{
 			nazwaPrzeciwnik = prze_las_[losowe][0];
