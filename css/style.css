@@ -30,6 +30,7 @@ body {
 	flex-wrap: nowrap;
 	text-align: center;
 	line-height: 250%;
+	color:white;
 }
 .zakladkaWalka {
 	width: 100%;
@@ -62,7 +63,7 @@ body {
 .walka {
 	width: 50%;
 	height: 100%;
-	background-color: yellow;
+	/*background-color: yellow;*/
 	float:left;
 }
 .mapa {
@@ -74,14 +75,14 @@ body {
 .gracz {
 	width: 50%;
 	height: 65%;
-	float:left;
-	background-color: blue;
+	float: left;
+	/*background-color: blue;*/
 }
 .przeciwnik {
 	width: 50%;
 	height: 65%;
 	float:left;
-	background-color: green;
+	/*background-color: green;*/
 }
 .opcjeWalki {
 	width: 100%;
@@ -98,7 +99,7 @@ body {
 .ataki {
 	width: 100%;
 	height: 79%;
-	background-color: red;
+	/*background-color: red;*/
 }
 .nick{
 	text-align:center;
@@ -126,7 +127,7 @@ body {
 	position: relative;
 	z-index: 1;
 	background-color: red;
-	width: 10%;
+	width: 100%;
 	height: 100%;
 }
 .zdrowiePrzeciwnik {
