@@ -120,14 +120,14 @@ body {
 	height:10%;
 	margin:auto;
 }
-.playerHp {
+.zdrowieKoncowe {
 	position: relative;
 	z-index: 1;
 	background-color: red;
 	width: 10%;
 	height: 100%;
 }
-.enemyHp {
+.zdrowiePrzeciwnik {
 	position: relative;
 	z-index: 1;
 	background-color: red;
