@@ -96,6 +96,10 @@ function zakladka(NrZakladki){
 	}
 }
 
+function obraz(losowe) {
+	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
+}
+
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
 	switch(walkaTrwa){
@@ -174,8 +178,9 @@ function wybierzPrzeciwnika(biom, trudnosc){
 			break;
 		}
 	}
+	obraz(losowe);
 	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-	//maksymalneZdrowie = koncoweZdrowie;
+	maksymalneZdrowie = zdrowieKoncowe;
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;

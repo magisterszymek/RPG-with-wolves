@@ -7,10 +7,10 @@
 <body>
 	<div>
 		<div class="pasekNawigacji">
-			<div class="przycisk" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
-			<div class="przycisk" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
-			<div class="przycisk" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</div>
-			<div class="przycisk" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</div>
+			<div class="przycisk noselect" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
+			<div class="przycisk noselect" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
+			<div class="przycisk noselect" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</div>
+			<div class="przycisk noselect" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</div>
 		</div>
 		<div id="zakladkaWalka" class="zakladkaWalka">
 			<!-- zakładka jeden-->
@@ -27,8 +27,8 @@
 					<div class="nick"><span id="nazwaPrzeciwnika">Nazwa przeciwnika</span></div>
 					<div class="tloHp"><div class="napisHp"><span id="zdrowiePrzeciwnik">1</span>/<span id="maksymalneZdrowiePrzeciwnik">100</span></div><div class="zdrowiePrzeciwnik"></div></div>
 					<div class="nick">Pancerz:<span id="pancerzPrzeciwnik">654</span></div>
-					<div class="ataki" style="background-color:lightgreen">
-						<img src="przeciwnik.jpg" />
+					<div class="ataki" style="background-color:lightgreen;">
+						<img id="obrazPrzeciwnik" src="Obrazy\Inne\pustka.png"/>
 					</div>
 				</div>
 				<div class="opcjeWalki">
