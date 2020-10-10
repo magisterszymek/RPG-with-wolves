@@ -124,7 +124,7 @@ body {
 	position: relative;
 	z-index: 1;
 	background-color: red;
-	width: 100%;
+	width: 10%;
 	height: 100%;
 }
 .enemyHp {
