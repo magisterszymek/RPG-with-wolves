@@ -189,6 +189,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
 	document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+	document.getElementsByClassName("zdrowieKoncowe").width = maksymalneZdrowie + "%";
 }
 
 	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
@@ -215,4 +216,3 @@ function loot(nazwaPrzeciwnik){
 
 // Inicjalizacja podstawowych funkcji
 wybierzCios("zwykly");
-rozpocznijWalke("las", 1);
