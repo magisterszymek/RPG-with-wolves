@@ -175,7 +175,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 		}
 	}
 	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-	//maksymalneZdrowie = koncoweZdrowie;
+	maksymalneZdrowie = zdrowieKoncowe;
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
@@ -184,6 +184,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
 	document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+	document.getElementsByClassName("zdrowieKoncowe").width = maksymalneZdrowie + "%";
 }
 
 	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
