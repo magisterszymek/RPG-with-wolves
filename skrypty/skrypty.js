@@ -55,7 +55,11 @@
 		var walkaKoniec = false;
 		var wybranyCios = "zwykly";
 		var mnoznikObrazenCiosu = [1, 1.25, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
-		var tymczasoweZdrowie = 1; // Służy do przywracania zdrowia po walce
+		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
+		
+	// HTML
+		var maksymalneZdrowie = zdrowieKoncowe;
+		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -107,7 +111,9 @@ function rozpocznijWalke(biom, trudnosc){
 				case "true":{
 					loot(nazwaPrzeciwnik);
 					koncoweZdrowie = tymczasoweZdrowie;
-					tymczasoweZdrowie = 1;
+					tymczasoweZdrowie = 0;
+					maksymalneZdrowie = 0;
+					maksymalneZdrowiePrzeciwnik = 0;
 					nazwaPrzeciwnik = "Brak przeciwnika";
 					opisPrzeciwnik = "";
 					zdrowiePrzeciwnik = 0;
@@ -137,8 +143,8 @@ function walka(){
 		kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 	}
 	zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-	document.getElementById("").innerHTML = zdrowie;
-	document.getElementById("").innerHTML = zdrowiePrzeciwnik;
+	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 	if(zdrowieKoncowe <= 0){
 		walkaKoniec = true;
 	}
@@ -166,14 +172,19 @@ function wybierzPrzeciwnika(biom, trudnosc){
 			pancerzPrzeciwnik = prze_gory_[losowe][3];
 			obrazeniaPrzeciwnik = prze_gory_[losowe][4];
 			zakresPrzeciwnik = prze_gory_[losowe][5];
-		break;
+			break;
 		}
 	}
-	document.getElementById("").innerHTML = zdrowie;
-	document.getElementById("").innerHTML = zdrowiePrzeciwnik;
-	document.getElementById("").innerHTML = pancerz;
-	document.getElementById("").innerHTML = pancerzPrzeciwnik;
-	document.getElementById("").innerHTML = nazwaPrzeciwnik;
+	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+	maksymalneZdrowie = koncoweZdrowie;
+	document.getElementById("nick").innerHTML = nick;
+	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+	document.getElementById("pancerz").innerHTML = pancerz;
+	document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+	document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
 }
 
 	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
@@ -200,3 +211,4 @@ function loot(nazwaPrzeciwnik){
 
 // Inicjalizacja podstawowych funkcji
 wybierzCios("zwykly");
+rozpocznijWalke("las", 1);
