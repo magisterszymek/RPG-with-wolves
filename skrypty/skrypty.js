@@ -68,6 +68,7 @@
 	//Textbox
 		var id = 1;
 		var tekstId = "tekstId1";
+		var odwrotneTekstId = "tekstId1";
 		var tekst = "&nbsp";
 		var arr = tekst.split(' ');
 		
@@ -120,7 +121,7 @@ function rozpocznijWalke(biom, trudnosc){
 function walka(){
 	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
 	walkaTrwa = true;
-		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerz; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerz; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
 		if(kalkulacja < 0){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
@@ -172,6 +173,7 @@ function walka(){
 			document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
 			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
 		}
+		kalkulacja = 0;
 }
   
 function obraz(losowe) {
@@ -271,6 +273,47 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	var paragraf = document.getElementById(tekstId);
 	paragraf.innerHTML = "<span>" + tekst + "</span>"; // Dodanie tekstu do HTML
 	document.getElementById(tekstId).style.color = "white";
+	switch(id){
+		case 1:{
+			document.getElementById("tekstId11").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
+			document.getElementById("tekstId10").style.color = "#dbdbdb"; 
+			document.getElementById("tekstId9").style.color = "#c2c2c2"; 
+			document.getElementById("tekstId8").style.color = "#adadad"; 
+			break;
+		}
+		case 2:{
+			document.getElementById("tekstId1").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
+			document.getElementById("tekstId11").style.color = "#dbdbdb"; 
+			document.getElementById("tekstId10").style.color = "#c2c2c2"; 
+			document.getElementById("tekstId9").style.color = "#adadad";
+			break;
+		}
+		case 3:{
+			document.getElementById("tekstId2").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
+			document.getElementById("tekstId1").style.color = "#dbdbdb"; 
+			document.getElementById("tekstId11").style.color = "#c2c2c2"; 
+			document.getElementById("tekstId10").style.color = "#adadad";
+			break;
+		}
+		case 4:{
+			document.getElementById("tekstId3").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
+			document.getElementById("tekstId2").style.color = "#dbdbdb"; 
+			document.getElementById("tekstId1").style.color = "#c2c2c2"; 
+			document.getElementById("tekstId11").style.color = "#adadad";
+			break;
+		}
+		default:{
+			odwrotneTekstId = "tekstId" + (id - 1);
+			document.getElementById(odwrotneTekstId).style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
+			odwrotneTekstId = "tekstId" + (id - 2);
+			document.getElementById(odwrotneTekstId).style.color = "#dbdbdb";
+			odwrotneTekstId = "tekstId" + (id - 3);
+			document.getElementById(odwrotneTekstId).style.color = "#c2c2c2";
+			odwrotneTekstId = "tekstId" + (id - 4);
+			document.getElementById(odwrotneTekstId).style.color = "#adadad";
+			break;
+		}
+	}
 	if(rodzaj == "koniecWalki" && postacPierwsza == nick){ // Gdy gracz wygra
 		document.getElementById(tekstId).style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
