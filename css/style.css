@@ -3,21 +3,21 @@
 	font-family: Arial, Helvetica, sans-serif;/*Tymczasowy Font*/
 }
 img{
-	/*P髃i jest jeden obrazek to dzia砤*/
+	/*P贸ki jest jeden obrazek to dzia艂a*/
 	height:100%;
 	width:100%;
 }
 button {
-	/*usuwa domy渓ny efekt po klikni阠iu przycisku*/
+	/*usuwa domy艣lny efekt po klikni臋ciu przycisku*/
 	outline: none;
 }
 :root {
-	/*Kolory zak砤dek i przycisk體 do nich*/
-	--zakladka-przygody-color: #0fbdb9;
+	/*Kolory zak艂adek i przycisk贸w do nich*/
+	--zakladka-walka-color: #0fbdb9;
 	--zakladka-ekwipunek-color: MediumSeaGreen;
 	--zakladka-menu-color: blue;
 	--zakladka-ustawienia-color: green;
-	/*Koniec kolor體 i przycisk體 do nich*/
+	/*Koniec kolor贸w i przycisk贸w do nich*/
 }
 body {
 	margin: 0px;
@@ -54,14 +54,14 @@ body {
 	border: 3px solid #27420b;
 }
 .przyciskAtaku:active {
-	/*Efekt po klikni阠iu przycisku ataku*/
+	/*Efekt po klikni臋ciu przycisku ataku*/
 	background-color: #68943b;
 }
-.zakladkaPrzygody {
+.zakladkaWalka {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: var(--zakladka-przygody-color);
+	background: var(--zakladka-walka-color);
 	z-index: 0;
 }
 .zakladkaEkwipunek {
@@ -119,6 +119,7 @@ body {
 	width: 100%;
 	height: 30%;
 	float: left;
+	-webkit-text-stroke: 0.1px black;
 	/*background-color: brown;*/
 }
 .ataki {
