@@ -51,7 +51,7 @@
 		var obrazeniaPrzeciwnik = 0;
 		var zakresPrzeciwnik = 0;
 		
-	//Ekwipunek
+	// Ekwipunek
 		var zalozonaBron = "brak";
 		var zalozonyHelm = "brak";
 		var zalozonyNapiersnik = "brak";
@@ -70,12 +70,15 @@
 		var maksymalneZdrowie = zdrowieKoncowe;
 		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 		
-	//Textbox
+	// Textbox
 		var id = 1;
 		var tekstId = "tekstId1";
 		var odwrotneTekstId = "tekstId1";
 		var tekst = "&nbsp";
 		var arr = tekst.split(' ');
+		
+	// Mapa
+		var blokadaGory = true;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -262,7 +265,43 @@ function wybierzCios(nazwaCiosu){
 	}
 }
 		
+	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
+	switch(nazwaPrzeciwnik){
+		case "Wieśniak":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Traper":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Myśliwy":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Krasnoludek":{
+			break;
+		}
+		case "Krasnal":{
+			break;
+		}
+		case "Krasnolud":{
+			break;
+		}
+	}
 }
 
 	// Funkcja do wpisywania tekstu
@@ -282,6 +321,10 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			} else if(postacPierwsza == nick){
 				var tekst = "&nbsp" + "Pokonałeś" + "&nbsp" + postacDruga + "!"; // Jeśli gracz wygrał
 			}
+			break;
+		}
+		case "odblokowanieLokacji":{ // Funkcja wywoływana podczas odblokowania lokacji
+			var tekst = "&nbsp" + "Odblokowałeś lokację:" + "&nbsp" + postacPierwsza + "!"; // Jeśli przeciwnik wygrał
 			break;
 		}
 	}
@@ -333,6 +376,8 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		document.getElementById(tekstId).style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		document.getElementById(tekstId).style.color = "#d10e00";
+	} else if(rodzaj == "odblokowanieLokacji"){
+		document.getElementById(tekstId).style.color = "#59ffb7";
 	}
 	tekstId = "tekstId" + id; // Gdy funkcja zostanie wywołana po raz kolejny, będzie dotyczyła kolejnego paragrafu
 	id += 1;
