@@ -7,12 +7,12 @@
 <body>
 	<div>
 		<div class="pasekNawigacji noselect">
-			<div class="przyciskNawigacji" style="background:var(--zakladka-przygody-color);" onclick="zakladka(0);">Przygody</div>
+			<div class="przyciskNawigacji" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
 			<div class="przyciskNawigacji" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
 			<div class="przyciskNawigacji" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</div>
 			<div class="przyciskNawigacji" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</div>
 		</div>
-		<div id="zakladkaPrzygody" class="zakladkaPrzygody">
+		<div id="zakladkaWalka" class="zakladkaWalka">
 			<!-- zakładka jeden-->
 			<div class="walka">
 				<div class="gracz noselect">
@@ -20,9 +20,9 @@
 					<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe">0</span>/<span id="maksymalneZdrowie">0</span></div><div class="zdrowieKoncowe"></div></div>
 					<div class="nick">Pancerz: <span id="pancerz"></span></div>
 					<div class="ataki">
-						<button class="przyciskAtaku" onclick="">1</button>
-						<button class="przyciskAtaku" onclick="">2</button>
-						<button class="przyciskAtaku" onclick="">3</button>
+						<button class="przyciskAtaku" onclick="wybierzCios('zwykly')">Zwykły cios</button>
+						<button class="przyciskAtaku" onclick="wybierzCios('potezny')">Potężny cios</button>
+						<button class="przyciskAtaku" onclick="wybierzCios('szybki')">Szybki cios</button>
 						<button class="przyciskAtaku" onclick="">4</button>
 					</div>
 				</div>
