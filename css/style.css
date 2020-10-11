@@ -71,6 +71,32 @@ body {
 	background: var(--zakladka-ekwipunek-color);
 	z-index: -1;
 }
+.wyposazenie{
+	width: 25%;
+	width: height: 95$;
+	position: absolute;
+	background: var(--zakladka-ekwipunek-color);
+}
+.glownyEkwipunek {
+	left: 25%;
+	display: grid;
+	grid-template-columns: repeat(16, 1fr);
+	grid-gap: 1px;
+	background-color: #2196F3;
+	padding: 10px;
+	position: absolute;
+}
+.slot {
+	border: 1px solid black;
+	background-color: #ddd;
+	padding: 10px;
+	height: 87.8px;
+	width: 87.8px;
+	cursor: move;
+}
+.slot.over {
+	border: 5px dotted black;
+}
 .zakladkaMenu {
 	width: 100%;
 	height: 95%;
