@@ -22,6 +22,11 @@
 	["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2],
 	["Myśliwy", "Przygotowany na walkę.", 50, 2, 7, 2, 2]
 	];
+	var prze_gory_ = [
+	["Krasnoludek", "Mały krasnal.", 30, 5, 3, 2, 1],
+	["Krasnal", "Mały krasnolud.", 50, 7, 5, 1, 2],
+	["Krasnolud", "Krasnolud.", 70, 10, 7, 1, 2]
+	];
 		
 // Statystyki
 	// Gracz
@@ -176,18 +181,28 @@ function walka(){
 		kalkulacja = 0;
 }
   
-function obraz(losowe) {
+function obraz(losowe, biom) {
 	if (losowe == -1) {
 		document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\Brak przeciwnika.png";
 	}
-	else
-	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
+	else {
+		switch(biom){
+			case "las":{
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
+				break;
+			}
+			case "gory":{
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_gory_[losowe][0] + ".png";
+				break;
+			}
+		}
+	}
 }
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
 	let losowe = Math.floor(Math.random() * 3);
-	obraz(losowe);
+	obraz(losowe, biom);
 	switch(biom){
 		case "las":{
 			nazwaPrzeciwnik = prze_las_[losowe][0];
@@ -263,7 +278,7 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "koniecWalki":{ // Funkcja wywoływana na koniec walki
 			if(postacDruga == nick){
-				var tekst = "&nbsp" + postacPiewsza + "&nbsp" + "cię" + "&nbsp" + "pokonał!"; // Jeśli przeciwnik wygrał
+				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "cię" + "&nbsp" + "pokonał!"; // Jeśli przeciwnik wygrał
 			} else if(postacPierwsza == nick){
 				var tekst = "&nbsp" + "Pokonałeś" + "&nbsp" + postacDruga + "!"; // Jeśli gracz wygrał
 			}
