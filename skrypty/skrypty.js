@@ -334,41 +334,41 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	switch(id){
 		case 1:{
 			document.getElementById("tekstId11").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId10").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId9").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId8").style.color = "#adadad"; 
+			document.getElementById("tekstId10").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId9").style.color = "#737373"; 
+			document.getElementById("tekstId8").style.color = "#454545"; 
 			break;
 		}
 		case 2:{
 			document.getElementById("tekstId1").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId11").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId10").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId9").style.color = "#adadad";
+			document.getElementById("tekstId11").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId10").style.color = "#737373"; 
+			document.getElementById("tekstId9").style.color = "#454545";
 			break;
 		}
 		case 3:{
 			document.getElementById("tekstId2").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId1").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId11").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId10").style.color = "#adadad";
+			document.getElementById("tekstId1").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId11").style.color = "#737373"; 
+			document.getElementById("tekstId10").style.color = "#454545";
 			break;
 		}
 		case 4:{
 			document.getElementById("tekstId3").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId2").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId1").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId11").style.color = "#adadad";
+			document.getElementById("tekstId2").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId1").style.color = "#737373"; 
+			document.getElementById("tekstId11").style.color = "#454545";
 			break;
 		}
 		default:{
 			odwrotneTekstId = "tekstId" + (id - 1);
 			document.getElementById(odwrotneTekstId).style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
 			odwrotneTekstId = "tekstId" + (id - 2);
-			document.getElementById(odwrotneTekstId).style.color = "#dbdbdb";
+			document.getElementById(odwrotneTekstId).style.color = "#8a8a8a";
 			odwrotneTekstId = "tekstId" + (id - 3);
-			document.getElementById(odwrotneTekstId).style.color = "#c2c2c2";
+			document.getElementById(odwrotneTekstId).style.color = "#737373";
 			odwrotneTekstId = "tekstId" + (id - 4);
-			document.getElementById(odwrotneTekstId).style.color = "#adadad";
+			document.getElementById(odwrotneTekstId).style.color = "#454545";
 			break;
 		}
 	}
