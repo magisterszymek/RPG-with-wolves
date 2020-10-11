@@ -32,8 +32,11 @@
 		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
 		var zdrowieKoncowe = 50;	// zdrowieEkwipunek + Zdrowie z buffów
 		var obrazeniaBazowe = 10;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 10;	// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaEkwipunek = 10;// obrażeniaBazowe + Obrażenia z ekwipunku
 		var obrazeniaKoncowe = 10;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
+		var szybkoscBazowa = 1;	// Szybkość bazowa
+		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
+		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = 0;
@@ -55,6 +58,7 @@
 		var walkaKoniec = false;
 		var wybranyCios = "zwykly";
 		var mnoznikObrazenCiosu = [1, 1.25, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
+		var szybkoscCiosu = [1, 1, 2] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
@@ -63,35 +67,34 @@
 		
 // ---------- Koniec zmiennych ----------
 
-function zakladka(NrZakladki) {
-	var zakladki = ['zakladkaPrzygody', 'zakladkaEkwipunek', 'zakladkaMenu', 'zakladkaUstawienia'];
+function zakladka(NrZakladki){
 	switch(NrZakladki){
 		case 0:{
-		document.getElementById(zakladki[0]).style.zIndex="0";
-		document.getElementById(zakladki[1]).style.zIndex="-1";
-		document.getElementById(zakladki[2]).style.zIndex="-1";
-		document.getElementById(zakladki[3]).style.zIndex="-1";
+		document.getElementById("zakladkaWalka").style.zIndex="0";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
 		break;
 		}
 		case 1:{
-		document.getElementById(zakladki[0]).style.zIndex="-1";
-		document.getElementById(zakladki[1]).style.zIndex="0";
-		document.getElementById(zakladki[2]).style.zIndex="-1";
-		document.getElementById(zakladki[3]).style.zIndex="-1";
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="0";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
 		break;
 		}
 		case 2:{
-		document.getElementById(zakladki[0]).style.zIndex="-1";
-		document.getElementById(zakladki[1]).style.zIndex="-1";
-		document.getElementById(zakladki[2]).style.zIndex="0";
-		document.getElementById(zakladki[3]).style.zIndex="-1";
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="0";
+		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
 		break;
 		}
 		case 3:{
-		document.getElementById(zakladki[0]).style.zIndex="-1";
-		document.getElementById(zakladki[1]).style.zIndex="-1";
-		document.getElementById(zakladki[2]).style.zIndex="-1";
-		document.getElementById(zakladki[3]).style.zIndex="0";
+		document.getElementById("zakladkaWalka").style.zIndex="-1";
+		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
+		document.getElementById("zakladkaUstawienia").style.zIndex="0";
 		break;
 		}
 	}
@@ -110,21 +113,16 @@ function rozpocznijWalke(biom, trudnosc){
 function walka(){
 	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
 	walkaTrwa = true;
-//		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerz); // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
-//		if(kalkulacja < 0){
-//			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-//		}
-//		zdrowieKoncowe = kalkulacja;
-//		kalkulacja = obrazeniaKoncowe - pancerzPrzeciwnik; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
-//		if(kalkulacja < 0){
-//			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-//		}
-//		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-
-//TYMCZASOWE
-		zdrowieKoncowe = zdrowieKoncowe - obrazeniaPrzeciwnik;
-		zdrowiePrzeciwnik = zdrowiePrzeciwnik - obrazeniaKoncowe;
-
+		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerz; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+		if(kalkulacja < 0){
+			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+		}
+		zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
+		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+		if(kalkulacja < 0){
+			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+		}
+		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
 		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
@@ -217,14 +215,17 @@ function wybierzCios(nazwaCiosu){
 	switch(nazwaCiosu){
 		case "zwykly":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
 		}
 		case "potezny":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[1];
 			break;
 		}
 		case "szybki":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
+			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[2];
 			break;
 		}
 	}
