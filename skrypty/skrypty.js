@@ -65,6 +65,12 @@
 		var maksymalneZdrowie = zdrowieKoncowe;
 		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 		
+	//Textbox
+		var id = 1;
+		var tekstId = "tekstId1";
+		var tekst = "null";
+		var arr = tekst.split(' ');
+		
 // ---------- Koniec zmiennych ----------
 
 function zakladka(NrZakladki){
@@ -118,11 +124,13 @@ function walka(){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
 		zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
+		wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
 		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 		if(kalkulacja < 0){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
 		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+		wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
 		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
@@ -232,6 +240,26 @@ function wybierzCios(nazwaCiosu){
 }
 		
 function loot(nazwaPrzeciwnik){
+}
+
+function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
+	switch(rodzaj){
+		case "walka":{
+			if(postacDruga == nick){
+				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "zadał/a" + "&nbsp" + "Ci" + "&nbsp"+ liczba + "&nbsp" + "obrażeń!";
+			} else if(postacPierwsza == nick){
+				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "zadał/a" + "&nbsp" + "przeciwnikowi" + "&nbsp" + liczba + "&nbsp" + "obrażeń!";
+			}
+			break;
+		}
+	}
+	var paragraf = document.getElementById(tekstId);
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	tekstId = "tekstId" + id;
+	id += 1;
+	if (id >= 11) {
+		id = 1;
+	}
 }
 
 // Inicjalizacja podstawowych funkcji
