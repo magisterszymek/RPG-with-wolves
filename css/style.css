@@ -119,7 +119,7 @@ body {
 	width: 100%;
 	height: 30%;
 	float: left;
-	-webkit-text-stroke: 0.1px black;
+	-webkit-text-stroke: 0.10px black;
 	/*background-color: brown;*/
 }
 .ataki {
@@ -176,4 +176,19 @@ body {
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
+}
+.przyciskLas {
+	position: absolute;
+	top: 22%;
+	right: 11%;
+	background-color: #38c95f;
+	border: solid black 1px;
+}
+.przyciskGory {
+	position: absolute;
+	top: 22%;
+	right: 27%;
+	background-color: gray;
+	border: solid black 1px;
+	display: none;
 }
