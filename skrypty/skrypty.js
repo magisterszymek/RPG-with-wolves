@@ -140,6 +140,7 @@ function walka(){
 			tymczasoweZdrowie = 0;
 			maksymalneZdrowiePrzeciwnik = 0;
 			nazwaPrzeciwnik = "Brak przeciwnika";
+			obraz(-1);
 			opisPrzeciwnik = "";
 			zdrowiePrzeciwnik = 0;
 			pancerzPrzeciwnik = 0;
@@ -161,6 +162,10 @@ function walka(){
 }
   
 function obraz(losowe) {
+	if (losowe == -1) {
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\Brak przeciwnika.png";
+	}
+	else
 	document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
 }
   
