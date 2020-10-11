@@ -68,7 +68,7 @@
 	//Textbox
 		var id = 1;
 		var tekstId = "tekstId1";
-		var tekst = "null";
+		var tekst = "&nbsp";
 		var arr = tekst.split(' ');
 		
 // ---------- Koniec zmiennych ----------
@@ -109,9 +109,10 @@ function zakladka(NrZakladki){
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
 	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
+		wyczyscTekst();
 		wybierzPrzeciwnika(biom, trudnosc);
 		blokadaWalki = true;
-		interval = setInterval(walka, 3000);
+		interval = setInterval(walka, 800);
 	}
 }
 
@@ -138,6 +139,11 @@ function walka(){
 		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
+			if(zdrowieKoncowe <= 0){
+				wpiszTekst("koniecWalki", nazwaPrzeciwnik, nick);
+			} else if(zdrowiePrzeciwnik <= 0){
+				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
+			}
 			clearInterval(interval);
 			walkaKoniec = true;
 			walkaTrwa = false;
@@ -164,7 +170,7 @@ function walka(){
 			document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
 			document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
 			document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
 		}
 }
   
@@ -242,24 +248,68 @@ function wybierzCios(nazwaCiosu){
 function loot(nazwaPrzeciwnik){
 }
 
+	// Funkcja do wpisywania tekstu
 function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	switch(rodzaj){
-		case "walka":{
+		case "walka":{ // Funkcja wywoływana podczas walki
 			if(postacDruga == nick){
-				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "zadał/a" + "&nbsp" + "Ci" + "&nbsp"+ liczba + "&nbsp" + "obrażeń!";
+				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "zadał" + "&nbsp" + "Ci" + "&nbsp"+ liczba + "&nbsp" + "obrażeń!"; // Jeśli przeciwnik zadał obrażenia
 			} else if(postacPierwsza == nick){
-				var tekst = "&nbsp" + postacPierwsza + "&nbsp" + "zadał/a" + "&nbsp" + "przeciwnikowi" + "&nbsp" + liczba + "&nbsp" + "obrażeń!";
+				var tekst = "&nbsp" + "Zadałeś/aś" + "&nbsp" + "przeciwnikowi" + "&nbsp" + liczba + "&nbsp" + "obrażeń!"; // Jeśli gracz zadał obrażenia
+			}
+			break;
+		}
+		case "koniecWalki":{ // Funkcja wywoływana na koniec walki
+			if(postacDruga == nick){
+				var tekst = "&nbsp" + postacPiewsza + "&nbsp" + "cię" + "&nbsp" + "pokonał!"; // Jeśli przeciwnik wygrał
+			} else if(postacPierwsza == nick){
+				var tekst = "&nbsp" + "Pokonałeś" + "&nbsp" + postacDruga + "!"; // Jeśli gracz wygrał
 			}
 			break;
 		}
 	}
 	var paragraf = document.getElementById(tekstId);
-	paragraf.innerHTML = "<span>" + tekst + "</span>";
-	tekstId = "tekstId" + id;
+	paragraf.innerHTML = "<span>" + tekst + "</span>"; // Dodanie tekstu do HTML
+	document.getElementById(tekstId).style.color = "white";
+	if(rodzaj == "koniecWalki" && postacPierwsza == nick){ // Gdy gracz wygra
+		document.getElementById(tekstId).style.color = "#1d993e";
+	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
+		document.getElementById(tekstId).style.color = "#d10e00";
+	}
+	tekstId = "tekstId" + id; // Gdy funkcja zostanie wywołana po raz kolejny, będzie dotyczyła kolejnego paragrafu
 	id += 1;
-	if (id >= 11) {
+	if (id >= 12) {
 		id = 1;
 	}
+}
+
+	// Funkcja do resetu tekstu
+function wyczyscTekst(){
+	tekst = "&nbsp";
+	var paragraf = document.getElementById("tekstId1");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId2");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId3");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId4");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId5");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId6");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId7");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId8");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId9");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId10");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	var paragraf = document.getElementById("tekstId11");
+	paragraf.innerHTML = "<span>" + tekst + "</span>";
+	id = 1;
+	tekstId = "tekstId" + id;
 }
 
 // Inicjalizacja podstawowych funkcji
