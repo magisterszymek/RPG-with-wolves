@@ -332,7 +332,7 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "odblokowanieLokacji":{ // Funkcja wywoływana podczas odblokowania lokacji
 			var tekst = " " + "Odblokowałeś lokację:" + " " + postacPierwsza + "!"; // Jeśli przeciwnik wygrał
-			pasek.style.color = magenta;
+			pasek.style.color = #ec7df0;
 			break;
 		}
 		case "linia":{
