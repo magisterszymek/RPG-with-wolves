@@ -335,8 +335,9 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	pasek.appendChild(pasekTekst);                              // Append the text to <li>
 	document.getElementById("logi").appendChild(pasek);
 	document.getElementById("logi").appendChild(pasekBR);	// Append <li> to <ul> with id="myList" 
-	
-	//document.getElementById(tekstId).style.color = "white";
+	var box = document.getElementById("logi");
+	box.scrollTop = box.scrollHeight;
+
 	//if(rodzaj == "koniecWalki" && postacPierwsza == nick){ // Gdy gracz wygra
 	//	document.getElementById(tekstId).style.color = "#1d993e";
 	//} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
