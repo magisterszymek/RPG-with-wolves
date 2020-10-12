@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pl">
 <head>
 	<title>RPG-with-wolves</title>
@@ -7,7 +7,7 @@
 	<script src="skrypty/skrypty.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
-<body onload="test(false)" onbeforeunload="test(true)">
+<body onload="zapamietajZakladke(false)" onbeforeunload="zapamietajZakladke(true)">
 	<div class="pasekNawigacji noselect">
 		<div class="przyciskNawigacji" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
 		<div class="przyciskNawigacji" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
@@ -25,7 +25,7 @@
 					<button class="przyciskAtaku" onclick="wybierzCios('zwykly')">Zwykły cios</button>
 					<button class="przyciskAtaku" onclick="wybierzCios('potezny')">Potężny cios</button>
 					<button class="przyciskAtaku" onclick="wybierzCios('szybki')">Szybki cios</button>
-					<button class="przyciskAtaku" onclick="test(true)">4</button>
+					<button class="przyciskAtaku" onclick="">4</button>
 				</div>
 			</div>
 			<div class="przeciwnik noselect">

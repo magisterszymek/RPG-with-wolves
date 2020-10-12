@@ -501,7 +501,7 @@ function GetzIndex(element) {
 	var zindex = window.getComputedStyle(element, null).getPropertyValue("z-index");
 	return zindex;
 }
-function test(bool) {
+function zapamietajZakladke(bool) {
 	if (bool) {
 		var test = document.getElementsByClassName("zakladka");
 		if (GetzIndex(test[0]) == 0) {
