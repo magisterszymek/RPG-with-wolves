@@ -524,6 +524,7 @@ function test(bool) {
 		}
 		else {
 			localStorage.setItem("zakladka", 0);
+			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
         }
     }
 }
