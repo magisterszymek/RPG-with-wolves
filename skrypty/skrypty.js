@@ -56,6 +56,8 @@
 		var zalozonyHelm = "brak";
 		var zalozonyNapiersnik = "brak";
 		var zalozonaZbroja = "brak";
+		var slotWolny = 1;
+		var itemIdMax = 1;
 		
 	// Walka
 		var blokadaWalki = false;
@@ -269,6 +271,16 @@ function wybierzCios(nazwaCiosu){
 		
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
+	wybieranieSlotu();
+	var item = document.createElement('img');
+	item.id = "itemId" + itemIdMax;
+	item.src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
+	item.href = "#";
+	item.setAttribute("ondragstart", "drag(event)");
+	item.alt = " ";
+	item.draggable = true;
+	slot = document.getElementById(slotWolny);
+	slot.appendChild(item);
 	switch(nazwaPrzeciwnik){
 		case "Wieśniak":{
 			if(blokadaGory == true){
@@ -304,6 +316,7 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 	}
+	//document.getElementById("slot50").appendChild(item);
 }
 
 	// Funkcja do wpisywania tekstu
@@ -334,7 +347,7 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "odblokowanieLokacji":{ // Funkcja wywoływana podczas odblokowania lokacji
 			var tekst = " " + "Odblokowałeś lokację:" + " " + postacPierwsza + "!"; // Jeśli przeciwnik wygrał
-			pasek.style.color = "#c664cc";
+			pasek.style.color = "magenta";
 			break;
 		}
 		case "linia":{
@@ -476,4 +489,19 @@ function zapamietajZakladke(bool) {
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
         }
     }
+}
+
+function pusta(){ // Pusta funkcja do debuggingu
+}
+
+function wybieranieSlotu(){
+	liczba = 1;
+	slotWolny = "slot" + liczba;
+	slotWolny2 = document.getElementById(slotWolny);
+	while(slotWolny2.hasChildNodes() == true){
+		liczba += 1;
+		slotWolny = "slot" + liczba;
+		slotWolny2 = document.getElementById(slotWolny);
+	}
+	slotWolny = "slot" + liczba;
 }
