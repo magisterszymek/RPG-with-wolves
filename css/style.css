@@ -1,23 +1,34 @@
+html, body {
+	background-color: red;
+	height: 100%;
+	margin: 0px;
+}
+
 * {
 	box-sizing: border-box;
-	font-family: Arial, Helvetica, sans-serif;/*Tymczasowy Font*/
+	font-family: Arial, Helvetica, sans-serif; /*Tymczasowy Font*/
 }
-img{
+
+img {
 	/*Póki jest jeden obrazek to działa*/
-	height:100%;
-	width:100%;
+	height: 100%;
+	width: 100%;
 }
+
 button {
 	/*usuwa domyślny efekt po kliknięciu przycisku*/
 	outline: none;
 	cursor: pointer;
 }
-button:hover:active {
-	filter: brightness(50%);
-}
-button:hover{
-	filter: brightness(110%);
-}
+
+	button:hover:active {
+		filter: brightness(50%);
+	}
+
+	button:hover {
+		filter: brightness(110%);
+	}
+
 :root {
 	/*Kolory zakładek i przycisków do nich*/
 	--zakladka-walka-color: #0fbdb9;
@@ -26,15 +37,13 @@ button:hover{
 	--zakladka-ustawienia-color: green;
 	/*Koniec kolorów i przycisków do nich*/
 }
-body {
-	margin: 0px;
-	padding: 0px;
-}
+
 .pasekNawigacji {
 	width: 100%;
 	height: 5%;
 	display: flex;
 }
+
 .przyciskNawigacji {
 	width: 25%;
 	height: 100%;
@@ -45,6 +54,7 @@ body {
 	line-height: 250%;
 	color: white;
 }
+
 .przyciskAtaku {
 	width: 48%;
 	height: 10%;
@@ -54,12 +64,14 @@ body {
 	background-color: #82b74b;
 	float: left;
 	margin: 1%;
-	border:none;
+	border: none;
 }
-.przyciskAtaku:hover {
-	/*Efekt po najechaniu na przycisk ataku*/
-	border: 3px solid #27420b;
-}
+
+	.przyciskAtaku:hover {
+		/*Efekt po najechaniu na przycisk ataku*/
+		border: 3px solid #27420b;
+	}
+
 .zakladkaWalka {
 	width: 100%;
 	height: 95%;
@@ -67,6 +79,7 @@ body {
 	background: var(--zakladka-walka-color);
 	z-index: 0;
 }
+
 .zakladkaEkwipunek {
 	width: 100%;
 	height: 95%;
@@ -74,13 +87,15 @@ body {
 	background: var(--zakladka-ekwipunek-color);
 	z-index: -1;
 }
-.wyposazenie{
+
+.wyposazenie {
 	width: 25%;
 	width: 100%;
 	height: 95%;
 	position: absolute;
 	background: var(--zakladka-ekwipunek-color);
 }
+
 .glownyEkwipunek {
 	left: 25%;
 	display: grid;
@@ -90,6 +105,7 @@ body {
 	padding: 10px;
 	position: absolute;
 }
+
 .slot {
 	border: 1px solid black;
 	background-color: #ddd;
@@ -98,9 +114,11 @@ body {
 	width: 87.8px;
 	cursor: move;
 }
-.slot.over {
-	border: 5px dotted black;
-}
+
+	.slot.over {
+		border: 5px dotted black;
+	}
+
 .zakladkaMenu {
 	width: 100%;
 	height: 95%;
@@ -108,6 +126,7 @@ body {
 	background: var(--zakladka-menu-color);
 	z-index: -1;
 }
+
 .zakladkaUstawienia {
 	width: 100%;
 	height: 95%;
@@ -115,69 +134,80 @@ body {
 	background: var(--zakladka-ustawienia-color);
 	z-index: -1;
 }
+
 .walka {
 	width: 50%;
 	height: 100%;
 	/*background-color: yellow;*/
-	float:left;
+	float: left;
 }
+
 .mapa {
 	width: 50%;
 	height: 100%;
 	/*background-color: red;*/
 	float: left;
 }
+
 .gracz {
 	width: 50%;
 	height: 65%;
 	float: left;
 	/*background-color: blue;*/
 }
+
 .przeciwnik {
 	width: 50%;
 	height: 65%;
-	float:left;
+	float: left;
 	/*background-color: green;*/
 }
+
 .opcjeWalki {
 	width: 100%;
 	height: 5%;
 	float: left;
 	/*background-color: gold;*/
 }
+
 .logi {
 	width: 100%;
 	height: 30%;
 	float: left;
 	-webkit-text-stroke: 0.10px black;
 }
+
 .ataki {
 	width: 100%;
 	height: 79%;
 	/*background-color: red;*/
 }
-.nick{
-	text-align:center;
-	font-size:150%;
-	color:white;
+
+.nick {
+	text-align: center;
+	font-size: 150%;
+	color: white;
 }
+
 .napisHp {
-	padding:4%;
-	position:absolute;
-	z-index:2;
-	width:100%;
-	height:100%;
-	text-align:center;
-	font-size:110%;
+	padding: 4%;
+	position: absolute;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	font-size: 110%;
 }
-.tloHp{
-	position:relative;
-	z-index:0;
-	background-color:gray;
-	width:90%;
-	height:10%;
-	margin:auto;
+
+.tloHp {
+	position: relative;
+	z-index: 0;
+	background-color: gray;
+	width: 90%;
+	height: 10%;
+	margin: auto;
 }
+
 .zdrowieKoncowe {
 	position: relative;
 	z-index: 1;
@@ -185,6 +215,7 @@ body {
 	width: 100%;
 	height: 100%;
 }
+
 .zdrowiePrzeciwnik {
 	position: relative;
 	z-index: 1;
@@ -192,6 +223,7 @@ body {
 	width: 100%;
 	height: 100%;
 }
+
 .noselect {
 	-webkit-touch-callout: none; /* iOS Safari */
 	-webkit-user-select: none; /* Safari */
@@ -199,6 +231,7 @@ body {
 	-ms-user-select: none; /* Internet Explorer/Edge */
 	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
 }
+
 .nodrag {
 	user-select: none;
 	-moz-user-select: none;
@@ -206,6 +239,7 @@ body {
 	-webkit-user-select: none;
 	-ms-user-select: none;
 }
+
 .przyciskLas {
 	position: absolute;
 	top: 22%;
@@ -213,6 +247,7 @@ body {
 	background-color: #38c95f;
 	border: solid black 1px;
 }
+
 .przyciskGory {
 	position: absolute;
 	top: 22%;
