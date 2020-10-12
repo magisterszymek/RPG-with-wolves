@@ -98,7 +98,7 @@ button:hover {
 	background: var(--zakladka-ekwipunek-color);
 }
 
-@media screen and (min-width: 1430px) and (max-width: 1450px) {
+@media screen and (min-width: 1400px) and (max-width: 1500px) {
 	.glownyEkwipunek {
 		display: grid;
 		grid-template-columns: repeat(16, 1fr);
