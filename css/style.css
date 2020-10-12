@@ -276,3 +276,24 @@ button:hover {
 }
 .zakladka {
 }
+/* width */
+.logi::-webkit-scrollbar {
+	width: 15px;
+}
+
+/* Track */
+.logi::-webkit-scrollbar-track {
+	box-shadow: inset 0 0 5px grey;
+	border-radius: 10px;
+}
+
+/* Handle */
+.logi::-webkit-scrollbar-thumb {
+	background: #51f582;
+	border-radius: 10px;
+}
+
+/* Handle on hover */
+.logi::-webkit-scrollbar-thumb:hover {
+	background:#38ab5b;
+}
