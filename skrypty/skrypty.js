@@ -82,7 +82,7 @@
 		
 // ---------- Koniec zmiennych ----------
 
-function zakladka(NrZakladki){
+function zakladka(NrZakladki) {
 	switch(NrZakladki){
 		case 0:{
 		document.getElementById("zakladkaWalka").style.zIndex="0";
@@ -440,4 +440,34 @@ function drop(ev) {
 		ev.currentTarget.replaceChild(src, tgt);
 		srcParent.appendChild(tgt);
 	}
+}
+function GetzIndex(element) {
+	var zindex = window.getComputedStyle(element, null).getPropertyValue("z-index");
+	return zindex;
+}
+function test(bool) {
+	if (bool) {
+		var test = document.getElementsByClassName("zakladka");
+		if (GetzIndex(test[0]) == 0) {
+			localStorage.setItem("zakladka", 0);
+		}
+		else if (GetzIndex(test[1]) == 0) {
+			localStorage.setItem("zakladka", 1);
+		}
+		else if (GetzIndex(test[2]) == 0) {
+			localStorage.setItem("zakladka", 2);
+		}
+		else if (GetzIndex(test[3]) == 0) {
+			localStorage.setItem("zakladka", 3);
+		}
+	}
+	else {
+		if (localStorage.getItem("zakladka") !== null) {
+			var zakladka = localStorage.getItem("zakladka");
+			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
+		}
+		else {
+			localStorage.setItem("zakladka", 0);
+        }
+    }
 }
