@@ -186,16 +186,16 @@ function walka(){
   
 function obraz(losowe, biom) {
 	if (losowe == -1) {
-		document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\Brak przeciwnika.png";
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak przeciwnika.png";
 	}
 	else {
 		switch(biom){
 			case "las":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_las_[losowe][0] + ".png";
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_las_[losowe][0] + ".png";
 				break;
 			}
 			case "gory":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy\\Przeciwnicy\\" + prze_gory_[losowe][0] + ".png";
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_gory_[losowe][0] + ".png";
 				break;
 			}
 		}
