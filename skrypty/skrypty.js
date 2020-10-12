@@ -420,55 +420,24 @@ wybierzCios("zwykly");
 
 // ----- Funkcje ekwipunku -----
 
-document.addEventListener('DOMContentLoaded', (event) => {
-	
-var dragSrcEl = null;
-	
-function rozpocznijPrzeciaganie(e){
-    this.style.opacity = '0.4';
-    dragSrcEl = this;
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/html', this.innerHTML);
-  }
+function allowDrop(ev) {
+    ev.preventDefault();
+}
 
-  function zakonczPrzeciaganie(e) {
-    this.style.opacity = '1';
-    sloty.forEach(function (slot) {
-      slot.classList.remove('over');
-    });
-  }
+function drag(ev) {
+    ev.dataTransfer.setData("src", ev.target.id);
+}
 
-  function rozpocznijObramowke(e) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    }
-    e.dataTransfer.dropEffect = 'move';
-    return false;
-  }
-
-  function rozpocznijWejscie(e){
-    this.classList.add('over');
-  }
-
-  function rozpocznijWyjscie(e){
-    this.classList.remove('over');
-  }
-  
-function handleDrop(e) {
-  e.stopPropagation();
-    if (dragSrcEl !== this) {
-      dragSrcEl.innerHTML = this.innerHTML;
-      this.innerHTML = e.dataTransfer.getData('text/html');
-    }
-    return false;
-  }
-  let sloty = document.querySelectorAll('.glownyEkwipunek .slot');
-  sloty.forEach(function(slot){
-    slot.addEventListener('dragstart', rozpocznijPrzeciaganie, false);
-    slot.addEventListener('dragover', rozpocznijObramowke, false);
-    slot.addEventListener('dragenter', rozpocznijWejscie, false);
-    slot.addEventListener('dragleave', rozpocznijWyjscie, false);
-    slot.addEventListener('dragend', zakonczPrzeciaganie, false);
-	slot.addEventListener('drop', handleDrop, false);
-  });
-});
+function drop(ev) {
+    ev.preventDefault();
+    var src = document.getElementById(ev.dataTransfer.getData("src"));
+    var srcParent = src.parentNode;
+	var tgt = ev.currentTarget.firstElementChild;
+	if(tgt == null){
+		var data = ev.dataTransfer.getData("src");
+		ev.target.appendChild(document.getElementById(data));
+	} else {
+		ev.currentTarget.replaceChild(src, tgt);
+		srcParent.appendChild(tgt);
+	}
+}
