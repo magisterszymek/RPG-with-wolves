@@ -71,6 +71,32 @@ body {
 	background: var(--zakladka-ekwipunek-color);
 	z-index: -1;
 }
+.wyposazenie{
+	width: 25%;
+	width: height: 95$;
+	position: absolute;
+	background: var(--zakladka-ekwipunek-color);
+}
+.glownyEkwipunek {
+	left: 25%;
+	display: grid;
+	grid-template-columns: repeat(16, 1fr);
+	grid-gap: 1px;
+	background-color: #2196F3;
+	padding: 10px;
+	position: absolute;
+}
+.slot {
+	border: 1px solid black;
+	background-color: #ddd;
+	padding: 10px;
+	height: 87.8px;
+	width: 87.8px;
+	cursor: move;
+}
+.slot.over {
+	border: 5px dotted black;
+}
 .zakladkaMenu {
 	width: 100%;
 	height: 95%;
@@ -119,7 +145,7 @@ body {
 	width: 100%;
 	height: 30%;
 	float: left;
-	-webkit-text-stroke: 0.1px black;
+	-webkit-text-stroke: 0.10px black;
 	/*background-color: brown;*/
 }
 .ataki {
@@ -176,4 +202,19 @@ body {
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
+}
+.przyciskLas {
+	position: absolute;
+	top: 22%;
+	right: 11%;
+	background-color: #38c95f;
+	border: solid black 1px;
+}
+.przyciskGory {
+	position: absolute;
+	top: 22%;
+	right: 27%;
+	background-color: gray;
+	border: solid black 1px;
+	display: none;
 }

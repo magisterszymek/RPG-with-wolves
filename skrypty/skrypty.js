@@ -51,7 +51,7 @@
 		var obrazeniaPrzeciwnik = 0;
 		var zakresPrzeciwnik = 0;
 		
-	//Ekwipunek
+	// Ekwipunek
 		var zalozonaBron = "brak";
 		var zalozonyHelm = "brak";
 		var zalozonyNapiersnik = "brak";
@@ -70,12 +70,15 @@
 		var maksymalneZdrowie = zdrowieKoncowe;
 		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 		
-	//Textbox
+	// Textbox
 		var id = 1;
 		var tekstId = "tekstId1";
 		var odwrotneTekstId = "tekstId1";
 		var tekst = "&nbsp";
 		var arr = tekst.split(' ');
+		
+	// Mapa
+		var blokadaGory = true;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -262,7 +265,43 @@ function wybierzCios(nazwaCiosu){
 	}
 }
 		
+	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
+	switch(nazwaPrzeciwnik){
+		case "Wieśniak":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Traper":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Myśliwy":{
+			if(blokadaGory == true){
+				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
+				wpiszTekst("odblokowanieLokacji", "Góry");
+				blokadaGory = false;
+			}
+			break;
+		}
+		case "Krasnoludek":{
+			break;
+		}
+		case "Krasnal":{
+			break;
+		}
+		case "Krasnolud":{
+			break;
+		}
+	}
 }
 
 	// Funkcja do wpisywania tekstu
@@ -284,6 +323,10 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			}
 			break;
 		}
+		case "odblokowanieLokacji":{ // Funkcja wywoływana podczas odblokowania lokacji
+			var tekst = "&nbsp" + "Odblokowałeś lokację:" + "&nbsp" + postacPierwsza + "!"; // Jeśli przeciwnik wygrał
+			break;
+		}
 	}
 	var paragraf = document.getElementById(tekstId);
 	paragraf.innerHTML = "<span>" + tekst + "</span>"; // Dodanie tekstu do HTML
@@ -291,41 +334,41 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	switch(id){
 		case 1:{
 			document.getElementById("tekstId11").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId10").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId9").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId8").style.color = "#adadad"; 
+			document.getElementById("tekstId10").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId9").style.color = "#737373"; 
+			document.getElementById("tekstId8").style.color = "#454545"; 
 			break;
 		}
 		case 2:{
 			document.getElementById("tekstId1").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId11").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId10").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId9").style.color = "#adadad";
+			document.getElementById("tekstId11").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId10").style.color = "#737373"; 
+			document.getElementById("tekstId9").style.color = "#454545";
 			break;
 		}
 		case 3:{
 			document.getElementById("tekstId2").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId1").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId11").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId10").style.color = "#adadad";
+			document.getElementById("tekstId1").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId11").style.color = "#737373"; 
+			document.getElementById("tekstId10").style.color = "#454545";
 			break;
 		}
 		case 4:{
 			document.getElementById("tekstId3").style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
-			document.getElementById("tekstId2").style.color = "#dbdbdb"; 
-			document.getElementById("tekstId1").style.color = "#c2c2c2"; 
-			document.getElementById("tekstId11").style.color = "#adadad";
+			document.getElementById("tekstId2").style.color = "#8a8a8a"; 
+			document.getElementById("tekstId1").style.color = "#737373"; 
+			document.getElementById("tekstId11").style.color = "#454545";
 			break;
 		}
 		default:{
 			odwrotneTekstId = "tekstId" + (id - 1);
 			document.getElementById(odwrotneTekstId).style.color = "#ebebeb"; // Zmiana poprzedniej linii na ciemniejszą
 			odwrotneTekstId = "tekstId" + (id - 2);
-			document.getElementById(odwrotneTekstId).style.color = "#dbdbdb";
+			document.getElementById(odwrotneTekstId).style.color = "#8a8a8a";
 			odwrotneTekstId = "tekstId" + (id - 3);
-			document.getElementById(odwrotneTekstId).style.color = "#c2c2c2";
+			document.getElementById(odwrotneTekstId).style.color = "#737373";
 			odwrotneTekstId = "tekstId" + (id - 4);
-			document.getElementById(odwrotneTekstId).style.color = "#adadad";
+			document.getElementById(odwrotneTekstId).style.color = "#454545";
 			break;
 		}
 	}
@@ -333,6 +376,8 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		document.getElementById(tekstId).style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		document.getElementById(tekstId).style.color = "#d10e00";
+	} else if(rodzaj == "odblokowanieLokacji"){
+		document.getElementById(tekstId).style.color = "#59ffb7";
 	}
 	tekstId = "tekstId" + id; // Gdy funkcja zostanie wywołana po raz kolejny, będzie dotyczyła kolejnego paragrafu
 	id += 1;
@@ -372,3 +417,58 @@ function wyczyscTekst(){
 
 // Inicjalizacja podstawowych funkcji
 wybierzCios("zwykly");
+
+// ----- Funkcje ekwipunku -----
+
+document.addEventListener('DOMContentLoaded', (event) => {
+	
+var dragSrcEl = null;
+	
+function rozpocznijPrzeciaganie(e){
+    this.style.opacity = '0.4';
+    dragSrcEl = this;
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/html', this.innerHTML);
+  }
+
+  function zakonczPrzeciaganie(e) {
+    this.style.opacity = '1';
+    sloty.forEach(function (slot) {
+      slot.classList.remove('over');
+    });
+  }
+
+  function rozpocznijObramowke(e) {
+    if (e.preventDefault) {
+      e.preventDefault();
+    }
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+  }
+
+  function rozpocznijWejscie(e){
+    this.classList.add('over');
+  }
+
+  function rozpocznijWyjscie(e){
+    this.classList.remove('over');
+  }
+  
+function handleDrop(e) {
+  e.stopPropagation();
+    if (dragSrcEl !== this) {
+      dragSrcEl.innerHTML = this.innerHTML;
+      this.innerHTML = e.dataTransfer.getData('text/html');
+    }
+    return false;
+  }
+  let sloty = document.querySelectorAll('.glownyEkwipunek .slot');
+  sloty.forEach(function(slot){
+    slot.addEventListener('dragstart', rozpocznijPrzeciaganie, false);
+    slot.addEventListener('dragover', rozpocznijObramowke, false);
+    slot.addEventListener('dragenter', rozpocznijWejscie, false);
+    slot.addEventListener('dragleave', rozpocznijWyjscie, false);
+    slot.addEventListener('dragend', zakonczPrzeciaganie, false);
+	slot.addEventListener('drop', handleDrop, false);
+  });
+});

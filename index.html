@@ -17,8 +17,8 @@
 			<div class="walka">
 				<div class="gracz noselect">
 					<div class="nick"><span id="nick">&nbsp</span></div>
-					<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe">0</span>/<span id="maksymalneZdrowie">0</span></div><div class="zdrowieKoncowe"></div></div>
-					<div class="nick">Pancerz: <span id="pancerz"></span></div>
+					<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe"> </span>/<span id="maksymalneZdrowie"> </span></div><div class="zdrowieKoncowe"></div></div>
+					<div class="nick">Pancerz: <span id="pancerz"> </span></div>
 					<div class="ataki">
 						<button class="przyciskAtaku" onclick="wybierzCios('zwykly')">Zwykły cios</button>
 						<button class="przyciskAtaku" onclick="wybierzCios('potezny')">Potężny cios</button>
@@ -28,8 +28,8 @@
 				</div>
 				<div class="przeciwnik noselect">
 					<div class="nick"><span id="nazwaPrzeciwnika">Brak przeciwnika</span></div>
-					<div class="tloHp"><div class="napisHp"><span id="zdrowiePrzeciwnik">0</span>/<span id="maksymalneZdrowiePrzeciwnik">0</span></div><div class="zdrowiePrzeciwnik"></div></div>
-					<div class="nick">Pancerz: <span id="pancerzPrzeciwnik"></span></div>
+					<div class="tloHp"><div class="napisHp"><span id="zdrowiePrzeciwnik"> </span>/<span id="maksymalneZdrowiePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik"></div></div>
+					<div class="nick">Pancerz: <span id="pancerzPrzeciwnik"> </span></div>
 					<div class="ataki">
 						<img id="obrazPrzeciwnik" class="nodrag" src="Obrazy\Inne\pustka.png"/>
 					</div>
@@ -38,27 +38,65 @@
 
 				</div>
 				<div class="logi">
-					&nbsp<i id="tekstId1">&nbsp</i><br />
-					&nbsp<i id="tekstId2">&nbsp</i><br />
-					&nbsp<i id="tekstId3">&nbsp</i><br />
-					&nbsp<i id="tekstId4">&nbsp</i><br />
-					&nbsp<i id="tekstId5">&nbsp</i><br />
-					&nbsp<i id="tekstId6">&nbsp</i><br />
-					&nbsp<i id="tekstId7">&nbsp</i><br />
-					&nbsp<i id="tekstId8">&nbsp</i><br />
-					&nbsp<i id="tekstId9">&nbsp</i><br />
-					&nbsp<i id="tekstId10">&nbsp</i><br />
-					&nbsp<i id="tekstId11">&nbsp</i><br />
+					&nbsp<i id="tekstId1">&nbsp</i></br>
+					&nbsp<i id="tekstId2">&nbsp</i></br>
+					&nbsp<i id="tekstId3">&nbsp</i></br>
+					&nbsp<i id="tekstId4">&nbsp</i></br>
+					&nbsp<i id="tekstId5">&nbsp</i></br>
+					&nbsp<i id="tekstId6">&nbsp</i></br>
+					&nbsp<i id="tekstId7">&nbsp</i></br>
+					&nbsp<i id="tekstId8">&nbsp</i></br>
+					&nbsp<i id="tekstId9">&nbsp</i></br>
+					&nbsp<i id="tekstId10">&nbsp</i></br>
+					&nbsp<i id="tekstId11">&nbsp</i></br>
 				</div>
 			</div>
 			<div class="mapa">
-				<button onclick="rozpocznijWalke('las', 1)" style="position: absolute; top: 22%; right: 11%; background-color: #38c95f; border: solid black 1px;">Las</button>
-				<button onclick="rozpocznijWalke('gory', 1)" style="position: absolute; top: 22%; right: 27%; background-color: gray; border: solid black 1px;">Góry</button>
-				<img src="Obrazy/Mapa/Mapa.png" class="nodrag" style="width: 98%; height: 60%;" />
+				<button class="przyciskLas" onclick="rozpocznijWalke('las', 1)">Las</button>
+				<button class="przyciskGory" onclick="rozpocznijWalke('gory', 1)">Góry</button>
+				<img src="Obrazy/Mapa/Mapa.png" style="width: 98%; height: 60%;"></img>
 			</div>
 			<!-- zakładka jeden-->
 		</div>
 		<div id="zakladkaEkwipunek" class="zakladkaEkwipunek">
+			<div class="wyposazenie">
+			</div>
+			<div class="glownyEkwipunek">
+				<!-- pierwszy wiersz -->
+				<div draggable="true" class="slot" id="slot1"><img draggable="false" class="nodrag" src="Obrazy\\Przeciwnicy\\Brak przeciwnika.png"></img></div>
+				<div draggable="true" class="slot" id="slot2"><img draggable="false" src="Obrazy\\Przeciwnicy\\Brak przeciwnika.png"></img></div>
+				<div draggable="true" class="slot" id="slot3"><img draggable="false" src="Obrazy\\Przeciwnicy\\Brak przeciwnika.png"></img></div>
+				<div draggable="true" class="slot" id="slot4"><img draggable="false" src="Obrazy\\Przeciwnicy\\Brak przeciwnika.png"></img></div>
+				<div draggable="true" class="slot" id="slot5">B</div>
+				<div draggable="true" class="slot" id="slot6">C</div>
+				<div draggable="true" class="slot" id="slot7">A</div>
+				<div draggable="true" class="slot" id="slot8">B</div>
+				<div draggable="true" class="slot" id="slot9">C</div>
+				<div draggable="true" class="slot" id="slot10">A</div>
+				<div draggable="true" class="slot" id="slot11">B</div>
+				<div draggable="true" class="slot" id="slot12">C</div>
+				<div draggable="true" class="slot" id="slot13">A</div>
+				<div draggable="true" class="slot" id="slot14">B</div>
+				<div draggable="true" class="slot" id="slot15">C</div>
+				<div draggable="true" class="slot" id="slot16">C</div>
+				<!-- drugi wiersz -->
+				<div draggable="true" class="slot" id="slot17">A</div>
+				<div draggable="true" class="slot" id="slot18">B</div>
+				<div draggable="true" class="slot" id="slot19">C</div>
+				<div draggable="true" class="slot" id="slot20">A</div>
+				<div draggable="true" class="slot" id="slot21">B</div>
+				<div draggable="true" class="slot" id="slot22">C</div>
+				<div draggable="true" class="slot" id="slot23">A</div>
+				<div draggable="true" class="slot" id="slot24">B</div>
+				<div draggable="true" class="slot" id="slot25">C</div>
+				<div draggable="true" class="slot" id="slot26">A</div>
+				<div draggable="true" class="slot" id="slot27">B</div>
+				<div draggable="true" class="slot" id="slot28">C</div>
+				<div draggable="true" class="slot" id="slot29">A</div>
+				<div draggable="true" class="slot" id="slot30">B</div>
+				<div draggable="true" class="slot" id="slot31">C</div>
+				<div draggable="true" class="slot" id="slot32">C</div>
+			</div>
 			<!-- zakładka dwa-->
 			<!-- zakładka dwa-->
 		</div>
