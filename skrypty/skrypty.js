@@ -511,4 +511,5 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.innerHTML = nazwa + ", " + rodzaj;
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
+	itemIdMax += 1;
 }
