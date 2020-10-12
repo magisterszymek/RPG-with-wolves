@@ -11,6 +11,9 @@ button {
 	/*usuwa domyślny efekt po kliknięciu przycisku*/
 	outline: none;
 }
+button:active {
+	filter: brightness(50%);
+}
 :root {
 	/*Kolory zakładek i przycisków do nich*/
 	--zakladka-walka-color: #0fbdb9;
@@ -53,10 +56,6 @@ body {
 	/*Efekt po najechaniu na przycisk ataku*/
 	border: 3px solid #27420b;
 }
-.przyciskAtaku:active {
-	/*Efekt po kliknięciu przycisku ataku*/
-	background-color: #68943b;
-}
 .zakladkaWalka {
 	width: 100%;
 	height: 95%;
@@ -73,7 +72,8 @@ body {
 }
 .wyposazenie{
 	width: 25%;
-	width: height: 95$;
+	width: 100%;
+	height: 95%;
 	position: absolute;
 	background: var(--zakladka-ekwipunek-color);
 }
@@ -146,7 +146,6 @@ body {
 	height: 30%;
 	float: left;
 	-webkit-text-stroke: 0.10px black;
-	/*background-color: brown;*/
 }
 .ataki {
 	width: 100%;
