@@ -188,7 +188,7 @@ button:hover {
 	float: left;
 	-webkit-text-stroke: 0.1px black;
 	color: white;
-	overflow-y: auto;
+	overflow-y: scroll;
 	overflow-x: hidden;
 	padding: 2%;
 	bottom: 2%;
