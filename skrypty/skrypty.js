@@ -421,15 +421,23 @@ wybierzCios("zwykly");
 // ----- Funkcje ekwipunku -----
 
 function allowDrop(ev) {
-  ev.preventDefault();
+    ev.preventDefault();
 }
 
 function drag(ev) {
-  ev.dataTransfer.setData("text", ev.target.id);
+    ev.dataTransfer.setData("src", ev.target.id);
 }
 
-function drop(ev, el) {
-  ev.preventDefault();
-  var data = ev.dataTransfer.getData("text");
-  el.appendChild(document.getElementById(data));
+function drop(ev) {
+    ev.preventDefault();
+    var src = document.getElementById(ev.dataTransfer.getData("src"));
+    var srcParent = src.parentNode;
+	var tgt = ev.currentTarget.firstElementChild;
+	if(tgt == null){
+		var data = ev.dataTransfer.getData("src");
+		ev.target.appendChild(document.getElementById(data));
+	} else {
+		ev.currentTarget.replaceChild(src, tgt);
+		srcParent.appendChild(tgt);
+	}
 }
