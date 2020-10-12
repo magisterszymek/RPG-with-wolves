@@ -21,13 +21,13 @@ button {
 	cursor: pointer;
 }
 
-	button:hover:active {
-		filter: brightness(50%);
-	}
+button:hover:active {
+	filter: brightness(50%);
+}
 
-	button:hover {
-		filter: brightness(110%);
-	}
+button:hover {
+	filter: brightness(110%);
+}
 
 :root {
 	/*Kolory zakładek i przycisków do nich*/

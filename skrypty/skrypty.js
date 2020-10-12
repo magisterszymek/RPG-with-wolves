@@ -186,7 +186,7 @@ function walka(){
   
 function obraz(losowe, biom) {
 	if (losowe == -1) {
-		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak przeciwnika.png";
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
 	}
 	else {
 		switch(biom){
