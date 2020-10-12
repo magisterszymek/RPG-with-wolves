@@ -440,4 +440,26 @@ function drop(ev) {
 		ev.currentTarget.replaceChild(src, tgt);
 		srcParent.appendChild(tgt);
 	}
+	var str = ev.currentTarget;
+	switch(str.id){
+		case "slotHelm":{
+			console.log("hełm");
+			break;
+		}
+		case "slotNapiersnik":{
+			console.log("napiersnik");
+			break;
+		}
+		case "slotSpodnie":{
+			console.log("spodnie");
+			break;
+		}
+		case "slotButy":{
+			console.log("buty");
+			break;
+		}
+		default:{
+			break;
+		}
+	}
 }
