@@ -330,11 +330,11 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 	}
 
 	var pasek = document.createElement('i');
-	var pasekBR = document.createElement('br');	// Create a <li> node
-	var pasekTekst = document.createTextNode(tekst);         // Create a text node
-	pasek.appendChild(pasekTekst);                              // Append the text to <li>
+	var pasekBR = document.createElement('br');	
+	var pasekTekst = document.createTextNode(tekst);
+	pasek.appendChild(pasekTekst);
 	document.getElementById("logi").appendChild(pasek);
-	document.getElementById("logi").appendChild(pasekBR);	// Append <li> to <ul> with id="myList" 
+	document.getElementById("logi").appendChild(pasekBR);
 	var box = document.getElementById("logi");
 	box.scrollTop = box.scrollHeight;
 
@@ -349,6 +349,10 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 
 	// Funkcja do resetu tekstu
 function wyczyscTekst(){
+	var box = document.getElementById("logi");
+	while(box.hasChildNodes() == true){
+		box.removeChild(box.childNodes[0]);
+	}
 }
 
 // Inicjalizacja podstawowych funkcji
