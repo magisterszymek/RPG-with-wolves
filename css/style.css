@@ -118,6 +118,16 @@ button:hover {
 	margin: auto;
 }
 
+.smietnik {
+	border: 1px solid black;
+	background-color: red;
+	padding: 10px;
+	height: 87.8px;
+	width: 87.8px;
+	cursor: move;
+	margin: auto;
+}
+
 	.slot.over {
 		border: 5px dotted black;
 	}
