@@ -125,7 +125,7 @@ function rozpocznijWalke(biom, trudnosc){
 		wybierzPrzeciwnika(biom, trudnosc);
 		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
-		interval = setInterval(walka, 800);
+		interval = setInterval(walka, 300);
 	}
 }
 
