@@ -271,16 +271,6 @@ function wybierzCios(nazwaCiosu){
 		
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
-	wybieranieSlotu();
-	var item = document.createElement('img');
-	item.id = "itemId" + itemIdMax;
-	item.src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
-	item.href = "#";
-	item.setAttribute("ondragstart", "drag(event)");
-	item.alt = " ";
-	item.draggable = true;
-	slot = document.getElementById(slotWolny);
-	slot.appendChild(item);
 	switch(nazwaPrzeciwnik){
 		case "Wieśniak":{
 			if(blokadaGory == true){
@@ -288,6 +278,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			utworzPrzedmiot("testowy", "helm", "Obrazy/Przeciwnicy/Traper.png");
 			break;
 		}
 		case "Traper":{
@@ -296,6 +287,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			utworzPrzedmiot("testowy", "spodnie", "Obrazy/Przeciwnicy/Myśliwy.png");
 			break;
 		}
 		case "Myśliwy":{
@@ -304,6 +296,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			utworzPrzedmiot("testowy", "buty", "Obrazy/Przeciwnicy/Wieśniak.png");
 			break;
 		}
 		case "Krasnoludek":{
@@ -504,4 +497,18 @@ function wybieranieSlotu(){
 		slotWolny2 = document.getElementById(slotWolny);
 	}
 	slotWolny = "slot" + liczba;
+}
+
+function utworzPrzedmiot(nazwa, rodzaj, grafika){
+	wybieranieSlotu();
+	var item = document.createElement('img');
+	item.id = "itemId" + itemIdMax;
+	item.src = grafika;
+	item.href = "#";
+	item.setAttribute("ondragstart", "drag(event)");
+	item.alt = " ";
+	item.draggable = true;
+	item.innerHTML = nazwa + ", " + rodzaj;
+	slot = document.getElementById(slotWolny);
+	slot.appendChild(item);
 }
