@@ -188,7 +188,7 @@ button:hover {
 	height: 30%;
 	float: left;
 	-webkit-text-stroke: 0.10px black;
-	overflow: scroll;
+	overflow: auto;
 }
 
 .ataki {
