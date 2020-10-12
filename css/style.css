@@ -10,9 +10,13 @@ img{
 button {
 	/*usuwa domyślny efekt po kliknięciu przycisku*/
 	outline: none;
+	cursor: pointer;
 }
-button:active {
+button:hover:active {
 	filter: brightness(50%);
+}
+button:hover{
+	filter: brightness(110%);
 }
 :root {
 	/*Kolory zakładek i przycisków do nich*/
