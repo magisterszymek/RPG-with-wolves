@@ -306,6 +306,8 @@ function loot(nazwaPrzeciwnik){
 
 	// Funkcja do wpisywania tekstu
 function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
+	var pasek = document.createElement('i');
+	var pasekBR = document.createElement('br');	
 	switch(rodzaj){
 		case "walka":{ // Funkcja wywoływana podczas walki
 			if(postacDruga == nick){
@@ -313,6 +315,11 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			} else if(postacPierwsza == nick){
 				var tekst = " " + "Zadałeś/aś" + " " + "przeciwnikowi" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
 			}
+			break;
+		}
+		case "walkaPoczatek":{
+			var tekst = " " + "Zaatakował Cię" + " " + postacPierwsza + "!";
+			pasek.style.color = "#d10e00";
 			break;
 		}
 		case "koniecWalki":{ // Funkcja wywoływana na koniec walki
@@ -325,26 +332,26 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "odblokowanieLokacji":{ // Funkcja wywoływana podczas odblokowania lokacji
 			var tekst = " " + "Odblokowałeś lokację:" + " " + postacPierwsza + "!"; // Jeśli przeciwnik wygrał
+			pasek.style.color = magenta;
+			break;
+		}
+		case "linia":{
+			var tekst = " ";
 			break;
 		}
 	}
-
-	var pasek = document.createElement('i');
-	var pasekBR = document.createElement('br');	
+	
 	var pasekTekst = document.createTextNode(tekst);
 	pasek.appendChild(pasekTekst);
 	document.getElementById("logi").appendChild(pasek);
 	document.getElementById("logi").appendChild(pasekBR);
 	var box = document.getElementById("logi");
 	box.scrollTop = box.scrollHeight;
-
-	//if(rodzaj == "koniecWalki" && postacPierwsza == nick){ // Gdy gracz wygra
-	//	document.getElementById(tekstId).style.color = "#1d993e";
-	//} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
-	//	document.getElementById(tekstId).style.color = "#d10e00";
-	//} else if(rodzaj == "odblokowanieLokacji"){
-	//	document.getElementById(tekstId).style.color = "#59ffb7";
-	//}
+	if(rodzaj == "koniecWalki" && postacPierwsza == nick){ // Gdy gracz wygra
+		pasek.style.color = "#1d993e";
+	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
+		pasek.style.color = "#d10e00";
+	}
 }
 
 	// Funkcja do resetu tekstu
