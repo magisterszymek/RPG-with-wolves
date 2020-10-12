@@ -118,8 +118,10 @@ function zakladka(NrZakladki) {
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
 	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
-		wyczyscTekst();
+		wpiszTekst("linia");
+		wpiszTekst("linia");
 		wybierzPrzeciwnika(biom, trudnosc);
+		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
 		interval = setInterval(walka, 800);
 	}
