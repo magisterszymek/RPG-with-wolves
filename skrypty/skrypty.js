@@ -161,31 +161,6 @@ function walka(){
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
 				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
-				loot(nazwaPrzeciwnik);
 			}
 			clearInterval(interval);
 			walkaKoniec = true;
