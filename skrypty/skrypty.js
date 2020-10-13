@@ -390,7 +390,7 @@ function drop(ev) {
 	var tgt = ev.currentTarget.firstElementChild;
 	var str = ev.currentTarget;
 	switch(str.id){
-		case "smietnik":{
+		case "slot101":{
 			var data = ev.dataTransfer.getData("src");
 			ev.target.appendChild(document.getElementById(data));
 			ev.target.removeChild(src);
