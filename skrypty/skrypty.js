@@ -31,7 +31,11 @@
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";
-		var pancerz = 1;
+		var pancerzHelm = 0;
+		var pancerzNapiersnik = 0;
+		var pancerzSpodnie = 0;
+		var pancerzButy = 0;
+		var pancerzKoncowy = 0;
 		var waluta = 20;
 		var zdrowieBazowe = 50;		// Zdrowie Bazowe
 		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
@@ -133,7 +137,7 @@ function rozpocznijWalke(biom, trudnosc){
 function walka(){
 	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
 	walkaTrwa = true;
-		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerz; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
 		if(kalkulacja < 0){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
@@ -156,12 +160,12 @@ function walka(){
 				wpiszTekst("koniecWalki", nazwaPrzeciwnik, nick);
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
+				loot(nazwaPrzeciwnik);
 			}
 			clearInterval(interval);
 			walkaKoniec = true;
 			walkaTrwa = false;
 			blokadaWalki = false;
-			loot(nazwaPrzeciwnik);
 			zdrowieKoncowe = tymczasoweZdrowie;
 			tymczasoweZdrowie = 0;
 			maksymalneZdrowiePrzeciwnik = 0;
@@ -177,7 +181,7 @@ function walka(){
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-			document.getElementById("pancerz").innerHTML = pancerz;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 			document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
@@ -238,7 +242,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	document.getElementById("pancerz").innerHTML = pancerz;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 	document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
@@ -278,7 +282,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "helm", "Obrazy/Przedmioty/Hełm.png");
+			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
 		case "Traper":{
@@ -287,7 +291,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+			utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
 			break;
 		}
 		case "Myśliwy":{
@@ -296,7 +300,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "buty", "Obrazy/Przedmioty/Buty.png");
+			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
 		case "Krasnoludek":{
@@ -348,7 +352,6 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			break;
 		}
 	}
-	
 	var pasekTekst = document.createTextNode(tekst);
 	pasek.appendChild(pasekTekst);
 	document.getElementById("logi").appendChild(pasek);
@@ -405,6 +408,7 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("helm", src, str);
 			break;
 		}
 		case "slotNapiersnik":{
@@ -416,6 +420,7 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("napiersnik", src, str);
 			break;
 		}
 		case "slotSpodnie":{
@@ -427,6 +432,7 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("spodnie", src, str);
 			break;
 		}
 		case "slotButy":{
@@ -438,6 +444,7 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("buty", src, str);
 			break;
 		}
 		default:{
@@ -451,6 +458,7 @@ function drop(ev) {
 			break;
 		}
 	}
+	sprawdzWyposazenieNull();
 }
 function GetzIndex(element) {
 	var zindex = window.getComputedStyle(element, null).getPropertyValue("z-index");
@@ -487,6 +495,7 @@ function zapamietajZakladke(bool) {
 function pusta(){ // Pusta funkcja do debuggingu
 }
 
+	// Funkcja od wybierania slotów dla przedmiotów
 function wybieranieSlotu(){
 	liczba = 1;
 	slotWolny = "slot" + liczba;
@@ -499,6 +508,7 @@ function wybieranieSlotu(){
 	slotWolny = "slot" + liczba;
 }
 
+	// Funkcja od tworzenia przedmiotów
 function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	wybieranieSlotu();
 	var item = document.createElement('img');
@@ -512,4 +522,61 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
 	itemIdMax += 1;
+}
+
+	// Funkcja do sprawdzania wyposażenia i dodawania jego statystyk
+function sprawdzWyposazenie(rodzaj, src, str){
+	switch(rodzaj){
+		case "helm":{
+			przedmiot = window[src.innerHTML];
+			if(slotHelm.hasChildNodes() == true){
+				pancerzHelm = przedmiot[2];
+			} else {
+				pancerzHelm = 0;
+			}
+			break;
+		}
+		case "napiersnik":{
+			przedmiot = window[src.innerHTML];
+			if(slotNapiersnik.hasChildNodes() == true){
+				pancerzNapiersnik = przedmiot[2]
+			} else {
+				pancerzNapiersnik = 0;
+			}
+			break;
+		}
+		case "spodnie":{
+			przedmiot = window[src.innerHTML];
+			if(slotSpodnie.hasChildNodes() == true){
+				pancerzSpodnie = przedmiot[2];
+			} else {
+				pancerzSpodnie = 0;
+			}
+			break;
+		}
+		case "buty":{
+			przedmiot = window[src.innerHTML];
+			if(slotButy.hasChildNodes() == true){
+				pancerzButy = przedmiot[2];
+			} else {
+				pancerzButy = 0;
+			}
+			break;
+		}
+		default:{
+			break;
+		}
+	}
+	sprawdzWyposazenieNull();
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+}
+
+	// Funkcja od czyszczenia pancerza jeśli któryś ze slotów jest pusty
+function sprawdzWyposazenieNull(){
+	if(slotHelm.hasChildNodes() == false){ pancerzHelm = 0; }
+	if(slotNapiersnik.hasChildNodes() == false){ pancerzNapiersnik = 0; }
+	if(slotSpodnie.hasChildNodes() == false){ pancerzSpodnie = 0; }
+	if(slotButy.hasChildNodes() == false){ pancerzButy = 0; }
+	pancerzKoncowy = pancerzHelm + pancerzNapiersnik + pancerzSpodnie + pancerzButy;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 }
