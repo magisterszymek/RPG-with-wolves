@@ -278,7 +278,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "helm", "Obrazy/Przeciwnicy/Traper.png");
+			utworzPrzedmiot("testowy", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
 		case "Traper":{
@@ -287,7 +287,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "spodnie", "Obrazy/Przeciwnicy/Myśliwy.png");
+			utworzPrzedmiot("testowy", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
 			break;
 		}
 		case "Myśliwy":{
@@ -296,7 +296,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("testowy", "buty", "Obrazy/Przeciwnicy/Wieśniak.png");
+			utworzPrzedmiot("testowy", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
 		case "Krasnoludek":{
@@ -397,7 +397,7 @@ function drop(ev) {
 			break;
 		}
 		case "slotHelm":{
-			console.log("hełm");
+			if(src.alt != "helm"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -408,7 +408,7 @@ function drop(ev) {
 			break;
 		}
 		case "slotNapiersnik":{
-			console.log("napiersnik");
+			if(src.alt != "napiersnik"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -419,7 +419,7 @@ function drop(ev) {
 			break;
 		}
 		case "slotSpodnie":{
-			console.log("spodnie");
+			if(src.alt != "spodnie"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -430,7 +430,7 @@ function drop(ev) {
 			break;
 		}
 		case "slotButy":{
-			console.log("buty");
+			if(src.alt != "buty"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -506,9 +506,9 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.src = grafika;
 	item.href = "#";
 	item.setAttribute("ondragstart", "drag(event)");
-	item.alt = " ";
+	item.alt = rodzaj;
 	item.draggable = true;
-	item.innerHTML = nazwa + ", " + rodzaj;
+	item.innerHTML = nazwa;
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
 	itemIdMax += 1;
