@@ -291,7 +291,14 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
-			utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+			losowe = Math.floor(Math.random() * 10) + 1;
+				if(losowe <= 4){ 
+					break;
+				} else if(losowe >= 5 && losowe <= 7){
+					utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+				} else if(losowe >= 8 && losowe <= 10){
+					utworzPrzedmiot("prdm_zbroja_a_4", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
+				}
 			break;
 		}
 		case "Myśliwy":{
@@ -510,8 +517,17 @@ function wybieranieSlotu(){
 
 	// Funkcja od tworzenia przedmiotów
 function utworzPrzedmiot(nazwa, rodzaj, grafika){
+	itemIdMax = 1;
 	wybieranieSlotu();
 	var item = document.createElement('img');
+	tymczasowe = "itemId" + itemIdMax;
+	tymczasowe2 = document.getElementById(tymczasowe);
+	console.log
+	while(tymczasowe2 != null){ 
+		itemIdMax += 1;
+		tymczasowe = "itemId" + itemIdMax;
+		tymczasowe2 = document.getElementById(tymczasowe);
+		}
 	item.id = "itemId" + itemIdMax;
 	item.src = grafika;
 	item.href = "#";
@@ -521,7 +537,6 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.innerHTML = nazwa;
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
-	itemIdMax += 1;
 }
 
 	// Funkcja do sprawdzania wyposażenia i dodawania jego statystyk
