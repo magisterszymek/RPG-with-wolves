@@ -297,7 +297,7 @@ function loot(nazwaPrzeciwnik){
 				} else if(losowe >= 5 && losowe <= 7){
 					utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
 				} else if(losowe >= 8 && losowe <= 10){
-					utworzPrzedmiot("prdm_zbroja_a_4", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
+					utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
 				}
 			break;
 		}
