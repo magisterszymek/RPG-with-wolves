@@ -404,6 +404,17 @@ function drop(ev) {
     var srcParent = src.parentNode;
 	var tgt = ev.currentTarget.firstElementChild;
 	var str = ev.currentTarget;
+	if(tgt != null){
+		if(tgt.alt == "buty" && src.alt != "buty"){
+			return;
+		} else if(tgt.alt == "napiersnik" && src.alt != "napiersnik"){
+			return;
+		} else if(tgt.alt == "spodnie" && src.alt != "spodnie"){
+			return;
+		} else if(tgt.alt == "buty" && src.alt != "buty"){
+			return;
+		}
+	}
 	switch(str.id){
 		case "slot101":{
 			var data = ev.dataTransfer.getData("src");
