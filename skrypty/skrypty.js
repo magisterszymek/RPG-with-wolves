@@ -31,7 +31,11 @@
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";
-		var pancerz = 1;
+		var pancerzHelm = 0;
+		var pancerzNapiersnik = 0;
+		var pancerzSpodnie = 0;
+		var pancerzButy = 0;
+		var pancerzKoncowy = 0;
 		var waluta = 20;
 		var zdrowieBazowe = 50;		// Zdrowie Bazowe
 		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
@@ -125,7 +129,7 @@ function rozpocznijWalke(biom, trudnosc){
 		wybierzPrzeciwnika(biom, trudnosc);
 		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
-		interval = setInterval(walka, 800);
+		interval = setInterval(walka, 300);
 	}
 }
 
@@ -133,7 +137,7 @@ function rozpocznijWalke(biom, trudnosc){
 function walka(){
 	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
 	walkaTrwa = true;
-		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerz; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
 		if(kalkulacja < 0){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
@@ -156,12 +160,12 @@ function walka(){
 				wpiszTekst("koniecWalki", nazwaPrzeciwnik, nick);
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
+				loot(nazwaPrzeciwnik);
 			}
 			clearInterval(interval);
 			walkaKoniec = true;
 			walkaTrwa = false;
 			blokadaWalki = false;
-			loot(nazwaPrzeciwnik);
 			zdrowieKoncowe = tymczasoweZdrowie;
 			tymczasoweZdrowie = 0;
 			maksymalneZdrowiePrzeciwnik = 0;
@@ -177,7 +181,7 @@ function walka(){
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-			document.getElementById("pancerz").innerHTML = pancerz;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 			document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
@@ -238,7 +242,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementById("nick").innerHTML = nick;
 	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	document.getElementById("pancerz").innerHTML = pancerz;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 	document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
@@ -271,16 +275,6 @@ function wybierzCios(nazwaCiosu){
 		
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
-	wybieranieSlotu();
-	var item = document.createElement('img');
-	item.id = "itemId" + itemIdMax;
-	item.src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
-	item.href = "#";
-	item.setAttribute("ondragstart", "drag(event)");
-	item.alt = " ";
-	item.draggable = true;
-	slot = document.getElementById(slotWolny);
-	slot.appendChild(item);
 	switch(nazwaPrzeciwnik){
 		case "Wieśniak":{
 			if(blokadaGory == true){
@@ -288,6 +282,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
 		case "Traper":{
@@ -296,6 +291,14 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+				if(losowe <= 4){ 
+					break;
+				} else if(losowe >= 5 && losowe <= 7){
+					utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+				} else if(losowe >= 8 && losowe <= 10){
+					utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
+				}
 			break;
 		}
 		case "Myśliwy":{
@@ -304,6 +307,7 @@ function loot(nazwaPrzeciwnik){
 				wpiszTekst("odblokowanieLokacji", "Góry");
 				blokadaGory = false;
 			}
+			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
 		case "Krasnoludek":{
@@ -354,8 +358,10 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			var tekst = " ";
 			break;
 		}
+		case "item":{
+			var tekst = " " + "Otrzymałeś przedmiot:" + " " + postacPierwsza + "!"
+		}
 	}
-	
 	var pasekTekst = document.createTextNode(tekst);
 	pasek.appendChild(pasekTekst);
 	document.getElementById("logi").appendChild(pasek);
@@ -366,6 +372,8 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		pasek.style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		pasek.style.color = "#d10e00";
+	} else if(rodzaj == "item"){
+		pasek.style.color = "#3c62c7";
 	}
 }
 
@@ -396,15 +404,26 @@ function drop(ev) {
     var srcParent = src.parentNode;
 	var tgt = ev.currentTarget.firstElementChild;
 	var str = ev.currentTarget;
+	if(tgt != null){
+		if(tgt.alt == "buty" && src.alt != "buty"){
+			return;
+		} else if(tgt.alt == "napiersnik" && src.alt != "napiersnik"){
+			return;
+		} else if(tgt.alt == "spodnie" && src.alt != "spodnie"){
+			return;
+		} else if(tgt.alt == "buty" && src.alt != "buty"){
+			return;
+		}
+	}
 	switch(str.id){
-		case "smietnik":{
+		case "slot101":{
 			var data = ev.dataTransfer.getData("src");
 			ev.target.appendChild(document.getElementById(data));
 			ev.target.removeChild(src);
 			break;
 		}
 		case "slotHelm":{
-			console.log("hełm");
+			if(src.alt != "helm"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -412,10 +431,11 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("helm", src, str);
 			break;
 		}
 		case "slotNapiersnik":{
-			console.log("napiersnik");
+			if(src.alt != "napiersnik"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -423,10 +443,11 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("napiersnik", src, str);
 			break;
 		}
 		case "slotSpodnie":{
-			console.log("spodnie");
+			if(src.alt != "spodnie"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -434,10 +455,11 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("spodnie", src, str);
 			break;
 		}
 		case "slotButy":{
-			console.log("buty");
+			if(src.alt != "buty"){ break; }
 			if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
@@ -445,6 +467,7 @@ function drop(ev) {
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
+			sprawdzWyposazenie("buty", src, str);
 			break;
 		}
 		default:{
@@ -458,6 +481,7 @@ function drop(ev) {
 			break;
 		}
 	}
+	sprawdzWyposazenieNull();
 }
 function GetzIndex(element) {
 	var zindex = window.getComputedStyle(element, null).getPropertyValue("z-index");
@@ -494,6 +518,7 @@ function zapamietajZakladke(bool) {
 function pusta(){ // Pusta funkcja do debuggingu
 }
 
+	// Funkcja od wybierania slotów dla przedmiotów
 function wybieranieSlotu(){
 	liczba = 1;
 	slotWolny = "slot" + liczba;
@@ -506,25 +531,88 @@ function wybieranieSlotu(){
 	slotWolny = "slot" + liczba;
 }
 
-function zapis() {
-	var liczba = 1;
-	arr = [];
-	while (liczba <= 100) {
-		slot = "slot" + liczba;
-		calySlot = document.getElementById(slot).outerHTML;
-		arr.push(calySlot);
-		liczba += 1;
+	// Funkcja od tworzenia przedmiotów
+function utworzPrzedmiot(nazwa, rodzaj, grafika){
+	przedmiot = window[nazwa];
+	wpiszTekst("item", przedmiot[0]);
+	itemIdMax = 1;
+	wybieranieSlotu();
+	var item = document.createElement('img');
+	tymczasowe = "itemId" + itemIdMax;
+	tymczasowe2 = document.getElementById(tymczasowe);
+	console.log
+	while(tymczasowe2 != null){ 
+		itemIdMax += 1;
+		tymczasowe = "itemId" + itemIdMax;
+		tymczasowe2 = document.getElementById(tymczasowe);
+		}
+	item.id = "itemId" + itemIdMax;
+	item.src = grafika;
+	item.href = "#";
+	item.setAttribute("ondragstart", "drag(event)");
+	item.alt = rodzaj;
+	item.draggable = true;
+	item.innerHTML = nazwa;
+	slot = document.getElementById(slotWolny);
+	slot.appendChild(item);
+	if(slot.id == "slot101"){
+		slot.removeChild(item);
 	}
-	localStorage.setItem("test", JSON.stringify(arr));
 }
 
-function odczyt() {
-	arr = JSON.parse(localStorage.getItem("test"));
-	var liczba = 1;
-	while (liczba <= 100) {
-		slot = "slot" + liczba;
-		slotId = window[slot];
-		slotId.outerHTML = arr[liczba - 1];
-		liczba += 1;
+	// Funkcja do sprawdzania wyposażenia i dodawania jego statystyk
+function sprawdzWyposazenie(rodzaj, src, str){
+	switch(rodzaj){
+		case "helm":{
+			przedmiot = window[src.innerHTML];
+			if(slotHelm.hasChildNodes() == true){
+				pancerzHelm = przedmiot[2];
+			} else {
+				pancerzHelm = 0;
+			}
+			break;
+		}
+		case "napiersnik":{
+			przedmiot = window[src.innerHTML];
+			if(slotNapiersnik.hasChildNodes() == true){
+				pancerzNapiersnik = przedmiot[2]
+			} else {
+				pancerzNapiersnik = 0;
+			}
+			break;
+		}
+		case "spodnie":{
+			przedmiot = window[src.innerHTML];
+			if(slotSpodnie.hasChildNodes() == true){
+				pancerzSpodnie = przedmiot[2];
+			} else {
+				pancerzSpodnie = 0;
+			}
+			break;
+		}
+		case "buty":{
+			przedmiot = window[src.innerHTML];
+			if(slotButy.hasChildNodes() == true){
+				pancerzButy = przedmiot[2];
+			} else {
+				pancerzButy = 0;
+			}
+			break;
+		}
+		default:{
+			break;
+		}
 	}
+	sprawdzWyposazenieNull();
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+}
+
+	// Funkcja od czyszczenia pancerza jeśli któryś ze slotów jest pusty
+function sprawdzWyposazenieNull(){
+	if(slotHelm.hasChildNodes() == false){ pancerzHelm = 0; }
+	if(slotNapiersnik.hasChildNodes() == false){ pancerzNapiersnik = 0; }
+	if(slotSpodnie.hasChildNodes() == false){ pancerzSpodnie = 0; }
+	if(slotButy.hasChildNodes() == false){ pancerzButy = 0; }
+	pancerzKoncowy = pancerzHelm + pancerzNapiersnik + pancerzSpodnie + pancerzButy;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 }
