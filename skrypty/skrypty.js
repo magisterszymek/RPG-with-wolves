@@ -628,11 +628,11 @@ function zapis() {
 		arr.push(calySlot);
 		liczba += 1;
 	}
-	localStorage.setItem("test", JSON.stringify(arr));
+	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 }
 
 function odczyt() {
-	if (localStorage.getItem("test") !== undefined) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
+	if (localStorage.getItem("Ekwipunek") !== undefined) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
 		arr = JSON.parse(localStorage.getItem("test"));
 		var liczba = 1;
 		while (liczba <= 159) {
@@ -645,4 +645,7 @@ function odczyt() {
 	else {
 		zapis();
     }
+}
+function reset() {
+	localStorage.removeItem("Ekwipunek");
 }
