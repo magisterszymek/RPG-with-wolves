@@ -489,21 +489,23 @@ function GetzIndex(element) {
 }
 function zapamietajZakladke(bool) {
 	if (bool) {
-		var test = document.getElementsByClassName("zakladka");
-		if (GetzIndex(test[0]) == 0) {
+		zapis();
+		var zakladki = document.getElementsByClassName("zakladka");
+		if (GetzIndex(zakladki[0]) == 0) {
 			localStorage.setItem("zakladka", 0);
 		}
-		else if (GetzIndex(test[1]) == 0) {
+		else if (GetzIndex(zakladki[1]) == 0) {
 			localStorage.setItem("zakladka", 1);
 		}
-		else if (GetzIndex(test[2]) == 0) {
+		else if (GetzIndex(zakladki[2]) == 0) {
 			localStorage.setItem("zakladka", 2);
 		}
-		else if (GetzIndex(test[3]) == 0) {
+		else if (GetzIndex(zakladki[3]) == 0) {
 			localStorage.setItem("zakladka", 3);
 		}
 	}
 	else {
+		odczyt();
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -552,7 +554,7 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.setAttribute("ondragstart", "drag(event)");
 	item.alt = rodzaj;
 	item.draggable = true;
-	item.innerHTML = nazwa;
+	item.lang = nazwa;
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
 	if(slot.id == "slot101"){
@@ -564,7 +566,7 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 function sprawdzWyposazenie(rodzaj, src, str){
 	switch(rodzaj){
 		case "helm":{
-			przedmiot = window[src.innerHTML];
+			przedmiot = window[src.lang];
 			if(slotHelm.hasChildNodes() == true){
 				pancerzHelm = przedmiot[2];
 			} else {
@@ -573,7 +575,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 			break;
 		}
 		case "napiersnik":{
-			przedmiot = window[src.innerHTML];
+			przedmiot = window[src.lang];
 			if(slotNapiersnik.hasChildNodes() == true){
 				pancerzNapiersnik = przedmiot[2]
 			} else {
@@ -582,7 +584,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 			break;
 		}
 		case "spodnie":{
-			przedmiot = window[src.innerHTML];
+			przedmiot = window[src.lang];
 			if(slotSpodnie.hasChildNodes() == true){
 				pancerzSpodnie = przedmiot[2];
 			} else {
@@ -591,7 +593,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 			break;
 		}
 		case "buty":{
-			przedmiot = window[src.innerHTML];
+			przedmiot = window[src.lang];
 			if(slotButy.hasChildNodes() == true){
 				pancerzButy = przedmiot[2];
 			} else {
@@ -604,7 +606,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		}
 	}
 	sprawdzWyposazenieNull();
-	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+	document.getElementById("pancerzKoncowy").lang = pancerzKoncowy;
 }
 
 	// Funkcja od czyszczenia pancerza jeśli któryś ze slotów jest pusty
@@ -614,7 +616,7 @@ function sprawdzWyposazenieNull(){
 	if(slotSpodnie.hasChildNodes() == false){ pancerzSpodnie = 0; }
 	if(slotButy.hasChildNodes() == false){ pancerzButy = 0; }
 	pancerzKoncowy = pancerzHelm + pancerzNapiersnik + pancerzSpodnie + pancerzButy;
-	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+	document.getElementById("pancerzKoncowy").lang = pancerzKoncowy;
 }
 
 function zapis() {
@@ -630,12 +632,17 @@ function zapis() {
 }
 
 function odczyt() {
-	arr = JSON.parse(localStorage.getItem("test"));
-	var liczba = 1;
-	while (liczba <= 100) {
-		slot = "slot" + liczba;
-		slotId = window[slot];
-		slotId.outerHTML = arr[liczba - 1];
-		liczba += 1;
+	if (localStorage.getItem("test") !== undefined) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
+		arr = JSON.parse(localStorage.getItem("test"));
+		var liczba = 1;
+		while (liczba <= 100) {
+			slot = "slot" + liczba;
+			slotId = window[slot];
+			slotId.outerHTML = arr[liczba - 1];
+			liczba += 1;
+		}
 	}
+	else {
+		zapis();
+    }
 }

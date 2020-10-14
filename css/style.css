@@ -67,10 +67,10 @@ button:hover {
 	border: none;
 }
 
-	.przyciskAtaku:hover {
-		/*Efekt po najechaniu na przycisk ataku*/
-		border: 3px solid #27420b;
-	}
+.przyciskAtaku:hover {
+	/*Efekt po najechaniu na przycisk ataku*/
+	border: 3px solid #27420b;
+}
 
 .zakladkaWalka {
 	width: 100%;
@@ -95,45 +95,44 @@ button:hover {
 	background: var(--zakladka-ekwipunek-color);
 }
 
-	.slotWyposazenie {
-		border: 1px solid black;
-		background-color: #ddd;
-		padding: 0.5%;
-		height: 12%;
-		width: 20%;
-		cursor: move;
-		margin: auto;
-	}
+.slotWyposazenie {
+	border: 1px solid black;
+	background-color: #ddd;
+	padding: 0.5%;
+	height: 12%;
+	width: 20%;
+	cursor: move;
+	margin: auto;
+}
 
-	.glownyEkwipunek {
-		left: 25%;
-		padding: 0.3%;
-		position: absolute;
-		height: 95%;
-		width: 75%;
-	}
+.glownyEkwipunek {
+	left: 25%;
+	padding: 0.3%;
+	position: absolute;
+	height: 95%;
+	width: 75%;
+}
 	
-	.slot {
-		border: 1px solid black;
-		background-color: #ddd;
-		padding: 0.5%;
-		height: 10.5%;
-		width: 6.15%;
-		cursor: move;
-		position: relative;
-		float: left;
-	}
+.slot {
+	border: 1px solid black;
+	background-color: #ddd;
+	padding: 0.5%;
+	height: 10.5%;
+	width: 6.15%;
+	cursor: move;
+	position: relative;
+	float: left;
+}
 	
-	.smietnik {
-		border: 1px solid black;
-		background-color: red;
-		padding: 0.5%;
-		height: 10.5%;
-		width: 6.15%;
-		cursor: move;
-		position: relative;
-		float: left;
-	}
+.smietnik {
+	border: 1px solid black;
+	background-color: red;
+	padding: 0.5%;
+	height: 10.5%;
+	width: 6.15%;
+	cursor: move;
+	position: relative;
+	float: left;
 }
 
 .slot.over {
@@ -304,4 +303,24 @@ button:hover {
 /* Handle on hover */
 .logi::-webkit-scrollbar-thumb:hover {
 	background:#38ab5b;
+}
+.menu{
+	height:100%;
+	width:20%;
+	margin:auto;
+}
+.przyciskMenu {
+	display:block;
+	width: 50%;
+	height: 8%;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+	background-color: #82b74b;
+	border: none;
+	margin: auto;
+}
+.przyciskMenu:hover {
+	/*Efekt po najechaniu na przycisk ataku*/
+	border: 3px solid #27420b;
 }
