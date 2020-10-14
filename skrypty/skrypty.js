@@ -48,9 +48,9 @@
 		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
 
 	// Przeciwnik
-		var nazwaPrzeciwnik = 0;
-		var opisPrzeciwnik = 0;
-		var zdrowiePrzeciwnik = 0;
+		var nazwaPrzeciwnik = "Brak przeciwnika";
+		var opisPrzeciwnik = " ";
+		var zdrowiePrzeciwnik = " ";
 		var pancerzPrzeciwnik = 0;
 		var obrazeniaPrzeciwnik = 0;
 		var zakresPrzeciwnik = 0;
@@ -662,7 +662,8 @@ function odczyt() {
 		slotSpodnie.outerHTML = wyposazenieArray[2];
 		slotButy.outerHTML = wyposazenieArray[3];
 	} else {
-		zapis();
+		wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
+		localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	}
 	if (localStorage.getItem("Statystyki") !== null) {
 		statystykiArray = JSON.parse(localStorage.getItem("Statystyki"));
@@ -682,7 +683,8 @@ function odczyt() {
 		szybkoscEkwipunek = statystykiArray[13];
 		szybkoscKoncowa = statystykiArray[14];
 	} else {
-		zapis();
+		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
+		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
 function reset() {
