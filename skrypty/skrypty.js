@@ -514,12 +514,16 @@ function zapamietajZakladke(bool) {
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
 		}
 		odczyt();
+		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+		maksymalneZdrowie = zdrowieKoncowe;
 		document.getElementById("nick").innerHTML = nick;
 		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
     }
 }
 
