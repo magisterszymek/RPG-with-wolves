@@ -629,8 +629,10 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
+	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
+	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 }
 
 function odczyt() {
@@ -653,6 +655,26 @@ function odczyt() {
 		slotNapiersnik.outerHTML = wyposazenieArray[1];
 		slotSpodnie.outerHTML = wyposazenieArray[2];
 		slotButy.outerHTML = wyposazenieArray[3];
+	} else {
+		zapis();
+	}
+	if (localStorage.getItem("Statystyki") !== null) {
+		statystykiArray = JSON.parse(localStorage.getItem("Statystyki"));
+		nick = statystykiArray[0];
+		pancerzHelm = statystykiArray[1];
+		pancerzNapiersnik = statystykiArray[2];
+		pancerzSpodnie = statystykiArray[3];
+		pancerzButy = statystykiArray[4];
+		pancerzKoncowy = statystykiArray[5];
+		zdrowieBazowe = statystykiArray[6];
+		zdrowieEkwipunek = statystykiArray[7];
+		zdrowieKoncowe = statystykiArray[8];
+		obrazeniaBazowe = statystykiArray[9];
+		obrazeniaEkwipunek = statystykiArray[10];
+		obrazeniaKoncowe = statystykiArray[11];
+		szybkoscBazowa = statystykiArray[12];
+		szybkoscEkwipunek = statystykiArray[13];
+		szybkoscKoncowa = statystykiArray[14];
 	} else {
 		zapis();
 	}
