@@ -489,7 +489,6 @@ function GetzIndex(element) {
 }
 function zapamietajZakladke(bool) {
 	if (bool) {
-		zapis();
 		var zakladki = document.getElementsByClassName("zakladka");
 		if (GetzIndex(zakladki[0]) == 0) {
 			localStorage.setItem("zakladka", 0);
@@ -503,9 +502,9 @@ function zapamietajZakladke(bool) {
 		else if (GetzIndex(zakladki[3]) == 0) {
 			localStorage.setItem("zakladka", 3);
 		}
+		zapis();
 	}
 	else {
-		odczyt();
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -513,7 +512,8 @@ function zapamietajZakladke(bool) {
 		else {
 			localStorage.setItem("zakladka", 0);
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
-        }
+		}
+		odczyt();
     }
 }
 
