@@ -628,7 +628,7 @@ function zapis() {
 		arr.push(calySlot);
 		liczba += 1;
 	}
-	wyposazenieArray = [document.getElementById(slotHelm).outerHTML, document.getElementById(slotNapiersnik).outerHTML, document.getElementById(slotSpodnie).outerHTML, document.getElementById(slotButy).outerHTML];
+	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 }
