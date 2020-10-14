@@ -503,7 +503,7 @@ function zapamietajZakladke(bool) {
 		else if (GetzIndex(zakladki[3]) == 0) {
 			localStorage.setItem("zakladka", 3);
 		}
-		if(resetKlikniety = true) {
+		if(resetKlikniety == true) {
 		} else {
 		zapis();
 		}
