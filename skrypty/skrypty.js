@@ -606,7 +606,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		}
 	}
 	sprawdzWyposazenieNull();
-	document.getElementById("pancerzKoncowy").lang = pancerzKoncowy;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 }
 
 	// Funkcja od czyszczenia pancerza jeśli któryś ze slotów jest pusty
@@ -616,7 +616,7 @@ function sprawdzWyposazenieNull(){
 	if(slotSpodnie.hasChildNodes() == false){ pancerzSpodnie = 0; }
 	if(slotButy.hasChildNodes() == false){ pancerzButy = 0; }
 	pancerzKoncowy = pancerzHelm + pancerzNapiersnik + pancerzSpodnie + pancerzButy;
-	document.getElementById("pancerzKoncowy").lang = pancerzKoncowy;
+	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 }
 
 function zapis() {
