@@ -634,7 +634,6 @@ function sprawdzWyposazenieNull(){
 }
 
 function zapis() {
-	if(walkaTrwa == false){
 	var liczba = 1;
 	arr = [];
 	while (liczba <= 159) {
@@ -648,7 +647,6 @@ function zapis() {
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
-	} else {}
 }
 
 function odczyt() {
@@ -692,6 +690,7 @@ function odczyt() {
 		szybkoscBazowa = statystykiArray[12];
 		szybkoscEkwipunek = statystykiArray[13];
 		szybkoscKoncowa = statystykiArray[14];
+		zdrowieKoncowe = zdrowieEkwipunek;
 	} else {
 		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
