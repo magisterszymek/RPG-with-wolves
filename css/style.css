@@ -67,10 +67,10 @@ button:hover {
 	border: none;
 }
 
-	.przyciskAtaku:hover {
-		/*Efekt po najechaniu na przycisk ataku*/
+.przyciskAtaku:hover {
+	/*Efekt po najechaniu na przycisk ataku*/
 		border: 3px solid #27420b;
-	}
+}
 
 .zakladkaWalka {
 	width: 100%;
@@ -94,18 +94,18 @@ button:hover {
 	height: 95%;
 	grid-template-columns: repeat(1fr);
 	grid-gap: 1px;
-	position: absolute;
 	background: var(--zakladka-ekwipunek-color);
+	float:left;
 }
 
 .glownyEkwipunek {
-	left: 25%;
 	display: grid;
 	grid-template-columns: repeat(16, 1fr);
 	grid-gap: 1px;
 	background-color: #2196F3;
 	padding: 10px;
-	position: absolute;
+	width: 75%;
+	float: left;
 }
 
 .slot {

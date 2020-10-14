@@ -505,3 +505,26 @@ function wybieranieSlotu(){
 	}
 	slotWolny = "slot" + liczba;
 }
+
+function zapis() {
+	var liczba = 1;
+	arr = [];
+	while (liczba <= 100) {
+		slot = "slot" + liczba;
+		calySlot = document.getElementById(slot).outerHTML;
+		arr.push(calySlot);
+		liczba += 1;
+	}
+	localStorage.setItem("test", JSON.stringify(arr));
+}
+
+function odczyt() {
+	arr = JSON.parse(localStorage.getItem("test"));
+	var liczba = 1;
+	while (liczba <= 100) {
+		slot = "slot" + liczba;
+		slotId = window[slot];
+		slotId.outerHTML = arr[liczba - 1];
+		liczba += 1;
+	}
+}
