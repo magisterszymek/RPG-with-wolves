@@ -698,4 +698,5 @@ function odczyt() {
 function reset() {
 	localStorage.clear();
 	resetKlikniety = true;
+	location.reload();
 }
