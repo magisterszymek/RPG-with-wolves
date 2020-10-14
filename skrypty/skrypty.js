@@ -85,6 +85,7 @@
 		
 	// Mapa
 		var blokadaGory = true;
+		var resetKlikniety = false;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -502,7 +503,10 @@ function zapamietajZakladke(bool) {
 		else if (GetzIndex(zakladki[3]) == 0) {
 			localStorage.setItem("zakladka", 3);
 		}
+		if(resetKlikniety = true) {
+		} else {
 		zapis();
+		}
 	}
 	else {
 		if (localStorage.getItem("zakladka") !== null) {
@@ -693,4 +697,5 @@ function odczyt() {
 }
 function reset() {
 	localStorage.clear();
+	resetKlikniety = true;
 }
