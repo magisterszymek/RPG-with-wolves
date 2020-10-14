@@ -416,7 +416,7 @@ function drop(ev) {
 		}
 	}
 	switch(str.id){
-		case "slot101":{
+		case "slot160":{
 			var data = ev.dataTransfer.getData("src");
 			ev.target.appendChild(document.getElementById(data));
 			ev.target.removeChild(src);
@@ -557,7 +557,7 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.lang = nazwa;
 	slot = document.getElementById(slotWolny);
 	slot.appendChild(item);
-	if(slot.id == "slot101"){
+	if(slot.id == "slot160"){
 		slot.removeChild(item);
 	}
 }
@@ -622,7 +622,7 @@ function sprawdzWyposazenieNull(){
 function zapis() {
 	var liczba = 1;
 	arr = [];
-	while (liczba <= 100) {
+	while (liczba <= 159) {
 		slot = "slot" + liczba;
 		calySlot = document.getElementById(slot).outerHTML;
 		arr.push(calySlot);
@@ -635,7 +635,7 @@ function odczyt() {
 	if (localStorage.getItem("test") !== undefined) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
 		arr = JSON.parse(localStorage.getItem("test"));
 		var liczba = 1;
-		while (liczba <= 100) {
+		while (liczba <= 159) {
 			slot = "slot" + liczba;
 			slotId = window[slot];
 			slotId.outerHTML = arr[liczba - 1];
