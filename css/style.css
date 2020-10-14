@@ -104,7 +104,9 @@ button:hover {
 	cursor: move;
 	margin: auto;
 }
-
+.slotWyposazenie:hover{
+	filter: brightness(80%);
+}
 .glownyEkwipunek {
 	left: 25%;
 	padding: 0.3%;
@@ -122,6 +124,9 @@ button:hover {
 	cursor: move;
 	position: relative;
 	float: left;
+}
+.slot:hover{
+	filter: brightness(80%);
 }
 	
 .smietnik {
