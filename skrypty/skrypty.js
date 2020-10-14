@@ -628,12 +628,14 @@ function zapis() {
 		arr.push(calySlot);
 		liczba += 1;
 	}
+	wyposazenieArray = [document.getElementById(slotHelm).outerHTML, document.getElementById(slotNapiersnik).outerHTML, document.getElementById(slotSpodnie).outerHTML, document.getElementById(slotButy).outerHTML];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
+	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 }
 
 function odczyt() {
-	if (localStorage.getItem("Ekwipunek") !== undefined) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
-		arr = JSON.parse(localStorage.getItem("test"));
+	if (localStorage.getItem("Ekwipunek") !== null) {//sprawdza czy taki localstorage istnieje, jeśli nie tworzy go zapisując w nim pusty ekwipunek funkcją "zapis()"
+		arr = JSON.parse(localStorage.getItem("Ekwipunek"));
 		var liczba = 1;
 		while (liczba <= 159) {
 			slot = "slot" + liczba;
@@ -645,6 +647,15 @@ function odczyt() {
 	else {
 		zapis();
     }
+	if (localStorage.getItem("Wyposazenie") !== null) {
+		wyposazenieArray = JSON.parse(localStorage.getItem("Wyposazenie"));
+		slotHelm.outerHTML = wyposazenieArray[0];
+		slotNapiersnik.outerHTML = wyposazenieArray[1];
+		slotSpodnie.outerHTML = wyposazenieArray[2];
+		slotButy.outerHTML = wyposazenieArray[3];
+	} else {
+		zapis();
+	}
 }
 function reset() {
 	localStorage.removeItem("Ekwipunek");
