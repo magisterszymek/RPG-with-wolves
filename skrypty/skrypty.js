@@ -701,3 +701,12 @@ function reset() {
 	resetKlikniety = true;
 	location.reload();
 }
+
+document.onmouseover = function opis(id) {
+	if(id.target.lang != ""){
+		przedmiotOpis = window[id.target.lang];
+		console.log(przedmiotOpis);
+    document.getElementById("opis").innerHTML = przedmiotOpis[1];
+	}
+	else {}
+}
