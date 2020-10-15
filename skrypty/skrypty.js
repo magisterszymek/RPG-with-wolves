@@ -705,7 +705,6 @@ function reset() {
 document.onmouseover = function opis(id) {
 	if(id.target.lang != ""){
 		przedmiotOpis = window[id.target.lang];
-		console.log(przedmiotOpis);
     document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
 	document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
 	}
