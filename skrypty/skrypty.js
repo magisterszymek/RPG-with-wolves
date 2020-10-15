@@ -709,5 +709,8 @@ document.onmouseover = function opis(id) {
     document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
 	document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
 	}
-	else {}
+	else { 
+	document.getElementById("opisPrzedmiot").innerHTML = "";
+	document.getElementById("opisOpis").innerHTML = przedmiotOpis"";
+	}
 }
