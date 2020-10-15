@@ -17,17 +17,25 @@
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
-	var prze_pradawnyLas_ = [
+	var prze_lesnaDroga1_ = [
+	["Kłoda", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["null"]
+	];
+	var prze_lesnaDroga2_ = [
+	["Kłoda", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
+	]
+	var prze_lesnaDroga3_ = [
 	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
-	["Pułapka", "Bardzo dobrze ukryta.", 50, 5, 1, 0, 1],
+	["Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
 	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
 	var prze_dolina = []
-	var prze_gory_ = [
-	["Krasnoludek", "Mały krasnal.", 30, 5, 3, 2, 1],
-	["Krasnal", "Mały krasnolud.", 50, 7, 5, 1, 2],
-	["Krasnolud", "Krasnolud.", 70, 10, 7, 1, 2]
-	];
+	
+// Maksymalna ilość przeciwników w array'u
+	var lesnaDroga1Max = 1;
+	var lesnaDroga2Max = 2;
+	var lesnaDroga3Max = 3;
 		
 // Statystyki
 	// Gracz
@@ -55,6 +63,7 @@
 		var pancerzPrzeciwnik = 0;
 		var obrazeniaPrzeciwnik = 0;
 		var zakresPrzeciwnik = 0;
+		var lokacjaId = "null"; // Lokacja w której rozgrywa się walka, wykorzystywane do odblokowywania dróg
 		
 	// Ekwipunek
 		var zalozonaBron = "brak";
@@ -85,6 +94,12 @@
 		var arr = tekst.split(' ');
 		
 	// Mapa
+		var blokadaPosterunekWilkow = true;
+		var blokadaZrujnowanyOboz = true;
+		var blokadaLesnaDroga2 = true;
+		var blokadaLesnaDroga3 = true;
+		var blokadaWiezaMaga = true;
+		var blokadaGrzybowePole = true;
 		var blokadaGory = true;
 		var blokadaDolina = true;
 		var blokadaMoczary = true;
@@ -175,6 +190,36 @@ function walka(){
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
 				loot(nazwaPrzeciwnik);
+				switch(lokacjaId){
+					case "lesnaDroga1":{
+						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true && blokadaLesnaDroga2 == true){
+							wpiszTekst("odblokowanieLokacji", "Zrujnowany obóz")
+							wpiszTekst("odblokowanieLokacji", "Posterunek wilków")
+							wpiszTekst("odblokowanieLokacji", "Leśna droga [2]")
+							blokadaZrujnowanyOboz = false;
+							blokadaPosterunekWilkow = false;
+							blokadaLesnaDroga2 = false;
+							zrujnowanyOboz.style.display = "inline";
+							posterunekWilkow.style.display = "inline";
+							lesnaDroga2.style.display = "inline";
+						}
+						break;
+					}
+					case "lesnaDroga2":{
+						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
+							wpiszTekst("odblokowanieLokacji", "Wieża maga")
+							wpiszTekst("odblokowanieLokacji", "Grzybowe pole")
+							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]")
+							blokadaWiezaMaga = false;
+							blokadaGrzybowePole = false;
+							blokadaLesnaDroga3 = false;
+							wiezaMaga.style.display = "inline";
+							grzybowePole.style.display = "inline";
+							lesnaDroga3.style.display = "inline";
+						}
+						break;
+					}
+				}
 			}
 			obraz(-1);
 			odswiezZmienne("koniecWalki");
@@ -203,29 +248,18 @@ function obraz(losowe, biom) {
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
-	let losowe = Math.floor(Math.random() * 3);
+	max = window[biom + "Max"];
+	losowe = Math.floor(Math.random() * max);
 	obraz(losowe, biom);
-	switch(biom){
-		case "pradawnyLas":{
-			nazwaPrzeciwnik = prze_pradawnyLas_[losowe][0];
-			opisPrzeciwnik = prze_pradawnyLas_[losowe][1];
-			zdrowiePrzeciwnik = prze_pradawnyLas_[losowe][2];
-			pancerzPrzeciwnik = prze_pradawnyLas_[losowe][3];
-			obrazeniaPrzeciwnik = prze_pradawnyLas_[losowe][4];
-			zakresPrzeciwnik = prze_pradawnyLas_[losowe][5];
-			break;
-		}
-		case "gory":
-		{
-			nazwaPrzeciwnik = prze_gory_[losowe][0];
-			opisPrzeciwnik = prze_gory_[losowe][1];
-			zdrowiePrzeciwnik = prze_gory_[losowe][2];
-			pancerzPrzeciwnik = prze_gory_[losowe][3];
-			obrazeniaPrzeciwnik = prze_gory_[losowe][4];
-			zakresPrzeciwnik = prze_gory_[losowe][5];
-			break;
-		}
-	}
+	biomTymczasowe = "prze_" + biom + "_";
+	biomNazwa = window[biomTymczasowe];
+	nazwaPrzeciwnik = biomNazwa[losowe][0];
+	opisPrzeciwnik = biomNazwa[losowe][1];
+	zdrowiePrzeciwnik = biomNazwa[losowe][2];
+	pancerzPrzeciwnik = biomNazwa[losowe][3];
+	obrazeniaPrzeciwnik = biomNazwa[losowe][4];
+	zakresPrzeciwnik = biomNazwa[losowe][5];
+	lokacjaId = biom;
 	odswiezZmienne("poczatekWalki");
 }
 
@@ -277,21 +311,14 @@ function wybierzCios(nazwaCiosu){
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
+		case "Kłoda":{
+			break;
+		}
 		case "Grzybiarz":{
-			if(blokadaGory == true){
-				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
-				wpiszTekst("odblokowanieLokacji", "Góry");
-				blokadaGory = false;
-			}
 			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
 		case "Pułapka":{
-			if(blokadaGory == true){
-				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
-				wpiszTekst("odblokowanieLokacji", "Góry");
-				blokadaGory = false;
-			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 				if(losowe <= 4){ 
 					break;
@@ -309,15 +336,6 @@ function loot(nazwaPrzeciwnik){
 				blokadaGory = false;
 			}
 			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
-			break;
-		}
-		case "Krasnoludek":{
-			break;
-		}
-		case "Krasnal":{
-			break;
-		}
-		case "Krasnolud":{
 			break;
 		}
 	}
@@ -547,7 +565,6 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	var item = document.createElement('img');
 	tymczasowe = "itemId" + itemIdMax;
 	tymczasowe2 = document.getElementById(tymczasowe);
-	console.log
 	while(tymczasowe2 != null){ 
 		itemIdMax += 1;
 		tymczasowe = "itemId" + itemIdMax;
@@ -698,7 +715,7 @@ function reset() {
 }
 
 document.onmouseover = function opis(id) {
-	if(id.target.lang != ""){
+	if(id.target.lang != "" && id.target.alt != "" && id.target.draggable == "true"){
 		przedmiotOpis = window[id.target.lang];
 		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
 		document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
@@ -786,5 +803,65 @@ function odswiezZmienne(rodzaj){
 		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
 		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
 		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+	}
+}
+
+function lokacja(lokacja){
+	switch(lokacja){
+		case "pradawnyLas":{
+			las.style.display = "none";
+			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
+			obozWilkow.style.display = "inline";
+			lesnaDroga1.style.display = "inline";
+			if(blokadaPosterunekWilkow == false){ posterunekWilkow.style.display = "inline"; }
+			if(blokadaZrujnowanyOboz == false){ zrujnowanyOboz.style.display = "inline"; }
+			if(blokadaLesnaDroga2 == false){ lesnaDroga2.style.display = "inline"; }
+			if(blokadaWiezaMaga == false){ wiezaMaga.style.display = "inline"; }
+			if(blokadaGrzybowePole == false){ grzybowePole.style.display = "inline"; }
+			if(blokadaLesnaDroga3 == false){ lesnaDroga3.style.display = "inline"; }
+			cofnij.style.display = "inline";
+			break;
+		}
+		case "obozWilkow":{
+			break;
+		}
+		case "lesnaDroga1":{
+			rozpocznijWalke("lesnaDroga1", 1);
+			break;
+		}
+		case "posterunekWilkow":{
+			break;
+		}
+		case "zrujnowanyOboz":{
+			break;
+		}
+		case "lesnaDroga2":{
+			rozpocznijWalke("lesnaDroga2", 1);
+			break;
+		}
+		case "wiezaMaga":{
+			break;
+		}
+		case "grzybowePole":{
+			break;
+		}
+		case "lesnaDroga3":{
+			rozpocznijWalke("lesnaDroga3", 1);
+			break;
+		}
+		case "cofnij":{
+			las.style.display = "inline";
+			mapa.src = "Obrazy/Mapa/Mapa.png";
+			obozWilkow.style.display = "none";
+			lesnaDroga1.style.display = "none";
+			posterunekWilkow.style.display = "none";
+			zrujnowanyOboz.style.display = "none";
+			lesnaDroga2.style.display = "none";
+			wiezaMaga.style.display = "none";
+			grzybowePole.style.display = "none";
+			lesnaDroga3.style.display = "none";
+			cofnij.style.display = "none";
+			break;
+		}
 	}
 }
