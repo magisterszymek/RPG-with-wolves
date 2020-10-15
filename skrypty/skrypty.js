@@ -86,6 +86,8 @@
 		
 	// Mapa
 		var blokadaGory = true;
+		var blokadaDolina = true;
+		var blokadaMoczary = true;
 		var resetKlikniety = false;
 		
 // ---------- Koniec zmiennych ----------
@@ -632,7 +634,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
+	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaGory, blokadaDolina, blokadaMoczary];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
@@ -679,9 +681,13 @@ function odczyt() {
 		szybkoscBazowa = statystykiArray[12];
 		szybkoscEkwipunek = statystykiArray[13];
 		szybkoscKoncowa = statystykiArray[14];
+		blokadaGory = statystykiArray[15];
+		blokadaDolina = statystykiArray[16];
+		blokadaMoczary = statystykiArray[17];
 		zdrowieKoncowe = zdrowieEkwipunek;
+		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
+		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaGory, blokadaDolina, blokadaMoczary];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
