@@ -22,8 +22,8 @@
 				<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe"> </span>/<span id="maksymalneZdrowie"> </span></div><div class="zdrowieKoncowe"></div></div>
 				<div class="nick">Pancerz: <span id="pancerzKoncowy">&nbsp;</span></div>
 				<div class="ataki">
-					<button class="przyciskAtaku" onclick="wybierzCios('zwykly')">Zwykły cios</button>
-					<button class="przyciskAtaku" onclick="wybierzCios('potezny')">Potężny cios</button>
+					<button class="przyciskAtaku" onclick="wybierzCios('pazury')" id="pazury">Atak pazurami</button>
+					<button class="przyciskAtaku" onclick="wybierzCios('kly')" id="kly">Ugryzienie</button>
 					<button class="przyciskAtaku" onclick="wybierzCios('szybki')">Szybki cios</button>
 					<button class="przyciskAtaku" onclick="">4</button>
 				</div>
@@ -43,7 +43,7 @@
 			</div>
 		</div>
 		<div class="mapa">
-			<button class="przyciskLas" onclick="rozpocznijWalke('las', 1)">Las</button>
+			<button class="przyciskLas" onclick="rozpocznijWalke('pradawnyLas', 1)">Las</button>
 			<button class="przyciskGory" onclick="rozpocznijWalke('gory', 1)">Góry</button>
 			<img src="Obrazy/Mapa/Mapa.png" alt="mapa" class="nodrag" style="width: 98%; height: 60%;" />
 		</div>
@@ -59,7 +59,7 @@
 		</div>
 		<div id="opisDiv" class="opisDiv">
 			<span id="opisPrzedmiot"> </span></p>
-			<span id="opisOpis"> </span></p>
+			<i><span id="opisOpis"> </span></p></i>
 			<span id="opisRodzajTekst"> </span> <span id="opisRodzaj"> </span></p>
 			<span id="opisTyp"> </span> <span id="opisStatystyka"> </span></br>
 			<span id="opisWartosc"> </span> <span id="opisCena"> </span>
