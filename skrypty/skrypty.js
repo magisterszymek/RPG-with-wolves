@@ -7,10 +7,10 @@
 		var prdm_bron_a_3 = ["Drewniany miecz", "Nawet trochę ostry.", 3, 1, 1, 7, 0, 0];
 			
 	// Zbroje ["nazwa", "opis", pancerz, waga, rodzaj, cena, ilość, założony]
-		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", 2, 1, 1, 13, 0, 0];	// Rodzaj 1 - Hełm
-		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", 3, 1, 2, 25, 0, 0];		// Rodzaj 2 - Napierśnik
-		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", 2, 1, 3, 17, 0, 0];						// Rodzaj 3 - Spodnie
-		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", 1, 1, 4, 10, 0, 0];	// Rodzaj 4 - Buty
+		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", 2, 1, 1, 13, 0, 0, "Hełm"];	// Rodzaj 1 - Hełm
+		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", 3, 1, 2, 25, 0, 0, "Napierśnik"];		// Rodzaj 2 - Napierśnik
+		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", 2, 1, 3, 17, 0, 0, "Spodnie"];						// Rodzaj 3 - Spodnie
+		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", 1, 1, 4, 10, 0, 0, "Buty"];	// Rodzaj 4 - Buty
 			
 	// Inne przedmioty ["nazwa", "opis", cena, ilość]
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3, 0];
@@ -705,11 +705,30 @@ function reset() {
 document.onmouseover = function opis(id) {
 	if(id.target.lang != ""){
 		przedmiotOpis = window[id.target.lang];
-    document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
-	document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
-	}
-	else { 
-	document.getElementById("opisPrzedmiot").innerHTML = "";
-	document.getElementById("opisOpis").innerHTML = "";
+		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
+		document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
+		document.getElementById("opisRodzaj").innerHTML = przedmiotOpis[8];
+		document.getElementById("opisCena").innerHTML = przedmiotOpis[5];
+		document.getElementById("opisRodzajTekst").innerHTML = "Rodzaj:";
+		document.getElementById("opisWartosc").innerHTML = "Wartość:";
+		if(przedmiotOpis[8] == "Broń"){
+			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
+		} else if(przedmiotOpis[8] == "Hełm" || przedmiotOpis[8] == "Napierśnik" || przedmiotOpis[8] == "Spodnie" || przedmiotOpis[8] == "Buty"){
+			document.getElementById("opisTyp").innerHTML = "Pancerz:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
+		} else { 
+		document.getElementById("opisTyp").innerHTML = "";
+		document.getElementById("opisStatystyka").innerHTML = "";
+		}
+	} else {
+		document.getElementById("opisPrzedmiot").innerHTML = "";
+		document.getElementById("opisOpis").innerHTML = "";
+		document.getElementById("opisRodzaj").innerHTML = "";
+		document.getElementById("opisRodzajTekst").innerHTML = "";
+		document.getElementById("opisWartosc").innerHTML = "";
+		document.getElementById("opisCena").innerHTML = "";
+		document.getElementById("opisTyp").innerHTML = "";
+		document.getElementById("opisStatystyka").innerHTML = "";
 	}
 }
