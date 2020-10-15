@@ -711,6 +711,6 @@ document.onmouseover = function opis(id) {
 	}
 	else { 
 	document.getElementById("opisPrzedmiot").innerHTML = "";
-	document.getElementById("opisOpis").innerHTML = przedmiotOpis"";
+	document.getElementById("opisOpis").innerHTML = "";
 	}
 }
