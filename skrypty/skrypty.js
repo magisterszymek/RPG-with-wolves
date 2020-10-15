@@ -143,20 +143,20 @@ function zakladka(NrZakladki) {
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
 	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
+		walkaTrwa = true;
 		wpiszTekst("linia");
 		wpiszTekst("linia");
 		wybierzPrzeciwnika(biom, trudnosc);
 		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
+		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
 	}
 }
 
 	// Funkcja odpowiedzialna za loopa walki
-function walka(){
-	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
-	walkaTrwa = true;
-	
+function walka(typ){
+	if(typ != "specjalny"){
 		//Początek tury gracza
 		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 		if(kalkulacja < 0){
@@ -184,6 +184,7 @@ function walka(){
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
 		odswiezZmienne("walka");
 		} else {};
+	}
 		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
 			if(zdrowieKoncowe <= 0){
 				wpiszTekst("koniecWalki", nazwaPrzeciwnik, nick);
@@ -295,6 +296,7 @@ function wybierzCios(nazwaCiosu){
 				przycisk.disabled = false; 
 				przycisk.style.backgroundColor = "";
 				}, 3000);
+			setTimeout(walka("specjalny"), 1);
 			break;
 			} else { 
 			break;
@@ -777,6 +779,10 @@ function odswiezZmienne(rodzaj){
 		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
 		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
 		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
+		if(document.getElementById("kly").disabled == true){
+			document.getElementById("kly").disabled = false;
+			document.getElementById("kly").style.backgroundColor = "";
+		}
 	} else if(rodzaj == "zapis"){
 		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
 		maksymalneZdrowie = zdrowieKoncowe;
