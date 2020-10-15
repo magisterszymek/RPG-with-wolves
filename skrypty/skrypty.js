@@ -19,7 +19,7 @@
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_pradawnyLas_ = [
 	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
-	["Pułapka", "Bardzo dobrze ukryta.", 50, 5, 1, 1, 1],
+	["Pułapka", "Bardzo dobrze ukryta.", 50, 5, 1, 0, 1],
 	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
 	var prze_dolina = []
@@ -139,24 +139,34 @@ function rozpocznijWalke(biom, trudnosc){
 function walka(){
 	if(walkaTrwa == false) { tymczasoweZdrowie = zdrowieKoncowe; }
 	walkaTrwa = true;
-		kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik / 2)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
-		if(kalkulacja < 0){
-			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-		}
-		zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
-		wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
+	
+		//Początek tury gracza
 		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 		if(kalkulacja < 0){
 			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 		}
 		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+		if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 		wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+		
+		// Koniec tury gracza, początek tury przeciwnika
+		if(zdrowiePrzeciwnik >= 1){
+			if(zakresPrzeciwnik != 0){
+				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+			} else {
+				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+			}
+			if(kalkulacja < 0){
+				kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+			}
+			zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
+			wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
+		// Koniec tury przeciwnika
+		
 		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		odswiezZmienne("walka");
+		} else {};
 		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
 			if(zdrowieKoncowe <= 0){
 				wpiszTekst("koniecWalki", nazwaPrzeciwnik, nick);
@@ -164,32 +174,9 @@ function walka(){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
 				loot(nazwaPrzeciwnik);
 			}
-			clearInterval(interval);
-			walkaKoniec = true;
-			walkaTrwa = false;
-			blokadaWalki = false;
-			zdrowieKoncowe = tymczasoweZdrowie;
-			tymczasoweZdrowie = 0;
-			maksymalneZdrowiePrzeciwnik = 0;
-			nazwaPrzeciwnik = "Brak przeciwnika";
 			obraz(-1);
-			opisPrzeciwnik = "";
-			zdrowiePrzeciwnik = 0;
-			pancerzPrzeciwnik = 0;
-			obrazeniaPrzeciwnik = 0;
-			zakresPrzeciwnik = 0;
-			zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-			document.getElementById("nick").innerHTML = nick;
-			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-			document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-			document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-			document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
+			odswiezZmienne("koniecWalki");
+			clearInterval(interval);
 		}
 		kalkulacja = 0;
 }
@@ -237,20 +224,7 @@ function wybierzPrzeciwnika(biom, trudnosc){
 			break;
 		}
 	}
-	maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-	maksymalneZdrowie = zdrowieKoncowe;
-	zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-	zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-	document.getElementById("nick").innerHTML = nick;
-	document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-	document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-	document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-	document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-	document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-	document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-	document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+	odswiezZmienne("poczatekWalki");
 }
 
 	// Wybieranie ciosu
@@ -274,6 +248,7 @@ function wybierzCios(nazwaCiosu){
 			zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 			if(walkaTrwa == true){ 
 				wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+				if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 				zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
 				document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
 				document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
@@ -541,16 +516,7 @@ function zapamietajZakladke(bool) {
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
 		}
 		odczyt();
-		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-		maksymalneZdrowie = zdrowieKoncowe;
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+		odswiezZmienne("zapis");
     }
 }
 
@@ -753,5 +719,66 @@ document.onmouseover = function opis(id) {
 		document.getElementById("opisCena").innerHTML = "";
 		document.getElementById("opisTyp").innerHTML = "";
 		document.getElementById("opisStatystyka").innerHTML = "";
+	}
+}
+
+	// Funkcja służąca do odświeżania czy zapisywania zmiennych, aby uniknąć spaghetti w kodzie
+function odswiezZmienne(rodzaj){
+	if(rodzaj == "walka"){
+		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+	} else if(rodzaj == "koniecWalki"){
+		walkaKoniec = true;
+		walkaTrwa = false;
+		blokadaWalki = false;
+		nazwaPrzeciwnik = "Brak przeciwnika";
+		opisPrzeciwnik = "";
+		zdrowieKoncowe = tymczasoweZdrowie;
+		tymczasoweZdrowie = 0;
+		maksymalneZdrowiePrzeciwnik = 0;
+		zdrowiePrzeciwnik = 0;
+		pancerzPrzeciwnik = 0;
+		obrazeniaPrzeciwnik = 0;
+		zakresPrzeciwnik = 0;
+		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
+		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+		document.getElementById("nick").innerHTML = nick;
+		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
+	} else if(rodzaj == "zapis"){
+		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+		maksymalneZdrowie = zdrowieKoncowe;
+		document.getElementById("nick").innerHTML = nick;
+		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+	} else if(rodzaj =="poczatekWalki"){
+		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+		maksymalneZdrowie = zdrowieKoncowe;
+		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
+		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+		document.getElementById("nick").innerHTML = nick;
+		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
+		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
+		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
+		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
 	}
 }
