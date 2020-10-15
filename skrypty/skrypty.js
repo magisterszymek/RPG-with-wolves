@@ -1,27 +1,28 @@
 // ---------- Zmienne ----------
 
 // Przedmioty
-	// Bronie ["nazwa", "opis", obrażenia, waga, rodzaj, cena, ilość, założony]
-		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 5, 1, 1, 10, 0, 0];
-		var prdm_bron_a_2 = ["Drewniany topór", "Świeżo wystrugany.", 8, 2, 1, 15, 0, 0];
-		var prdm_bron_a_3 = ["Drewniany miecz", "Nawet trochę ostry.", 3, 1, 1, 7, 0, 0];
+	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
+		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 5, 1, 10];
+		var prdm_bron_a_2 = ["Drewniany topór", "Świeżo wystrugany.", 8, 2, 15,];
+		var prdm_bron_a_3 = ["Drewniany miecz", "Nawet trochę ostry.", 3, 1, 7,];
 			
-	// Zbroje ["nazwa", "opis", pancerz, waga, rodzaj, cena, ilość, założony]
-		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", 2, 1, 1, 13, 0, 0];	// Rodzaj 1 - Hełm
-		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", 3, 1, 2, 25, 0, 0];		// Rodzaj 2 - Napierśnik
-		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", 2, 1, 3, 17, 0, 0];						// Rodzaj 3 - Spodnie
-		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", 1, 1, 4, 10, 0, 0];	// Rodzaj 4 - Buty
+	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
+		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", "Hełm", 2, 1, 13,];
+		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 3, 1, 25];
+		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", "Spodnie", 2, 1, 17];						
+		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", "Buty", 1, 1, 10];
 			
-	// Inne przedmioty ["nazwa", "opis", cena, ilość]
-		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3, 0];
-		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5, 0];
+	// Inne przedmioty ["nazwa", "opis", cena]
+		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3];
+		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
-	var prze_las_ = [
-	["Wieśniak", "Musiał się zgubić.", 30, 2, 3, 2, 1],
-	["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2],
-	["Myśliwy", "Przygotowany na walkę.", 50, 2, 7, 2, 2]
+	var prze_pradawnyLas_ = [
+	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
+	["Pułapka", "Bardzo dobrze ukryta.", 50, 5, 1, 1, 1],
+	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
+	var prze_dolina = []
 	var prze_gory_ = [
 	["Krasnoludek", "Mały krasnal.", 30, 5, 3, 2, 1],
 	["Krasnal", "Mały krasnolud.", 50, 7, 5, 1, 2],
@@ -37,12 +38,12 @@
 		var pancerzButy = 0;
 		var pancerzKoncowy = 0;
 		var waluta = 20;
-		var zdrowieBazowe = 50;		// Zdrowie Bazowe
-		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
-		var zdrowieKoncowe = 50;	// zdrowieEkwipunek + Zdrowie z buffów
-		var obrazeniaBazowe = 10;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 10;// obrażeniaBazowe + Obrażenia z ekwipunku
-		var obrazeniaKoncowe = 10;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
+		var zdrowieBazowe = 20;		// Zdrowie Bazowe
+		var zdrowieEkwipunek = 20;	// zdrowieBazowe + Zdrowie z ekwipunku
+		var zdrowieKoncowe = 20;	// zdrowieEkwipunek + Zdrowie z buffów
+		var obrazeniaBazowe = 3;	// Obrażenia bazowe
+		var obrazeniaEkwipunek = 3;// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
 		var szybkoscBazowa = 1;	// Szybkość bazowa
 		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
 		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
@@ -67,9 +68,9 @@
 		var blokadaWalki = false;
 		var walkaTrwa = false;
 		var walkaKoniec = false;
-		var wybranyCios = "zwykly";
-		var mnoznikObrazenCiosu = [1, 1.25, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
-		var szybkoscCiosu = [1, 1, 2] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
+		var wybranyCios = "pazury";
+		var mnoznikObrazenCiosu = [1, 3, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
+		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
@@ -130,7 +131,7 @@ function rozpocznijWalke(biom, trudnosc){
 		wybierzPrzeciwnika(biom, trudnosc);
 		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
-		interval = setInterval(walka, 300);
+		interval = setInterval(walka, 1000);
 	}
 }
 
@@ -199,8 +200,8 @@ function obraz(losowe, biom) {
 	}
 	else {
 		switch(biom){
-			case "las":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_las_[losowe][0] + ".png";
+			case "pradawnyLas":{
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_pradawnyLas_[losowe][0] + ".png";
 				break;
 			}
 			case "gory":{
@@ -216,13 +217,13 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	let losowe = Math.floor(Math.random() * 3);
 	obraz(losowe, biom);
 	switch(biom){
-		case "las":{
-			nazwaPrzeciwnik = prze_las_[losowe][0];
-			opisPrzeciwnik = prze_las_[losowe][1];
-			zdrowiePrzeciwnik = prze_las_[losowe][2];
-			pancerzPrzeciwnik = prze_las_[losowe][3];
-			obrazeniaPrzeciwnik = prze_las_[losowe][4];
-			zakresPrzeciwnik = prze_las_[losowe][5];
+		case "pradawnyLas":{
+			nazwaPrzeciwnik = prze_pradawnyLas_[losowe][0];
+			opisPrzeciwnik = prze_pradawnyLas_[losowe][1];
+			zdrowiePrzeciwnik = prze_pradawnyLas_[losowe][2];
+			pancerzPrzeciwnik = prze_pradawnyLas_[losowe][3];
+			obrazeniaPrzeciwnik = prze_pradawnyLas_[losowe][4];
+			zakresPrzeciwnik = prze_pradawnyLas_[losowe][5];
 			break;
 		}
 		case "gory":
@@ -252,19 +253,41 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
 }
 
-	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
+	// Wybieranie ciosu
 function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
-		case "zwykly":{
+		case "pazury":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
 		}
-		case "potezny":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
-			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[1];
+		case "kly":{
+			przycisk = document.getElementById("kly");
+			if(przycisk.disabled == false){
+			obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+			szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
+			kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+			if(kalkulacja < 0){
+				kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+			}
+			zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+			if(walkaTrwa == true){ 
+				wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+				zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
+				document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
+				document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			}
+			przycisk.disabled = true;
+			przycisk.style.backgroundColor = "red";
+			setTimeout(function odblokujPrzycisk(){
+				przycisk.disabled = false; 
+				przycisk.style.backgroundColor = "";
+				}, 3000);
 			break;
+			} else { 
+			break;
+			}
 		}
 		case "szybki":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
@@ -277,7 +300,7 @@ function wybierzCios(nazwaCiosu){
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
-		case "Wieśniak":{
+		case "Grzybiarz":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
@@ -286,7 +309,7 @@ function loot(nazwaPrzeciwnik){
 			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
-		case "Traper":{
+		case "Pułapka":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
@@ -302,7 +325,7 @@ function loot(nazwaPrzeciwnik){
 				}
 			break;
 		}
-		case "Myśliwy":{
+		case "Młody myśliwy":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
@@ -582,7 +605,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		case "helm":{
 			przedmiot = window[src.lang];
 			if(slotHelm.hasChildNodes() == true){
-				pancerzHelm = przedmiot[2];
+				pancerzHelm = przedmiot[3];
 			} else {
 				pancerzHelm = 0;
 			}
@@ -591,7 +614,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		case "napiersnik":{
 			przedmiot = window[src.lang];
 			if(slotNapiersnik.hasChildNodes() == true){
-				pancerzNapiersnik = przedmiot[2]
+				pancerzNapiersnik = przedmiot[3]
 			} else {
 				pancerzNapiersnik = 0;
 			}
@@ -600,7 +623,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		case "spodnie":{
 			przedmiot = window[src.lang];
 			if(slotSpodnie.hasChildNodes() == true){
-				pancerzSpodnie = przedmiot[2];
+				pancerzSpodnie = przedmiot[3];
 			} else {
 				pancerzSpodnie = 0;
 			}
@@ -609,7 +632,7 @@ function sprawdzWyposazenie(rodzaj, src, str){
 		case "buty":{
 			przedmiot = window[src.lang];
 			if(slotButy.hasChildNodes() == true){
-				pancerzButy = przedmiot[2];
+				pancerzButy = przedmiot[3];
 			} else {
 				pancerzButy = 0;
 			}
@@ -700,4 +723,35 @@ function reset() {
 	localStorage.clear();
 	resetKlikniety = true;
 	location.reload();
+}
+
+document.onmouseover = function opis(id) {
+	if(id.target.lang != ""){
+		przedmiotOpis = window[id.target.lang];
+		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
+		document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
+		document.getElementById("opisRodzaj").innerHTML = przedmiotOpis[2];
+		document.getElementById("opisCena").innerHTML = przedmiotOpis[5];
+		document.getElementById("opisRodzajTekst").innerHTML = "Rodzaj:";
+		document.getElementById("opisWartosc").innerHTML = "Wartość:";
+		if(przedmiotOpis[2] == "Broń"){
+			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
+		} else if(przedmiotOpis[2] == "Hełm" || przedmiotOpis[2] == "Napierśnik" || przedmiotOpis[2] == "Spodnie" || przedmiotOpis[2] == "Buty"){
+			document.getElementById("opisTyp").innerHTML = "Pancerz:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+		} else { 
+		document.getElementById("opisTyp").innerHTML = "";
+		document.getElementById("opisStatystyka").innerHTML = "";
+		}
+	} else {
+		document.getElementById("opisPrzedmiot").innerHTML = "";
+		document.getElementById("opisOpis").innerHTML = "";
+		document.getElementById("opisRodzaj").innerHTML = "";
+		document.getElementById("opisRodzajTekst").innerHTML = "";
+		document.getElementById("opisWartosc").innerHTML = "";
+		document.getElementById("opisCena").innerHTML = "";
+		document.getElementById("opisTyp").innerHTML = "";
+		document.getElementById("opisStatystyka").innerHTML = "";
+	}
 }

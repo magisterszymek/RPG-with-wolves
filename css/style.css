@@ -113,6 +113,7 @@ button:hover {
 	position: absolute;
 	height: 95%;
 	width: 75%;
+	overflow: auto;
 }
 	
 .slot {
@@ -142,6 +143,19 @@ button:hover {
 
 .slot.over {
 	border: 5px dotted black;
+}
+
+.opisDiv {
+	position: relative;
+	border: solid black 2px;
+	padding: 1%;
+	margin: 0.5%;
+	background-color: #6edb9c;
+	height: 20%;
+	width: 24.5%;
+	top: 50%;
+	position: absolute;
+	color: ##2a3b2f;
 }
 
 .zakladkaMenu {
