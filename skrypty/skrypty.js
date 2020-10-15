@@ -17,11 +17,12 @@
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
-	var prze_las_ = [
-	["Wieśniak", "Musiał się zgubić.", 30, 2, 3, 2, 1],
-	["Traper", "Ustawił kolejne pułapki.", 50, 5, 3, 1, 2],
-	["Myśliwy", "Przygotowany na walkę.", 50, 2, 7, 2, 2]
+	var prze_pradawnyLas_ = [
+	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
+	["Pułapka", "Bardzo dobrze ukryta.", 50, 5, 1, 1, 1],
+	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
+	var prze_dolina = []
 	var prze_gory_ = [
 	["Krasnoludek", "Mały krasnal.", 30, 5, 3, 2, 1],
 	["Krasnal", "Mały krasnolud.", 50, 7, 5, 1, 2],
@@ -37,12 +38,12 @@
 		var pancerzButy = 0;
 		var pancerzKoncowy = 0;
 		var waluta = 20;
-		var zdrowieBazowe = 50;		// Zdrowie Bazowe
-		var zdrowieEkwipunek = 50;	// zdrowieBazowe + Zdrowie z ekwipunku
-		var zdrowieKoncowe = 50;	// zdrowieEkwipunek + Zdrowie z buffów
-		var obrazeniaBazowe = 10;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 10;// obrażeniaBazowe + Obrażenia z ekwipunku
-		var obrazeniaKoncowe = 10;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
+		var zdrowieBazowe = 20;		// Zdrowie Bazowe
+		var zdrowieEkwipunek = 20;	// zdrowieBazowe + Zdrowie z ekwipunku
+		var zdrowieKoncowe = 20;	// zdrowieEkwipunek + Zdrowie z buffów
+		var obrazeniaBazowe = 3;	// Obrażenia bazowe
+		var obrazeniaEkwipunek = 3;// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
 		var szybkoscBazowa = 1;	// Szybkość bazowa
 		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
 		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
@@ -67,9 +68,9 @@
 		var blokadaWalki = false;
 		var walkaTrwa = false;
 		var walkaKoniec = false;
-		var wybranyCios = "zwykly";
-		var mnoznikObrazenCiosu = [1, 1.25, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
-		var szybkoscCiosu = [1, 1, 2] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
+		var wybranyCios = "pazury";
+		var mnoznikObrazenCiosu = [1, 3, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
+		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
@@ -199,8 +200,8 @@ function obraz(losowe, biom) {
 	}
 	else {
 		switch(biom){
-			case "las":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_las_[losowe][0] + ".png";
+			case "pradawnyLas":{
+				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_pradawnyLas_[losowe][0] + ".png";
 				break;
 			}
 			case "gory":{
@@ -216,13 +217,13 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	let losowe = Math.floor(Math.random() * 3);
 	obraz(losowe, biom);
 	switch(biom){
-		case "las":{
-			nazwaPrzeciwnik = prze_las_[losowe][0];
-			opisPrzeciwnik = prze_las_[losowe][1];
-			zdrowiePrzeciwnik = prze_las_[losowe][2];
-			pancerzPrzeciwnik = prze_las_[losowe][3];
-			obrazeniaPrzeciwnik = prze_las_[losowe][4];
-			zakresPrzeciwnik = prze_las_[losowe][5];
+		case "pradawnyLas":{
+			nazwaPrzeciwnik = prze_pradawnyLas_[losowe][0];
+			opisPrzeciwnik = prze_pradawnyLas_[losowe][1];
+			zdrowiePrzeciwnik = prze_pradawnyLas_[losowe][2];
+			pancerzPrzeciwnik = prze_pradawnyLas_[losowe][3];
+			obrazeniaPrzeciwnik = prze_pradawnyLas_[losowe][4];
+			zakresPrzeciwnik = prze_pradawnyLas_[losowe][5];
 			break;
 		}
 		case "gory":
@@ -252,19 +253,41 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
 }
 
-	// Wybieranie ciosu ["zwykly", "potezny", "szybki"]
+	// Wybieranie ciosu
 function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
-		case "zwykly":{
+		case "pazury":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
 		}
-		case "potezny":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
-			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[1];
+		case "kly":{
+			przycisk = document.getElementById("kly");
+			if(przycisk.disabled == false){
+			obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+			szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
+			kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+			if(kalkulacja < 0){
+				kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+			}
+			zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+			if(walkaTrwa == true){ 
+				wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+				zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
+				document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
+				document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			}
+			przycisk.disabled = true;
+			przycisk.style.backgroundColor = "red";
+			setTimeout(function odblokujPrzycisk(){
+				przycisk.disabled = false; 
+				przycisk.style.backgroundColor = "";
+				}, 3000);
 			break;
+			} else { 
+			break;
+			}
 		}
 		case "szybki":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
@@ -277,7 +300,7 @@ function wybierzCios(nazwaCiosu){
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
-		case "Wieśniak":{
+		case "Grzybiarz":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
@@ -286,7 +309,7 @@ function loot(nazwaPrzeciwnik){
 			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 			break;
 		}
-		case "Traper":{
+		case "Pułapka":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
@@ -302,7 +325,7 @@ function loot(nazwaPrzeciwnik){
 				}
 			break;
 		}
-		case "Myśliwy":{
+		case "Młody myśliwy":{
 			if(blokadaGory == true){
 				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
 				wpiszTekst("odblokowanieLokacji", "Góry");
