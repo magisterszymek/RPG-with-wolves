@@ -14,15 +14,16 @@
 			
 	// Inne przedmioty ["nazwa", "opis", cena]
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3];
+		var prdm_2 = ["Kłoda", "Gotowe do 
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
-	["Kłoda", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [
-	["Kłoda", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
 	var prze_lesnaDroga3_ = [
@@ -315,7 +316,7 @@ function wybierzCios(nazwaCiosu){
 	// Wybieranie loot-u
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
-		case "Kłoda":{
+		case "Leżące drzewo":{
 			break;
 		}
 		case "Grzybiarz":{
@@ -715,13 +716,6 @@ function odczyt() {
 	} else {
 		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
-		
-				var blokadaPosterunekWilkow = true;
-		var blokadaZrujnowanyOboz = true;
-		var blokadaLesnaDroga2 = true;
-		var blokadaLesnaDroga3 = true;
-		var blokadaWiezaMaga = true;
-		var blokadaGrzybowePole = true;
 	}
 }
 function reset() {
