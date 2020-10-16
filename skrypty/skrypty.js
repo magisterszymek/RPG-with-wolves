@@ -655,7 +655,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaGory, blokadaDolina, blokadaMoczary];
+	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
@@ -702,14 +702,26 @@ function odczyt() {
 		szybkoscBazowa = statystykiArray[12];
 		szybkoscEkwipunek = statystykiArray[13];
 		szybkoscKoncowa = statystykiArray[14];
-		blokadaGory = statystykiArray[15];
-		blokadaDolina = statystykiArray[16];
-		blokadaMoczary = statystykiArray[17];
+		blokadaPosterunekWilkow = statystykiArray[15];
+		blokadaZrujnowanyOboz = statystykiArray[16];
+		blokadaLesnaDroga2 = statystykiArray[17];
+		blokadaLesnaDroga3 = statystykiArray[18];
+		blokadaWiezaMaga = statystykiArray[19];
+		blokadaGrzybowePole = statystykiArray[20];
+		blokadaDolina = statystykiArray[21];
+		blokadaMoczary = statystykiArray[22];
 		zdrowieKoncowe = zdrowieEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaGory, blokadaDolina, blokadaMoczary];
+		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+		
+				var blokadaPosterunekWilkow = true;
+		var blokadaZrujnowanyOboz = true;
+		var blokadaLesnaDroga2 = true;
+		var blokadaLesnaDroga3 = true;
+		var blokadaWiezaMaga = true;
+		var blokadaGrzybowePole = true;
 	}
 }
 function reset() {
