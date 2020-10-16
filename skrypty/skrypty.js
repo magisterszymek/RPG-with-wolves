@@ -22,19 +22,19 @@
 		var prdm_7 = ["Różowy grzyb", "Składnik", "Nieczęsto spotykany, o specyficznych magicznych właściwościach.", 10];
 		var prdm_8 = ["Przezroczysty grzyb", "Składnik", "Niezwykle rzadki. Jego właściwości nie są znane.", 30];
 		
-// Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
+// Przeciwnicy ["nazwa", "nazwa obrazka (bez spacji)", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
-	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [
-	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
-	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
 	var prze_lesnaDroga3_ = [
-	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
-	["Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
-	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
+	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
 	var prze_dolina = []
 	
@@ -236,21 +236,12 @@ function walka(typ){
 		}
 }
   
-function obraz(losowe, biom) {
+function obraz(losowe, nazwa) {
 	if (losowe == -1) {
 		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
 	}
 	else {
-		switch(biom){
-			case "pradawnyLas":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_pradawnyLas_[losowe][0] + ".png";
-				break;
-			}
-			case "gory":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_gory_[losowe][0] + ".png";
-				break;
-			}
-		}
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + nazwa + ".png";
 	}
 }
   
@@ -258,15 +249,16 @@ function obraz(losowe, biom) {
 function wybierzPrzeciwnika(biom, trudnosc){
 	max = window[biom + "Max"];
 	losowe = Math.floor(Math.random() * max);
-	obraz(losowe, biom);
 	biomTymczasowe = "prze_" + biom + "_";
 	biomNazwa = window[biomTymczasowe];
 	nazwaPrzeciwnik = biomNazwa[losowe][0];
-	opisPrzeciwnik = biomNazwa[losowe][1];
-	zdrowiePrzeciwnik = biomNazwa[losowe][2];
-	pancerzPrzeciwnik = biomNazwa[losowe][3];
-	obrazeniaPrzeciwnik = biomNazwa[losowe][4];
-	zakresPrzeciwnik = biomNazwa[losowe][5];
+	nazwaObrazekPrzeciwnik = biomNazwa[losowe][1];
+	opisPrzeciwnik = biomNazwa[losowe][2];
+	zdrowiePrzeciwnik = biomNazwa[losowe][3];
+	pancerzPrzeciwnik = biomNazwa[losowe][4];
+	obrazeniaPrzeciwnik = biomNazwa[losowe][5];
+	zakresPrzeciwnik = biomNazwa[losowe][6];
+	obraz(losowe, nazwaObrazekPrzeciwnik);
 	lokacjaId = biom;
 	odswiezZmienne("poczatekWalki");
 }
@@ -328,6 +320,11 @@ function loot(nazwaPrzeciwnik){
 		}
 		case "Grzybiarz":{
 			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
+			utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_Grzyb.png");
+			utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+			utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+			utworzPrzedmiot("prdm_7", "skladnik", "Obrazy/Przedmioty/Różowy_grzyb.png");
+			utworzPrzedmiot("prdm_8", "skladnik", "Obrazy/Przedmioty/Przezroczysty_grzyb.png");
 			break;
 		}
 		case "Pułapka":{
