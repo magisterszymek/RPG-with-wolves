@@ -275,31 +275,33 @@ function wybierzCios(nazwaCiosu){
 		}
 		case "kly":{
 			if(walkaTrwa == true){
-			przycisk = document.getElementById("kly");
-			if(przycisk.disabled == false){
-			obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
-			szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
-			kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
-			if(kalkulacja < 0){
-				kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
-			}
-			zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-			wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
-			if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
-			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
-			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-			przycisk.disabled = true;
-			przycisk.style.backgroundColor = "red";
-			setTimeout(function odblokujPrzycisk(){
-				przycisk.disabled = false; 
-				przycisk.style.backgroundColor = "";
-				}, 3000);
-			setTimeout(walka("specjalny"), 1);
-			}
-			break;
+				przycisk = document.getElementById("kly");
+				if(przycisk.disabled == false){
+					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
+					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+					if(kalkulacja < 0){
+					kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+					}
+					zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+					if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
+					document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
+					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+					przycisk.disabled = true;
+					przycisk.style.backgroundColor = "red";
+					setTimeout(function odblokujPrzycisk(){
+						if(przycisk.disabled == true){
+							przycisk.disabled = false; 
+						przycisk.style.backgroundColor = "";
+						}
+					}, 3000);
+					setTimeout(walka("specjalny"), 1);
+				}
+				break;
 			} else { 
-			break;
+		break;
 			}
 		}
 		case "szybki":{
