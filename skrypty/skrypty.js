@@ -13,9 +13,9 @@
 		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", "Buty", 1, 1, 10];
 			
 	// Inne przedmioty ["nazwa", "opis", cena]
-		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3];
-		var prdm_2 = ["Kłoda", "Gotowe do rąbania", 1];
-		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
+		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", "Przedmiot" 3];
+		var prdm_2 = ["Kłoda", "Gotowe do rąbania", "Przedmiot", 1];
+		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
