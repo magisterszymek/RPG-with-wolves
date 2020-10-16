@@ -717,7 +717,7 @@ function reset() {
 }
 
 document.onmouseover = function opis(id) {
-	if(id.target.lang != "" && id.target.alt != "" && id.target.draggable == "true"){
+	if(id.target.lang != "" && id.target.alt != "" && id.target.draggable == true){
 		przedmiotOpis = window[id.target.lang];
 		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
 		document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
