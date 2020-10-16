@@ -14,7 +14,7 @@
 			
 	// Inne przedmioty ["nazwa", "opis", cena]
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", 3];
-		var prdm_2 = ["Kłoda", "Gotowe do 
+		var prdm_2 = ["Kłoda", "Gotowe do rąbania", 1];
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", 5];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
@@ -317,6 +317,7 @@ function wybierzCios(nazwaCiosu){
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
 		case "Leżące drzewo":{
+			utworzPrzedmiot("prdm_2", "crafting", "Obrazy/Przedmioty/Kłoda.png");
 			break;
 		}
 		case "Grzybiarz":{
