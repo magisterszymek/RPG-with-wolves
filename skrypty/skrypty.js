@@ -16,6 +16,11 @@
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", "Przedmiot", 3];
 		var prdm_2 = ["Kłoda", "Gotowe do rąbania", "Przedmiot", 1];
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
+		var prdm_4 = ["Zielony grzyb", "Składnik", "Bardzo sycący.", 3];
+		var prdm_5 = ["Czerwony grzyb", "Składnik", "Trujący dla ludzi, zdrowy dla wilków.", 3];
+		var prdm_6 = ["Niebieski grzyb", "Składnik", "Duszący i niezbyt jadalny.", 5];
+		var prdm_7 = ["Różowy grzyb", "Składnik", "Nieczęsto spotykany, o specyficznych magicznych właściwościach.", 10];
+		var prdm_8 = ["Przezroczysty grzyb", "Składnik", "Niezwykle rzadki. Jego właściwości nie są znane.", 30];
 		
 // Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
