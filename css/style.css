@@ -324,20 +324,24 @@ button:hover {
 	background:#38ab5b;
 }
 .menu{
+	padding-top:5%;
 	height:100%;
 	width:20%;
 	margin:auto;
 }
 .przyciskMenu {
-	display:block;
+	display: block;
 	width: 50%;
-	height: 8%;
+	height: 9%;
 	cursor: pointer;
 	text-align: center;
 	color: white;
 	background-color: #82b74b;
 	border: none;
 	margin: auto;
+}
+.menu button:not(:last-child) {
+	margin-bottom: 2%;
 }
 .przyciskMenu:hover {
 	/*Efekt po najechaniu na przycisk ataku*/
