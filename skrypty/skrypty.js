@@ -742,7 +742,7 @@ document.onmouseover = function opis(id) {
 			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
 		} else { 
 		document.getElementById("opisTyp").innerHTML = "";
-		document.getElementById("opisStatystyka").innerHTML = "";
+		document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
 		}
 	} else {
 		document.getElementById("opisPrzedmiot").innerHTML = "";
