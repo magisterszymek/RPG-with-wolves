@@ -281,7 +281,7 @@ function wybierzCios(nazwaCiosu){
 				if(przycisk.disabled == false){
 					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
 					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
-					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 					if(kalkulacja < 0){
 					kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 					}
@@ -293,9 +293,9 @@ function wybierzCios(nazwaCiosu){
 					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 					przycisk.disabled = true;
 					przycisk.style.backgroundColor = "red";
-					setTimeout(function odblokujPrzycisk(){
-						if(przycisk.disabled == true){
-							przycisk.disabled = false; 
+					odliczanieKly = setTimeout(function odblokujPrzyciskKly(){
+						if(przycisk.disabled == true && walkaTrwa == true){
+						przycisk.disabled = false; 
 						przycisk.style.backgroundColor = "";
 						}
 					}, 3000);
@@ -337,11 +337,6 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 		case "Młody myśliwy":{
-			if(blokadaGory == true){
-				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
-				wpiszTekst("odblokowanieLokacji", "Góry");
-				blokadaGory = false;
-			}
 			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
@@ -746,7 +741,7 @@ document.onmouseover = function opis(id) {
 			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
 		} else { 
 		document.getElementById("opisTyp").innerHTML = "";
-		document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
+		document.getElementById("opisCena").innerHTML = przedmiotOpis[3];
 		}
 	} else {
 		document.getElementById("opisPrzedmiot").innerHTML = "";
@@ -795,6 +790,7 @@ function odswiezZmienne(rodzaj){
 		if(document.getElementById("kly").disabled == true){
 			document.getElementById("kly").disabled = false;
 			document.getElementById("kly").style.backgroundColor = "";
+			clearTimeout(odliczanieKly);
 		}
 	} else if(rodzaj == "zapis"){
 		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
