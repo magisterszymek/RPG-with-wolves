@@ -336,11 +336,6 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 		case "Młody myśliwy":{
-			if(blokadaGory == true){
-				document.getElementsByClassName("przyciskGory")[0].style.display = "inline";
-				wpiszTekst("odblokowanieLokacji", "Góry");
-				blokadaGory = false;
-			}
 			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
