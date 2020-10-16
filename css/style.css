@@ -119,7 +119,7 @@ button:hover {
 .slot {
 	border: 1px solid black;
 	background-color: #ddd;
-	padding: 0.5%;
+	padding: 0.3%;
 	height: 10.5%;
 	width: 6.15%;
 	cursor: move;
