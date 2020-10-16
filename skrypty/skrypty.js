@@ -184,6 +184,7 @@ function walka(typ){
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
 		odswiezZmienne("walka");
 		} else {};
+		kalkulacja = 0;
 	}
 		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
 			if(zdrowieKoncowe <= 0){
@@ -226,7 +227,6 @@ function walka(typ){
 			odswiezZmienne("koniecWalki");
 			clearInterval(interval);
 		}
-		kalkulacja = 0;
 }
   
 function obraz(losowe, biom) {
