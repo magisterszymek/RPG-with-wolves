@@ -20,6 +20,7 @@
 			<div class="gracz noselect">
 				<div class="nick"><span id="nick">&nbsp;</span></div>
 				<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe"> </span>/<span id="maksymalneZdrowie"> </span></div><div class="zdrowieKoncowe"></div></div>
+				<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe"> </span>/<span id="maksymalneZdrowie"> </span></div><div class="kondycja"></div></div>
 				<div class="nick">Pancerz: <span id="pancerzKoncowy">&nbsp;</span></div>
 				<div class="ataki">
 					<button class="przyciskAtaku" onclick="wybierzCios('pazury')" id="pazury">Atak pazurami</button>
@@ -30,7 +31,7 @@
 			</div>
 			<div class="przeciwnik noselect">
 				<div class="nick"><span id="nazwaPrzeciwnika">Brak przeciwnika</span></div>
-				<div class="tloHp"><div class="napisHp"><span id="zdrowiePrzeciwnik"> </span>/<span id="maksymalneZdrowiePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik"></div></div>
+				<div class="tloHpPrzeciwnika"><div class="napisHpPrzeciwnika"><span id="zdrowiePrzeciwnik"> </span>/<span id="maksymalneZdrowiePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik"></div></div>
 				<div class="nick">Pancerz: <span id="pancerzPrzeciwnik">&nbsp;</span></div>
 				<div class="ataki">
 					<img id="obrazPrzeciwnik" alt="przeciwnik" class="nodrag" src="Obrazy/Inne/pustka.png" />
@@ -43,7 +44,7 @@
 			</div>
 		</div>
 		<div class="mapa">
-			<button class="przyciskLas" onclick="lokacja('pradawnyLas')" id="las" >Las</button>
+			<button class="przyciskLas" onclick="lokacja('pradawnyLas')" id="las">Las</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 16%; right: 8%; background-color: #a35c2a; border: solid black 1px; display: none;" id="obozWilkow" onclick="lokacja('obozWilkow')">Obóz wilków</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 14%; right: 15%; background-color: #38c95f; border: solid black 1px; display: none;" id="lesnaDroga1" onclick="lokacja('lesnaDroga1')">Leśna droga [1]</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 24%; right: 14.5%; background-color: #a35c2a; border: solid black 1px; display: none;" id="posterunekWilkow" onclick="lokacja('posterunekWilkow')">Posterunek wilków</button>
@@ -61,16 +62,16 @@
 	<div id="zakladkaEkwipunek" class="zakladkaEkwipunek zakladka">
 		<!-- zakładka dwa-->
 		<div class="wyposazenie">
-		<div class="slotWyposazenie" id="slotHelm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-		<div class="slotWyposazenie" id="slotNapiersnik" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-		<div class="slotWyposazenie" id="slotSpodnie" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
-		<div class="slotWyposazenie" id="slotButy" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			<div class="slotWyposazenie" id="slotHelm" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			<div class="slotWyposazenie" id="slotNapiersnik" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			<div class="slotWyposazenie" id="slotSpodnie" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+			<div class="slotWyposazenie" id="slotButy" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
 		</div>
 		<div id="opisDiv" class="opisDiv">
-			<span id="opisPrzedmiot"> </span><br/><br/>
-			<i><span id="opisOpis"> </span><br/><br/></i>
-			<span id="opisRodzajTekst"> </span> <span id="opisRodzaj"> </span><br/><br/>
-			<span id="opisTyp"> </span> <span id="opisStatystyka"> </span><br/>
+			<span id="opisPrzedmiot"> </span><br /><br />
+			<i><span id="opisOpis"> </span><br /><br /></i>
+			<span id="opisRodzajTekst"> </span> <span id="opisRodzaj"> </span><br /><br />
+			<span id="opisTyp"> </span> <span id="opisStatystyka"> </span><br />
 			<span id="opisWartosc"> </span> <span id="opisCena"> </span>
 		</div>
 		<div class="glownyEkwipunek">
@@ -259,6 +260,13 @@
 	<div id="zakladkaUstawienia" class="zakladkaUstawienia zakladka">
 		<!-- zakładka cztery-->
 		<!-- zakładka cztery-->
+	</div>
+	<div class="wyborNicku">
+		<div class="test">
+			<img src="Obrazy/Inne/logo.png" />
+			<input id="wpiszNick" type="text" class="wpiszNick" placeholder="Proszę podać nick" required>
+			<div style="height:25%; width:70%; margin:auto;"><button class="przyciskNick" onclick="getNick('klik')">Zacznij grę</button></div>
+		</div>
 	</div>
 </body>
 </html>

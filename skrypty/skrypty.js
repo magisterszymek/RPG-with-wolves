@@ -41,6 +41,7 @@
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";
+		var nickWpisano=false;
 		var pancerzHelm = 0;
 		var pancerzNapiersnik = 0;
 		var pancerzSpodnie = 0;
@@ -533,6 +534,9 @@ function zapamietajZakladke(bool) {
 		}
 	}
 	else {
+		odczyt();
+		getNick();
+		console.log(nickWpisano);
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -541,7 +545,6 @@ function zapamietajZakladke(bool) {
 			localStorage.setItem("zakladka", 0);
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
 		}
-		odczyt();
 		odswiezZmienne("zapis");
     }
 }
@@ -657,7 +660,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
@@ -690,32 +693,33 @@ function odczyt() {
 	if (localStorage.getItem("Statystyki") !== null) {
 		statystykiArray = JSON.parse(localStorage.getItem("Statystyki"));
 		nick = statystykiArray[0];
-		pancerzHelm = statystykiArray[1];
-		pancerzNapiersnik = statystykiArray[2];
-		pancerzSpodnie = statystykiArray[3];
-		pancerzButy = statystykiArray[4];
-		pancerzKoncowy = statystykiArray[5];
-		zdrowieBazowe = statystykiArray[6];
-		zdrowieEkwipunek = statystykiArray[7];
-		zdrowieKoncowe = statystykiArray[8];
-		obrazeniaBazowe = statystykiArray[9];
-		obrazeniaEkwipunek = statystykiArray[10];
-		obrazeniaKoncowe = statystykiArray[11];
-		szybkoscBazowa = statystykiArray[12];
-		szybkoscEkwipunek = statystykiArray[13];
-		szybkoscKoncowa = statystykiArray[14];
-		blokadaPosterunekWilkow = statystykiArray[15];
-		blokadaZrujnowanyOboz = statystykiArray[16];
-		blokadaLesnaDroga2 = statystykiArray[17];
-		blokadaLesnaDroga3 = statystykiArray[18];
-		blokadaWiezaMaga = statystykiArray[19];
-		blokadaGrzybowePole = statystykiArray[20];
-		blokadaDolina = statystykiArray[21];
-		blokadaMoczary = statystykiArray[22];
+		nickWpisano = statystykiArray[1];
+		pancerzHelm = statystykiArray[2];
+		pancerzNapiersnik = statystykiArray[3];
+		pancerzSpodnie = statystykiArray[4];
+		pancerzButy = statystykiArray[5];
+		pancerzKoncowy = statystykiArray[6];
+		zdrowieBazowe = statystykiArray[7];
+		zdrowieEkwipunek = statystykiArray[8];
+		zdrowieKoncowe = statystykiArray[9];
+		obrazeniaBazowe = statystykiArray[10];
+		obrazeniaEkwipunek = statystykiArray[11];
+		obrazeniaKoncowe = statystykiArray[12];
+		szybkoscBazowa = statystykiArray[13];
+		szybkoscEkwipunek = statystykiArray[14];
+		szybkoscKoncowa = statystykiArray[15];
+		blokadaPosterunekWilkow = statystykiArray[16];
+		blokadaZrujnowanyOboz = statystykiArray[17];
+		blokadaLesnaDroga2 = statystykiArray[18];
+		blokadaLesnaDroga3 = statystykiArray[19];
+		blokadaWiezaMaga = statystykiArray[20];
+		blokadaGrzybowePole = statystykiArray[21];
+		blokadaDolina = statystykiArray[22];
+		blokadaMoczary = statystykiArray[23];
 		zdrowieKoncowe = zdrowieEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
@@ -879,4 +883,15 @@ function lokacja(lokacja){
 			break;
 		}
 	}
+}
+function getNick(zmienna) {
+	if (nickWpisano == true) {
+		document.getElementsByClassName("wyborNicku")[0].style.visibility = "hidden";
+	}
+	else if (nickWpisano == false && zmienna == "klik") {
+		nick = document.getElementById("wpiszNick").value;
+		document.getElementsByClassName("wyborNicku")[0].style.visibility = "hidden";
+		nickWpisano = true;
+		zapis();
+    }
 }
