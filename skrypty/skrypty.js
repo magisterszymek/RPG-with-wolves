@@ -320,7 +320,7 @@ function loot(nazwaPrzeciwnik){
 		}
 		case "Grzybiarz":{
 			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
-			utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_Grzyb.png");
+			utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
 			utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
 			utworzPrzedmiot("prdm_7", "skladnik", "Obrazy/Przedmioty/Różowy_grzyb.png");
