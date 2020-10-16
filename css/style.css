@@ -156,6 +156,7 @@ button:hover {
 	top: 50%;
 	position: absolute;
 	color: #2a3b2f;
+	font-size: 0.83vw;
 }
 
 .zakladkaMenu {
