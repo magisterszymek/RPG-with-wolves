@@ -11,6 +11,11 @@
 		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 3, 1, 25];
 		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", "Spodnie", 2, 1, 17];						
 		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", "Buty", 1, 1, 10];
+		
+		//utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
+		//utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
+		//utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+		//utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			
 	// Inne przedmioty ["nazwa", "opis", "rodzaj", cena]
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", "Przedmiot", 3];
@@ -32,21 +37,23 @@
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
 	var prze_lesnaDroga3_ = [
-	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
+	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
+	var prze_grzybowePole_ = [
+	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów", 20, 2, 1, 2, 1],
+	["Doświadczony grzybiarz", "Doświadczony_grzybiarz", "Ma dwa koszyki pełne grzybów", 20, 3, 2, 2, 1],
+	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
+	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
+	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
+	];
 	var prze_dolina = []
-	
-// Maksymalna ilość przeciwników w array'u
-	var lesnaDroga1Max = 1;
-	var lesnaDroga2Max = 2;
-	var lesnaDroga3Max = 3;
 		
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";
-		var nickWpisano=false;
+		var nickWpisano = false;
 		var pancerzHelm = 0;
 		var pancerzNapiersnik = 0;
 		var pancerzSpodnie = 0;
@@ -228,6 +235,12 @@ function walka(typ){
 						}
 						break;
 					}
+					case "lesnaDroga3":{
+						if(blokadaDolina == true && nazwaPrzeciwnik == "Młody myśliwy"){
+							wpiszTekst("odblokowanieLokacji", "Dolina")
+							blokadaDolina = false;
+						}
+					}
 				}
 			}
 			obraz(-1);
@@ -247,8 +260,45 @@ function obraz(losowe, nazwa) {
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
-	max = window[biom + "Max"];
-	losowe = Math.floor(Math.random() * max);
+	losowe = Math.floor(Math.random() * 1000) + 1;
+		switch(biom){
+			case "lesnaDroga1":{
+				losowe = 0;
+				break;
+			}
+			case "lesnaDroga2":{
+				if(losowe <= 800){
+					losowe = 0;
+				} else {
+					losowe = 1
+				}
+				break;
+			}
+			case "lesnaDroga3":{
+				if(losowe <= 400){
+					losowe = 0;
+				} else if(losowe > 400 && losowe <= 600){
+					losowe = 1;
+				} else {
+					losowe = 2;
+				}
+				break;
+			}
+			case "grzybowePole":{
+				if(losowe <= 600){
+					losowe = 0;
+				} else if(losowe > 600 && losowe <= 800){
+					losowe = 1;
+				} else if(losowe > 800 && losowe <= 900){
+					losowe = 2;
+				} else if(losowe > 900 && losowe <= 950){
+					losowe = 3;
+				} else {
+					losowe = 4;
+				}
+				break;
+			}
+		}
 	biomTymczasowe = "prze_" + biom + "_";
 	biomNazwa = window[biomTymczasowe];
 	nazwaPrzeciwnik = biomNazwa[losowe][0];
@@ -319,27 +369,39 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 		case "Grzybiarz":{
-			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
-			utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
-			utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
-			utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
-			utworzPrzedmiot("prdm_7", "skladnik", "Obrazy/Przedmioty/Różowy_grzyb.png");
-			utworzPrzedmiot("prdm_8", "skladnik", "Obrazy/Przedmioty/Przezroczysty_grzyb.png");
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){ 
+				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){
+				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){
+				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+			}
+			break;
+		}
+		case "Doświadczony grzybiarz":{
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){ 
+				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){
+				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){
+				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+			}
 			break;
 		}
 		case "Pułapka":{
-			losowe = Math.floor(Math.random() * 10) + 1;
-				if(losowe <= 4){ 
-					break;
-				} else if(losowe >= 5 && losowe <= 7){
-					utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
-				} else if(losowe >= 8 && losowe <= 10){
-					utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
-				}
 			break;
 		}
 		case "Młody myśliwy":{
-			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
 	}
@@ -827,6 +889,7 @@ function lokacja(lokacja){
 	switch(lokacja){
 		case "pradawnyLas":{
 			las.style.display = "none";
+			dolina.style.display = "none";
 			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
 			obozWilkow.style.display = "inline";
 			lesnaDroga1.style.display = "inline";
@@ -860,6 +923,7 @@ function lokacja(lokacja){
 			break;
 		}
 		case "grzybowePole":{
+			rozpocznijWalke("grzybowePole", 1);
 			break;
 		}
 		case "lesnaDroga3":{
@@ -868,6 +932,7 @@ function lokacja(lokacja){
 		}
 		case "cofnij":{
 			las.style.display = "inline";
+			dolina.style.display = "inline";
 			mapa.src = "Obrazy/Mapa/Mapa.png";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
