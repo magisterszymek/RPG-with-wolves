@@ -302,15 +302,6 @@ button:hover {
 	-ms-user-select: none;
 }
 
-.przyciskLas {
-	position: absolute;
-	top: 22%;
-	right: 11%;
-	background-color: #38c95f;
-	border: solid black 1px;
-	font-size: 0.7vw;
-}
-
 .przyciskGory {
 	position: absolute;
 	top: 22%;
