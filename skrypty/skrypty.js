@@ -46,11 +46,15 @@
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
 	];
 	var prze_grzybowePole_ = [
-	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów", 20, 2, 1, 2, 1],
+	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 1, 2, 1],
 	["Doświadczony grzybiarz", "Doświadczony_grzybiarz", "Ma dwa koszyki pełne grzybów", 20, 3, 2, 2, 1],
 	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
 	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
 	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
+	];
+	var prze_wiezaMaga_ = [
+	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
+	["null"]
 	];
 	var prze_dolina = []
 		
@@ -67,12 +71,16 @@
 		var zdrowieBazowe = 20;		// Zdrowie Bazowe
 		var zdrowieEkwipunek = 20;	// zdrowieBazowe + Zdrowie z ekwipunku
 		var zdrowieKoncowe = 20;	// zdrowieEkwipunek + Zdrowie z buffów
+		var kondycjaBazowa = 10;
+		var kondycjaEkwipunek = 10;
+		var kondycjaKoncowa = 10;
+		var kondycjaRegeneracja = 1;
 		var obrazeniaBazowe = 3;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 3;// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaEkwipunek = 3;	// obrażeniaBazowe + Obrażenia z ekwipunku
 		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
-		var szybkoscBazowa = 1;	// Szybkość bazowa
+		var szybkoscBazowa = 1;		// Szybkość bazowa
 		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
-		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
+		var szybkoscKoncowa	= 1;	// szybkoscEkwipunek + Szybkość z wybranego ciosu
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = "Brak przeciwnika";
@@ -101,8 +109,8 @@
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
-		var maksymalneZdrowie = zdrowieKoncowe;
-		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+		var zdrowieMaksymalne = zdrowieKoncowe;
+		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
 		
 	// Textbox
 		var id = 1;
@@ -173,6 +181,7 @@ function rozpocznijWalke(biom, trudnosc){
 		blokadaWalki = true;
 		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
+		interval2 = setInterval(kondycjaLiczenie, 1000);
 	}
 }
 
@@ -202,9 +211,11 @@ function walka(typ){
 			wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
 		// Koniec tury przeciwnika
 		
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+		zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100;
+		kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 		odswiezZmienne("walka");
+		odswiezZmienne("sprawdzUmiejetnosci");
 		} else {};
 		kalkulacja = 0;
 	}
@@ -265,6 +276,7 @@ function walka(typ){
 			obraz(-1);
 			odswiezZmienne("koniecWalki");
 			clearInterval(interval);
+			clearInterval(interval2);
 		}
 }
   
@@ -321,6 +333,10 @@ function wybierzPrzeciwnika(biom, trudnosc){
 				}
 				break;
 			}
+			case "wiezaMaga":{
+				losowe = 0;
+				break;
+			}
 		}
 	biomTymczasowe = "prze_" + biom + "_";
 	biomNazwa = window[biomTymczasowe];
@@ -346,9 +362,11 @@ function wybierzCios(nazwaCiosu){
 			break;
 		}
 		case "kly":{
-			if(walkaTrwa == true){
+			if(walkaTrwa == true && kondycjaKoncowa >= 7){
 				przycisk = document.getElementById("kly");
 				if(przycisk.disabled == false){
+					kondycjaKoncowa -= 7;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
 					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
 					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
@@ -358,8 +376,10 @@ function wybierzCios(nazwaCiosu){
 					zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 					if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
-					document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
+					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+					document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
 					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 					przycisk.disabled = true;
 					przycisk.style.backgroundColor = "red";
@@ -367,9 +387,11 @@ function wybierzCios(nazwaCiosu){
 						if(przycisk.disabled == true && walkaTrwa == true){
 						przycisk.disabled = false; 
 						przycisk.style.backgroundColor = "";
+						odswiezZmienne("sprawdzUmiejetnosci");
 						}
 					}, 3000);
 					setTimeout(walka("specjalny"), 1);
+					odswiezZmienne("sprawdzUmiejetnosci");
 				}
 				break;
 			} else { 
@@ -629,7 +651,6 @@ function zapamietajZakladke(bool) {
 	else {
 		odczyt();
 		getNick();
-		console.log(nickWpisano);
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -753,7 +774,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
@@ -795,27 +816,30 @@ function odczyt() {
 		zdrowieBazowe = statystykiArray[7];
 		zdrowieEkwipunek = statystykiArray[8];
 		zdrowieKoncowe = statystykiArray[9];
-		obrazeniaBazowe = statystykiArray[10];
-		obrazeniaEkwipunek = statystykiArray[11];
-		obrazeniaKoncowe = statystykiArray[12];
-		szybkoscBazowa = statystykiArray[13];
-		szybkoscEkwipunek = statystykiArray[14];
-		szybkoscKoncowa = statystykiArray[15];
-		blokadaPosterunekWilkow = statystykiArray[16];
-		blokadaZrujnowanyOboz = statystykiArray[17];
-		blokadaLesnaDroga2 = statystykiArray[18];
-		blokadaZniszczonaDroga = statystykiArray[19];
-		blokadaGrota = statystykiArray[20];
-		blokadaLesnaDroga3 = statystykiArray[21];
-		blokadaWiezaMaga = statystykiArray[22];
-		blokadaGrzybowePole = statystykiArray[23];
-		blokadaDolina = statystykiArray[24];
-		blokadaMoczary = statystykiArray[25];
-		bossZrujnowanyOboz = statystykiArray[26];
+		kondycjaBazowa = statystykiArray[10];
+		kondycjaEkwipunek = statystykiArray[11];
+		kondycjaKoncowa = statystykiArray[12];
+		obrazeniaBazowe = statystykiArray[13];
+		obrazeniaEkwipunek = statystykiArray[14];
+		obrazeniaKoncowe = statystykiArray[15];
+		szybkoscBazowa = statystykiArray[16];
+		szybkoscEkwipunek = statystykiArray[17];
+		szybkoscKoncowa = statystykiArray[18];
+		blokadaPosterunekWilkow = statystykiArray[19];
+		blokadaZrujnowanyOboz = statystykiArray[20];
+		blokadaLesnaDroga2 = statystykiArray[21];
+		blokadaZniszczonaDroga = statystykiArray[22];
+		blokadaGrota = statystykiArray[23];
+		blokadaLesnaDroga3 = statystykiArray[24];
+		blokadaWiezaMaga = statystykiArray[25];
+		blokadaGrzybowePole = statystykiArray[26];
+		blokadaDolina = statystykiArray[27];
+		blokadaMoczary = statystykiArray[28];
+		bossZrujnowanyOboz = statystykiArray[29];
 		zdrowieKoncowe = zdrowieEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
@@ -858,67 +882,94 @@ document.onmouseover = function opis(id) {
 
 	// Funkcja służąca do odświeżania czy zapisywania zmiennych, aby uniknąć spaghetti w kodzie
 function odswiezZmienne(rodzaj){
-	if(rodzaj == "walka"){
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	} else if(rodzaj == "koniecWalki"){
-		walkaKoniec = true;
-		walkaTrwa = false;
-		blokadaWalki = false;
-		nazwaPrzeciwnik = "Brak przeciwnika";
-		opisPrzeciwnik = "";
-		zdrowieKoncowe = tymczasoweZdrowie;
-		tymczasoweZdrowie = 0;
-		maksymalneZdrowiePrzeciwnik = 0;
-		zdrowiePrzeciwnik = 0;
-		pancerzPrzeciwnik = 0;
-		obrazeniaPrzeciwnik = 0;
-		zakresPrzeciwnik = 0;
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
-		if(document.getElementById("kly").disabled == true){
-			document.getElementById("kly").disabled = false;
-			document.getElementById("kly").style.backgroundColor = "";
-			clearTimeout(odliczanieKly);
+	switch(rodzaj){
+		case "walka":{
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%"
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		break;
 		}
-	} else if(rodzaj == "zapis"){
-		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-		maksymalneZdrowie = zdrowieKoncowe;
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-	} else if(rodzaj =="poczatekWalki"){
-		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-		maksymalneZdrowie = zdrowieKoncowe;
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+		case "koniecWalki":{
+			walkaKoniec = true;
+			walkaTrwa = false;
+			blokadaWalki = false;
+			nazwaPrzeciwnik = "Brak przeciwnika";
+			opisPrzeciwnik = "";
+			zdrowieKoncowe = tymczasoweZdrowie;
+			kondycjaKoncowa = kondycjaEkwipunek;
+			tymczasoweZdrowie = 0;
+			zdrowieMaksymalnePrzeciwnik = 0;
+			zdrowiePrzeciwnik = 0;
+			pancerzPrzeciwnik = 0;
+			obrazeniaPrzeciwnik = 0;
+			zakresPrzeciwnik = 0;
+			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
+			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
+			if(document.getElementById("kly").disabled == true){
+				document.getElementById("kly").disabled = false;
+				document.getElementById("kly").style.backgroundColor = "";
+				clearTimeout(odliczanieKly);
+			}
+			break;
+		}
+		case "zapis":{
+			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
+			zdrowieMaksymalne = zdrowieKoncowe;
+			kondycjaMaksymalna = kondycjaKoncowa;
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			break;
+		}
+		case "poczatekWalki":{
+			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
+			zdrowieMaksymalne = zdrowieKoncowe;
+			kondycjaMaksymalna = kondycjaKoncowa;
+			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
+			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%"
+			break;
+		}
+		case "sprawdzUmiejetnosci":{
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; }
+		}
 	}
 }
 
@@ -977,6 +1028,7 @@ function lokacja(lokacja){
 			break;
 		}
 		case "wiezaMaga":{
+			rozpocznijWalke("wiezaMaga", 1);
 			break;
 		}
 		case "grzybowePole":{
@@ -1016,4 +1068,10 @@ function getNick(zmienna) {
 		nickWpisano = true;
 		zapis();
     }
+}
+
+function kondycjaLiczenie(){
+	if(kondycjaKoncowa < kondycjaEkwipunek){
+	kondycjaKoncowa += kondycjaRegeneracja;
+	}
 }
