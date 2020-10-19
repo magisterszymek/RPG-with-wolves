@@ -36,6 +36,10 @@
 	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
+	var prze_zrujnowanyOboz_ = [
+	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 3, 2, 2, 1],
+	["null"]
+	];
 	var prze_lesnaDroga3_ = [
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
@@ -111,6 +115,8 @@
 		var blokadaPosterunekWilkow = true;
 		var blokadaZrujnowanyOboz = true;
 		var blokadaLesnaDroga2 = true;
+		var blokadaZniszczonaDroga = true;
+		var blokadaGrota = true;
 		var blokadaLesnaDroga3 = true;
 		var blokadaWiezaMaga = true;
 		var blokadaGrzybowePole = true;
@@ -118,6 +124,8 @@
 		var blokadaDolina = true;
 		var blokadaMoczary = true;
 		var resetKlikniety = false;
+		
+		var bossZrujnowanyOboz = false;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -222,16 +230,27 @@ function walka(typ){
 						break;
 					}
 					case "lesnaDroga2":{
-						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
-							wpiszTekst("odblokowanieLokacji", "Wieża maga")
-							wpiszTekst("odblokowanieLokacji", "Grzybowe pole")
-							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]")
+						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaZniszczonaDroga == true && blokadaLesnaDroga3 == true){
+							wpiszTekst("odblokowanieLokacji", "Wieża maga");
+							wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
+							wpiszTekst("odblokowanieLokacji", "Zniszczona droga");
+							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
 							blokadaWiezaMaga = false;
 							blokadaGrzybowePole = false;
+							blokadaZniszczonaDroga = false;
 							blokadaLesnaDroga3 = false;
 							wiezaMaga.style.display = "inline";
 							grzybowePole.style.display = "inline";
+							zniszczonaDroga.style.display = "inline";
 							lesnaDroga3.style.display = "inline";
+						}
+						break;
+					}
+					case "zniszczonaDroga":{
+						if(blokadaGrota == true){
+							wpiszTekst("odblokowanieLokacji", "Grota");
+							blokadaGrota = false;
+							grota.style.display = "inline";
 						}
 						break;
 					}
@@ -272,6 +291,10 @@ function wybierzPrzeciwnika(biom, trudnosc){
 				} else {
 					losowe = 1
 				}
+				break;
+			}
+			case "zrujnowanyOboz":{
+				losowe = 0;
 				break;
 			}
 			case "lesnaDroga3":{
@@ -383,6 +406,12 @@ function loot(nazwaPrzeciwnik){
 			}
 			break;
 		}
+		case "Szczurzy strażnik":{
+			wpiszTekst("bossZrujnowanyObozKoniec");
+			wpiszTekst("odblokowanieLokacji", "Zrujnowany obóz");
+			bossZrujnowanyOboz = true;
+			break;
+		}
 		case "Doświadczony grzybiarz":{
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){ 
@@ -417,12 +446,12 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			if(postacDruga == nick){
 				var tekst = " " + postacPierwsza + " " + "zadał" + " " + "Ci" + " "+ liczba + " " + "obrażeń!"; // Jeśli przeciwnik zadał obrażenia
 			} else if(postacPierwsza == nick){
-				var tekst = " " + "Zadałeś/aś" + " " + "przeciwnikowi" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				var tekst = " " + "Zadałeś" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
 			}
 			break;
 		}
 		case "walkaPoczatek":{
-			var tekst = " " + "Zaatakował Cię" + " " + postacPierwsza + "!";
+			var tekst = " " + "Zostałeś zaatakowany przez" + " " + postacPierwsza + "!";
 			pasek.style.color = "#d10e00";
 			break;
 		}
@@ -445,6 +474,11 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "item":{
 			var tekst = " " + "Otrzymałeś przedmiot:" + " " + postacPierwsza + "!"
+			break;
+		}
+		case "bossZrujnowanyObozKoniec":{
+			var tekst = " " + "'Nie spodziewałem się, że będziesz taki silny! Wpuszczę Cię do obozu. Wiedz jednak, że w nim agresja nie będzie tolerowana.'";
+			break;
 		}
 	}
 	var pasekTekst = document.createTextNode(tekst);
@@ -457,7 +491,7 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		pasek.style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		pasek.style.color = "#d10e00";
-	} else if(rodzaj == "item"){
+	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec"){
 		pasek.style.color = "#3c62c7";
 	}
 }
@@ -719,7 +753,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
@@ -770,15 +804,18 @@ function odczyt() {
 		blokadaPosterunekWilkow = statystykiArray[16];
 		blokadaZrujnowanyOboz = statystykiArray[17];
 		blokadaLesnaDroga2 = statystykiArray[18];
-		blokadaLesnaDroga3 = statystykiArray[19];
-		blokadaWiezaMaga = statystykiArray[20];
-		blokadaGrzybowePole = statystykiArray[21];
-		blokadaDolina = statystykiArray[22];
-		blokadaMoczary = statystykiArray[23];
+		blokadaZniszczonaDroga = statystykiArray[19];
+		blokadaGrota = statystykiArray[20];
+		blokadaLesnaDroga3 = statystykiArray[21];
+		blokadaWiezaMaga = statystykiArray[22];
+		blokadaGrzybowePole = statystykiArray[23];
+		blokadaDolina = statystykiArray[24];
+		blokadaMoczary = statystykiArray[25];
+		bossZrujnowanyOboz = statystykiArray[26];
 		zdrowieKoncowe = zdrowieEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
@@ -898,8 +935,11 @@ function lokacja(lokacja){
 			if(blokadaLesnaDroga2 == false){ lesnaDroga2.style.display = "inline"; }
 			if(blokadaWiezaMaga == false){ wiezaMaga.style.display = "inline"; }
 			if(blokadaGrzybowePole == false){ grzybowePole.style.display = "inline"; }
+			if(blokadaZniszczonaDroga == false){ zniszczonaDroga.style.display = "inline"; }
+			if(blokadaGrota == false){ grota.style.display = "inline"; }
 			if(blokadaLesnaDroga3 == false){ lesnaDroga3.style.display = "inline"; }
 			cofnij.style.display = "inline";
+			cofnijOboz.style.display = "none";
 			break;
 		}
 		case "obozWilkow":{
@@ -913,6 +953,23 @@ function lokacja(lokacja){
 			break;
 		}
 		case "zrujnowanyOboz":{
+			if(bossZrujnowanyOboz == false){
+				rozpocznijWalke("zrujnowanyOboz", 1);
+			} else {
+			mapa.src = "Obrazy/Mapa/ZrujnowanyObóz.png";
+			obozWilkow.style.display = "none";
+			lesnaDroga1.style.display = "none";
+			posterunekWilkow.style.display = "none";
+			zrujnowanyOboz.style.display = "none";
+			lesnaDroga2.style.display = "none";
+			wiezaMaga.style.display = "none";
+			grzybowePole.style.display = "none";
+			zniszczonaDroga.style.display = "none";
+			grota.style.display = "none";
+			lesnaDroga3.style.display = "none";
+			cofnij.style.display = "none";
+			cofnijOboz.style.display = "inline";
+			}
 			break;
 		}
 		case "lesnaDroga2":{
@@ -941,6 +998,8 @@ function lokacja(lokacja){
 			lesnaDroga2.style.display = "none";
 			wiezaMaga.style.display = "none";
 			grzybowePole.style.display = "none";
+			zniszczonaDroga.style.display = "none";
+			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
 			cofnij.style.display = "none";
 			break;
