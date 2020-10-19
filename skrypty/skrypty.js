@@ -778,6 +778,7 @@ function zapis() {
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+	odswiezZmienne("zapis");
 }
 
 function odczyt() {
