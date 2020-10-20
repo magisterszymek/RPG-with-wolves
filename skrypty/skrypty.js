@@ -375,7 +375,7 @@ function wybierzCios(nazwaCiosu){
 							kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 						}
 						zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
 						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
@@ -393,7 +393,7 @@ function wybierzCios(nazwaCiosu){
 								kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 							}
 							zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-							wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+							wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
 							if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 							zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 							document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
@@ -405,7 +405,7 @@ function wybierzCios(nazwaCiosu){
 							setTimeout(walka("specjalny"), 1);
 						}
 					}, 300);
-					odliczaniePazury = setTimeout(function odblokujprzyciskPazuryPazury(){
+					odliczaniePazury = setTimeout(function odblokujPrzyciskPazury(){
 						if(przyciskPazury.disabled == true && walkaTrwa == true){
 						przyciskPazury.disabled = false; 
 						przyciskPazury.style.backgroundColor = "";
@@ -433,7 +433,7 @@ function wybierzCios(nazwaCiosu){
 					kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 					}
 					zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "kly");
 					if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
@@ -442,7 +442,7 @@ function wybierzCios(nazwaCiosu){
 					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
 					przyciskKly.disabled = true;
 					przyciskKly.style.backgroundColor = "red";
-					odliczanieKly = setTimeout(function odblokujprzyciskKlyKly(){
+					odliczanieKly = setTimeout(function odblokujPrzyciskKly(){
 						if(przyciskKly.disabled == true && walkaTrwa == true){
 						przyciskKly.disabled = false; 
 						przyciskKly.style.backgroundColor = "";
@@ -519,7 +519,7 @@ function loot(nazwaPrzeciwnik){
 }
 
 	// Funkcja do wpisywania tekstu
-function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
+function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 	var pasek = document.createElement('i');
 	var pasekBR = document.createElement('br');	
 	switch(rodzaj){
@@ -527,7 +527,13 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			if(postacDruga == nick){
 				var tekst = " " + postacPierwsza + " " + "zadał" + " " + "Ci" + " "+ liczba + " " + "obrażeń!"; // Jeśli przeciwnik zadał obrażenia
 			} else if(postacPierwsza == nick){
-				var tekst = " " + "Zadałeś" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				if(umiejetnosc == "pazury"){
+					var tekst = " " + "Zaatakowałeś przeciwnika pazurami za" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				} else if(umiejetnosc == "kly"){
+					var tekst = " " + "Ugryzłeś przeciwnika za" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				} else {
+					var tekst = " " + "Zadałeś" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				}
 			}
 			break;
 		}
