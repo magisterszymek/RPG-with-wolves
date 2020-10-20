@@ -103,7 +103,7 @@
 		var blokadaWalki = false;
 		var walkaTrwa = false;
 		var walkaKoniec = false;
-		var wybranyCios = "pazury";
+		var wybranyCios = "default";
 		var mnoznikObrazenCiosu = [1, 3, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
 		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
@@ -356,10 +356,70 @@ function wybierzPrzeciwnika(biom, trudnosc){
 function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
-		case "pazury":{
+		case "default":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
+		}
+		case "pazury":{
+			if(walkaTrwa == true && kondycjaKoncowa >= 4){
+				przycisk = document.getElementById("pazury");
+				if(przycisk.disabled == false){
+					setTimeout(function pazuryPierwszy(){
+						kondycjaKoncowa -= 2;
+						kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
+						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+						if(kalkulacja < 0){
+							kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+						}
+						zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+						document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+						document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
+						document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+						przycisk.disabled = true;
+						przycisk.style.backgroundColor = "red";
+						if(kondycjaKoncowa < 4){ przycisk.style.backgroundColor = "gray"; }
+					}, 1);
+					setTimeout(function pazuryDrugi(){
+						kondycjaKoncowa -= 2;
+						kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
+						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+						if(kalkulacja < 0){
+							kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+						}
+						zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+						document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+						document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
+						document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+						przycisk.disabled = true;
+						przycisk.style.backgroundColor = "red";
+						if(kondycjaKoncowa < 4){ przycisk.style.backgroundColor = "gray"; }
+					}, 300);
+					odliczaniePazury = setTimeout(function odblokujPrzyciskPazury(){
+						if(przycisk.disabled == true && walkaTrwa == true){
+						przycisk.disabled = false; 
+						przycisk.style.backgroundColor = "";
+						odswiezZmienne("sprawdzUmiejetnosci");
+						}
+					}, 2000);
+					odswiezZmienne("sprawdzUmiejetnosci");
+					break;
+				} else {
+					break;
+				}
+			}
 		}
 		case "kly":{
 			if(walkaTrwa == true && kondycjaKoncowa >= 7){
@@ -395,7 +455,7 @@ function wybierzCios(nazwaCiosu){
 				}
 				break;
 			} else { 
-		break;
+				break;
 			}
 		}
 		case "szybki":{
@@ -838,6 +898,7 @@ function odczyt() {
 		blokadaMoczary = statystykiArray[28];
 		bossZrujnowanyOboz = statystykiArray[29];
 		zdrowieKoncowe = zdrowieEkwipunek;
+		kondycjaKoncowa = kondycjaEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
 		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
@@ -928,6 +989,13 @@ function odswiezZmienne(rodzaj){
 				document.getElementById("kly").style.backgroundColor = "";
 				clearTimeout(odliczanieKly);
 			}
+			if(document.getElementById("pazury").disabled == true){
+				document.getElementById("pazury").disabled = false;
+				document.getElementById("pazury").style.backgroundColor = "";
+				clearTimeout(odliczaniePazury);
+			}
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; }
 			break;
 		}
 		case "zapis":{
@@ -970,6 +1038,7 @@ function odswiezZmienne(rodzaj){
 		}
 		case "sprawdzUmiejetnosci":{
 			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; }
 		}
 	}
 }
