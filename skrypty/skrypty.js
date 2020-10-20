@@ -2,46 +2,65 @@
 
 // Przedmioty
 	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
-		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 5, 1, 10];
-		var prdm_bron_a_2 = ["Drewniany topór", "Świeżo wystrugany.", 8, 2, 15,];
-		var prdm_bron_a_3 = ["Drewniany miecz", "Nawet trochę ostry.", 3, 1, 7,];
+		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 2, 1, 10];
+		var prdm_bron_a_1 = ["Drewniana nakładka na pazury", "Beznadziejne ale lepsze niż nic.", 2, 1, 10];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", "Hełm", 2, 1, 13,];
 		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 3, 1, 25];
 		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", "Spodnie", 2, 1, 17];						
 		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", "Buty", 1, 1, 10];
+		
+		//utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
+		//utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
+		//utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
+		//utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			
-	// Inne przedmioty ["nazwa", "opis", cena]
+	// Inne przedmioty ["nazwa", "opis", "rodzaj", cena]
 		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", "Przedmiot", 3];
 		var prdm_2 = ["Kłoda", "Gotowe do rąbania", "Przedmiot", 1];
 		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
+		var prdm_4 = ["Zielony grzyb", "Bardzo sycący.", "Składnik", 3];
+		var prdm_5 = ["Czerwony grzyb", "Trujący dla ludzi, zdrowy dla wilków.", "Składnik", 3];
+		var prdm_6 = ["Niebieski grzyb", "Duszący i niezbyt jadalny.", "Składnik", 5];
+		var prdm_7 = ["Różowy grzyb", "Nieczęsto spotykany, o specyficznych magicznych właściwościach.", "Składnik", 10];
+		var prdm_8 = ["Przezroczysty grzyb", "Niezwykle rzadki. Jego właściwości nie są znane.", "Składnik", 30];
 		
-// Przeciwnicy ["nazwa", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
+// Przeciwnicy ["nazwa", "nazwa obrazka (bez spacji)", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
-	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [
-	["Leżące drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
-	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
+	var prze_zrujnowanyOboz_ = [
+	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 3, 2, 2, 1],
+	["null"]
+	];
 	var prze_lesnaDroga3_ = [
-	["Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1],
-	["Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
-	["Młody myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
+	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
+	];
+	var prze_grzybowePole_ = [
+	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 1, 2, 1],
+	["Doświadczony grzybiarz", "Doświadczony_grzybiarz", "Ma dwa koszyki pełne grzybów", 20, 3, 2, 2, 1],
+	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
+	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
+	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
+	];
+	var prze_wiezaMaga_ = [
+	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
+	["null"]
 	];
 	var prze_dolina = []
-	
-// Maksymalna ilość przeciwników w array'u
-	var lesnaDroga1Max = 1;
-	var lesnaDroga2Max = 2;
-	var lesnaDroga3Max = 3;
 		
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";
-		var nickWpisano=false;
+		var nickWpisano = false;
 		var pancerzHelm = 0;
 		var pancerzNapiersnik = 0;
 		var pancerzSpodnie = 0;
@@ -51,12 +70,16 @@
 		var zdrowieBazowe = 20;		// Zdrowie Bazowe
 		var zdrowieEkwipunek = 20;	// zdrowieBazowe + Zdrowie z ekwipunku
 		var zdrowieKoncowe = 20;	// zdrowieEkwipunek + Zdrowie z buffów
+		var kondycjaBazowa = 10;
+		var kondycjaEkwipunek = 10;
+		var kondycjaKoncowa = 10;
+		var kondycjaRegeneracja = 0.25;
 		var obrazeniaBazowe = 3;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 3;// obrażeniaBazowe + Obrażenia z ekwipunku
+		var obrazeniaEkwipunek = 3;	// obrażeniaBazowe + Obrażenia z ekwipunku
 		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
-		var szybkoscBazowa = 1;	// Szybkość bazowa
+		var szybkoscBazowa = 1;		// Szybkość bazowa
 		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
-		var szybkoscKoncowa	= 1;		// szybkoscEkwipunek + Szybkość z wybranego ciosu
+		var szybkoscKoncowa	= 1;	// szybkoscEkwipunek + Szybkość z wybranego ciosu
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = "Brak przeciwnika";
@@ -79,14 +102,14 @@
 		var blokadaWalki = false;
 		var walkaTrwa = false;
 		var walkaKoniec = false;
-		var wybranyCios = "pazury";
+		var wybranyCios = "default";
 		var mnoznikObrazenCiosu = [1, 3, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
 		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
-		var maksymalneZdrowie = zdrowieKoncowe;
-		var maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
+		var zdrowieMaksymalne = zdrowieKoncowe;
+		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
 		
 	// Textbox
 		var id = 1;
@@ -99,6 +122,8 @@
 		var blokadaPosterunekWilkow = true;
 		var blokadaZrujnowanyOboz = true;
 		var blokadaLesnaDroga2 = true;
+		var blokadaZniszczonaDroga = true;
+		var blokadaGrota = true;
 		var blokadaLesnaDroga3 = true;
 		var blokadaWiezaMaga = true;
 		var blokadaGrzybowePole = true;
@@ -106,6 +131,8 @@
 		var blokadaDolina = true;
 		var blokadaMoczary = true;
 		var resetKlikniety = false;
+		
+		var bossZrujnowanyOboz = false;
 		
 // ---------- Koniec zmiennych ----------
 
@@ -144,7 +171,7 @@ function zakladka(NrZakladki) {
 
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
-	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
+	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){
 		walkaTrwa = true;
 		wpiszTekst("linia");
 		wpiszTekst("linia");
@@ -153,6 +180,7 @@ function rozpocznijWalke(biom, trudnosc){
 		blokadaWalki = true;
 		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
+		interval2 = setInterval(kondycjaLiczenie, 250);
 	}
 }
 
@@ -169,7 +197,7 @@ function walka(typ){
 		wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 		
 		// Koniec tury gracza, początek tury przeciwnika
-		if(zdrowiePrzeciwnik >= 1){
+		if(zdrowiePrzeciwnik >= 0.1){
 			if(zakresPrzeciwnik != 0){
 				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
 			} else {
@@ -182,8 +210,9 @@ function walka(typ){
 			wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
 		// Koniec tury przeciwnika
 		
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
+		zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100;
+		kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 		odswiezZmienne("walka");
 		} else {};
 		kalkulacja = 0;
@@ -210,58 +239,113 @@ function walka(typ){
 						break;
 					}
 					case "lesnaDroga2":{
-						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
-							wpiszTekst("odblokowanieLokacji", "Wieża maga")
-							wpiszTekst("odblokowanieLokacji", "Grzybowe pole")
-							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]")
+						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaZniszczonaDroga == true && blokadaLesnaDroga3 == true){
+							wpiszTekst("odblokowanieLokacji", "Wieża maga");
+							wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
+							wpiszTekst("odblokowanieLokacji", "Zniszczona droga");
+							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
 							blokadaWiezaMaga = false;
 							blokadaGrzybowePole = false;
+							blokadaZniszczonaDroga = false;
 							blokadaLesnaDroga3 = false;
 							wiezaMaga.style.display = "inline";
 							grzybowePole.style.display = "inline";
+							zniszczonaDroga.style.display = "inline";
 							lesnaDroga3.style.display = "inline";
 						}
 						break;
+					}
+					case "zniszczonaDroga":{
+						if(blokadaGrota == true){
+							wpiszTekst("odblokowanieLokacji", "Grota");
+							blokadaGrota = false;
+							grota.style.display = "inline";
+						}
+						break;
+					}
+					case "lesnaDroga3":{
+						if(blokadaDolina == true && nazwaPrzeciwnik == "Młody myśliwy"){
+							wpiszTekst("odblokowanieLokacji", "Dolina")
+							blokadaDolina = false;
+						}
 					}
 				}
 			}
 			obraz(-1);
 			odswiezZmienne("koniecWalki");
 			clearInterval(interval);
+			clearInterval(interval2);
 		}
 }
   
-function obraz(losowe, biom) {
+function obraz(losowe, nazwa) {
 	if (losowe == -1) {
 		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
 	}
 	else {
-		switch(biom){
-			case "pradawnyLas":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_pradawnyLas_[losowe][0] + ".png";
-				break;
-			}
-			case "gory":{
-				document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + prze_gory_[losowe][0] + ".png";
-				break;
-			}
-		}
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + nazwa + ".png";
 	}
 }
   
   // Wybieranie przeciwnika
 function wybierzPrzeciwnika(biom, trudnosc){
-	max = window[biom + "Max"];
-	losowe = Math.floor(Math.random() * max);
-	obraz(losowe, biom);
+	losowe = Math.floor(Math.random() * 1000) + 1;
+		switch(biom){
+			case "lesnaDroga1":{
+				losowe = 0;
+				break;
+			}
+			case "lesnaDroga2":{
+				if(losowe <= 800){
+					losowe = 0;
+				} else {
+					losowe = 1
+				}
+				break;
+			}
+			case "zrujnowanyOboz":{
+				losowe = 0;
+				break;
+			}
+			case "lesnaDroga3":{
+				if(losowe <= 400){
+					losowe = 0;
+				} else if(losowe > 400 && losowe <= 600){
+					losowe = 1;
+				} else {
+					losowe = 2;
+				}
+				break;
+			}
+			case "grzybowePole":{
+				if(losowe <= 600){
+					losowe = 0;
+				} else if(losowe > 600 && losowe <= 800){
+					losowe = 1;
+				} else if(losowe > 800 && losowe <= 900){
+					losowe = 2;
+				} else if(losowe > 900 && losowe <= 950){
+					losowe = 3;
+				} else {
+					losowe = 4;
+				}
+				break;
+			}
+			case "wiezaMaga":{
+				losowe = 0;
+				break;
+			}
+		}
 	biomTymczasowe = "prze_" + biom + "_";
 	biomNazwa = window[biomTymczasowe];
 	nazwaPrzeciwnik = biomNazwa[losowe][0];
-	opisPrzeciwnik = biomNazwa[losowe][1];
-	zdrowiePrzeciwnik = biomNazwa[losowe][2];
-	pancerzPrzeciwnik = biomNazwa[losowe][3];
-	obrazeniaPrzeciwnik = biomNazwa[losowe][4];
-	zakresPrzeciwnik = biomNazwa[losowe][5];
+	nazwaObrazekPrzeciwnik = biomNazwa[losowe][1];
+	opisPrzeciwnik = biomNazwa[losowe][2];
+	zdrowiePrzeciwnik = biomNazwa[losowe][3];
+	pancerzPrzeciwnik = biomNazwa[losowe][4];
+	obrazeniaPrzeciwnik = biomNazwa[losowe][5];
+	zakresPrzeciwnik = biomNazwa[losowe][6];
+	obraz(losowe, nazwaObrazekPrzeciwnik);
 	lokacjaId = biom;
 	odswiezZmienne("poczatekWalki");
 }
@@ -270,15 +354,78 @@ function wybierzPrzeciwnika(biom, trudnosc){
 function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
-		case "pazury":{
+		case "default":{
 			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
 		}
+		case "pazury":{
+			if(walkaTrwa == true && kondycjaKoncowa >= 4){
+				przyciskPazury = document.getElementById("pazury");
+				if(przyciskPazury.disabled == false){
+					kondycjaKoncowa -= 4;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+					setTimeout(function pazuryPierwszy(){
+						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
+						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
+						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+						if(kalkulacja < 0){
+							kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+						}
+						zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
+						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
+						document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+						przyciskPazury.disabled = true;
+						przyciskPazury.style.backgroundColor = "red";
+						if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
+					}, 1);
+					setTimeout(function pazuryDrugi(){
+						if(zdrowiePrzeciwnik > 0){
+							obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
+							szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
+							kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
+							if(kalkulacja < 0){
+								kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+							}
+							zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
+							wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
+							if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+							zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+							document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
+							document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+							przyciskPazury.disabled = true;
+							przyciskPazury.style.backgroundColor = "red";
+							if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
+							odswiezZmienne("sprawdzUmiejetnosci");
+							setTimeout(walka("specjalny"), 1);
+						}
+					}, 300);
+					odliczaniePazury = setTimeout(function odblokujPrzyciskPazury(){
+						if(przyciskPazury.disabled == true && walkaTrwa == true){
+						przyciskPazury.disabled = false; 
+						przyciskPazury.style.backgroundColor = "";
+						odswiezZmienne("sprawdzUmiejetnosci");
+						}
+					}, 2000);
+					odswiezZmienne("sprawdzUmiejetnosci");
+					setTimeout(walka("specjalny"), 1);
+					break;
+				} else {
+					break;
+				}
+			}
+		}
 		case "kly":{
-			if(walkaTrwa == true){
-				przycisk = document.getElementById("kly");
-				if(przycisk.disabled == false){
+			if(walkaTrwa == true && kondycjaKoncowa >= 7){
+				przyciskKly = document.getElementById("kly");
+				if(przyciskKly.disabled == false){
+					kondycjaKoncowa -= 7;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
 					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
 					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
@@ -286,24 +433,28 @@ function wybierzCios(nazwaCiosu){
 					kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
 					}
 					zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
+					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "kly");
 					if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100;
-					document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%";
+					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
+					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+					document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
 					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-					przycisk.disabled = true;
-					przycisk.style.backgroundColor = "red";
+					przyciskKly.disabled = true;
+					przyciskKly.style.backgroundColor = "red";
 					odliczanieKly = setTimeout(function odblokujPrzyciskKly(){
-						if(przycisk.disabled == true && walkaTrwa == true){
-						przycisk.disabled = false; 
-						przycisk.style.backgroundColor = "";
+						if(przyciskKly.disabled == true && walkaTrwa == true){
+						przyciskKly.disabled = false; 
+						przyciskKly.style.backgroundColor = "";
+						odswiezZmienne("sprawdzUmiejetnosci");
 						}
 					}, 3000);
 					setTimeout(walka("specjalny"), 1);
+					odswiezZmienne("sprawdzUmiejetnosci");
 				}
 				break;
 			} else { 
-		break;
+				break;
 			}
 		}
 		case "szybki":{
@@ -322,22 +473,45 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 		case "Grzybiarz":{
-			utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){ 
+				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){
+				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){
+				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+			}
+			break;
+		}
+		case "Szczurzy strażnik":{
+			wpiszTekst("bossZrujnowanyObozKoniec");
+			wpiszTekst("odblokowanieLokacji", "Zrujnowany obóz");
+			bossZrujnowanyOboz = true;
+			break;
+		}
+		case "Doświadczony grzybiarz":{
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){ 
+				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){
+				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){
+				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+			}
 			break;
 		}
 		case "Pułapka":{
-			losowe = Math.floor(Math.random() * 10) + 1;
-				if(losowe <= 4){ 
-					break;
-				} else if(losowe >= 5 && losowe <= 7){
-					utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
-				} else if(losowe >= 8 && losowe <= 10){
-					utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
-				}
 			break;
 		}
 		case "Młody myśliwy":{
-			utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			break;
 		}
 	}
@@ -345,7 +519,7 @@ function loot(nazwaPrzeciwnik){
 }
 
 	// Funkcja do wpisywania tekstu
-function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
+function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 	var pasek = document.createElement('i');
 	var pasekBR = document.createElement('br');	
 	switch(rodzaj){
@@ -353,12 +527,18 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 			if(postacDruga == nick){
 				var tekst = " " + postacPierwsza + " " + "zadał" + " " + "Ci" + " "+ liczba + " " + "obrażeń!"; // Jeśli przeciwnik zadał obrażenia
 			} else if(postacPierwsza == nick){
-				var tekst = " " + "Zadałeś/aś" + " " + "przeciwnikowi" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				if(umiejetnosc == "pazury"){
+					var tekst = " " + "Zaatakowałeś przeciwnika pazurami za" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				} else if(umiejetnosc == "kly"){
+					var tekst = " " + "Ugryzłeś przeciwnika za" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				} else {
+					var tekst = " " + "Zadałeś" + " " + liczba + " " + "obrażeń!"; // Jeśli gracz zadał obrażenia
+				}
 			}
 			break;
 		}
 		case "walkaPoczatek":{
-			var tekst = " " + "Zaatakował Cię" + " " + postacPierwsza + "!";
+			var tekst = " " + "Zostałeś zaatakowany przez" + " " + postacPierwsza + "!";
 			pasek.style.color = "#d10e00";
 			break;
 		}
@@ -381,6 +561,11 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		}
 		case "item":{
 			var tekst = " " + "Otrzymałeś przedmiot:" + " " + postacPierwsza + "!"
+			break;
+		}
+		case "bossZrujnowanyObozKoniec":{
+			var tekst = " " + "'Nie spodziewałem się, że będziesz taki silny! Wpuszczę Cię do obozu. Wiedz jednak, że w nim agresja nie będzie tolerowana.'";
+			break;
 		}
 	}
 	var pasekTekst = document.createTextNode(tekst);
@@ -393,7 +578,7 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba){
 		pasek.style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		pasek.style.color = "#d10e00";
-	} else if(rodzaj == "item"){
+	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec"){
 		pasek.style.color = "#3c62c7";
 	}
 }
@@ -531,7 +716,6 @@ function zapamietajZakladke(bool) {
 	else {
 		odczyt();
 		getNick();
-		console.log(nickWpisano);
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -655,10 +839,11 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+	odswiezZmienne("zapis");
 }
 
 function odczyt() {
@@ -697,24 +882,31 @@ function odczyt() {
 		zdrowieBazowe = statystykiArray[7];
 		zdrowieEkwipunek = statystykiArray[8];
 		zdrowieKoncowe = statystykiArray[9];
-		obrazeniaBazowe = statystykiArray[10];
-		obrazeniaEkwipunek = statystykiArray[11];
-		obrazeniaKoncowe = statystykiArray[12];
-		szybkoscBazowa = statystykiArray[13];
-		szybkoscEkwipunek = statystykiArray[14];
-		szybkoscKoncowa = statystykiArray[15];
-		blokadaPosterunekWilkow = statystykiArray[16];
-		blokadaZrujnowanyOboz = statystykiArray[17];
-		blokadaLesnaDroga2 = statystykiArray[18];
-		blokadaLesnaDroga3 = statystykiArray[19];
-		blokadaWiezaMaga = statystykiArray[20];
-		blokadaGrzybowePole = statystykiArray[21];
-		blokadaDolina = statystykiArray[22];
-		blokadaMoczary = statystykiArray[23];
+		kondycjaBazowa = statystykiArray[10];
+		kondycjaEkwipunek = statystykiArray[11];
+		kondycjaKoncowa = statystykiArray[12];
+		obrazeniaBazowe = statystykiArray[13];
+		obrazeniaEkwipunek = statystykiArray[14];
+		obrazeniaKoncowe = statystykiArray[15];
+		szybkoscBazowa = statystykiArray[16];
+		szybkoscEkwipunek = statystykiArray[17];
+		szybkoscKoncowa = statystykiArray[18];
+		blokadaPosterunekWilkow = statystykiArray[19];
+		blokadaZrujnowanyOboz = statystykiArray[20];
+		blokadaLesnaDroga2 = statystykiArray[21];
+		blokadaZniszczonaDroga = statystykiArray[22];
+		blokadaGrota = statystykiArray[23];
+		blokadaLesnaDroga3 = statystykiArray[24];
+		blokadaWiezaMaga = statystykiArray[25];
+		blokadaGrzybowePole = statystykiArray[26];
+		blokadaDolina = statystykiArray[27];
+		blokadaMoczary = statystykiArray[28];
+		bossZrujnowanyOboz = statystykiArray[29];
 		zdrowieKoncowe = zdrowieEkwipunek;
+		kondycjaKoncowa = kondycjaEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 }
@@ -757,67 +949,102 @@ document.onmouseover = function opis(id) {
 
 	// Funkcja służąca do odświeżania czy zapisywania zmiennych, aby uniknąć spaghetti w kodzie
 function odswiezZmienne(rodzaj){
-	if(rodzaj == "walka"){
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-	} else if(rodzaj == "koniecWalki"){
-		walkaKoniec = true;
-		walkaTrwa = false;
-		blokadaWalki = false;
-		nazwaPrzeciwnik = "Brak przeciwnika";
-		opisPrzeciwnik = "";
-		zdrowieKoncowe = tymczasoweZdrowie;
-		tymczasoweZdrowie = 0;
-		maksymalneZdrowiePrzeciwnik = 0;
-		zdrowiePrzeciwnik = 0;
-		pancerzPrzeciwnik = 0;
-		obrazeniaPrzeciwnik = 0;
-		zakresPrzeciwnik = 0;
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
-		if(document.getElementById("kly").disabled == true){
-			document.getElementById("kly").disabled = false;
-			document.getElementById("kly").style.backgroundColor = "";
-			clearTimeout(odliczanieKly);
+	switch(rodzaj){
+		case "walka":{
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%"
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+		break;
 		}
-	} else if(rodzaj == "zapis"){
-		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-		maksymalneZdrowie = zdrowieKoncowe;
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-	} else if(rodzaj =="poczatekWalki"){
-		maksymalneZdrowiePrzeciwnik = zdrowiePrzeciwnik;
-		maksymalneZdrowie = zdrowieKoncowe;
-		zdrowieProcent = (zdrowieKoncowe / maksymalneZdrowie) * 100
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / maksymalneZdrowiePrzeciwnik) * 100
-		document.getElementById("nick").innerHTML = nick;
-		document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
-		document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-		document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
-		document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
-		document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-		document.getElementById("maksymalneZdrowie").innerHTML = maksymalneZdrowie;
-		document.getElementById("maksymalneZdrowiePrzeciwnik").innerHTML = maksymalneZdrowiePrzeciwnik;
-		document.getElementsByClassName("zdrowieKoncowe")[0].style.width = zdrowieProcent + "%"
-		document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = zdrowieProcentPrzeciwnik + "%"
+		case "koniecWalki":{
+			walkaKoniec = true;
+			walkaTrwa = false;
+			blokadaWalki = false;
+			nazwaPrzeciwnik = "Brak przeciwnika";
+			opisPrzeciwnik = "";
+			zdrowieKoncowe = tymczasoweZdrowie;
+			kondycjaKoncowa = kondycjaEkwipunek;
+			tymczasoweZdrowie = 0;
+			zdrowieMaksymalnePrzeciwnik = 0;
+			zdrowiePrzeciwnik = 0;
+			pancerzPrzeciwnik = 0;
+			obrazeniaPrzeciwnik = 0;
+			zakresPrzeciwnik = 0;
+			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
+			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementsByClassName("zdrowiePrzeciwnik")[0].style.width = "0%"
+			if(document.getElementById("kly").disabled == true){
+				document.getElementById("kly").disabled = false;
+				document.getElementById("kly").style.backgroundColor = "";
+				clearTimeout(odliczanieKly);
+			}
+			if(document.getElementById("pazury").disabled == true){
+				document.getElementById("pazury").disabled = false;
+				document.getElementById("pazury").style.backgroundColor = "";
+				clearTimeout(odliczaniePazury);
+			}
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; } else { document.getElementById("kly").style.backgroundColor = "red"; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; } else { document.getElementById("pazury").style.backgroundColor = "red"; }
+			break;
+		}
+		case "zapis":{
+			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
+			zdrowieMaksymalne = zdrowieKoncowe;
+			kondycjaMaksymalna = kondycjaKoncowa;
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			break;
+		}
+		case "poczatekWalki":{
+			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
+			zdrowieMaksymalne = zdrowieKoncowe;
+			kondycjaMaksymalna = kondycjaKoncowa;
+			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
+			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
+			document.getElementById("nick").innerHTML = nick;
+			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
+			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+			document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
+			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
+			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
+			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
+			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+			document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%"
+			break;
+		}
+		case "sprawdzUmiejetnosci":{
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; } else { document.getElementById("kly").style.backgroundColor = "red"; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; } else { document.getElementById("pazury").style.backgroundColor = "red"; }
+		}
 	}
 }
 
@@ -825,6 +1052,7 @@ function lokacja(lokacja){
 	switch(lokacja){
 		case "pradawnyLas":{
 			las.style.display = "none";
+			dolina.style.display = "none";
 			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
 			obozWilkow.style.display = "inline";
 			lesnaDroga1.style.display = "inline";
@@ -833,8 +1061,11 @@ function lokacja(lokacja){
 			if(blokadaLesnaDroga2 == false){ lesnaDroga2.style.display = "inline"; }
 			if(blokadaWiezaMaga == false){ wiezaMaga.style.display = "inline"; }
 			if(blokadaGrzybowePole == false){ grzybowePole.style.display = "inline"; }
+			if(blokadaZniszczonaDroga == false){ zniszczonaDroga.style.display = "inline"; }
+			if(blokadaGrota == false){ grota.style.display = "inline"; }
 			if(blokadaLesnaDroga3 == false){ lesnaDroga3.style.display = "inline"; }
 			cofnij.style.display = "inline";
+			cofnijOboz.style.display = "none";
 			break;
 		}
 		case "obozWilkow":{
@@ -848,6 +1079,23 @@ function lokacja(lokacja){
 			break;
 		}
 		case "zrujnowanyOboz":{
+			if(bossZrujnowanyOboz == false){
+				rozpocznijWalke("zrujnowanyOboz", 1);
+			} else {
+			mapa.src = "Obrazy/Mapa/ZrujnowanyObóz.png";
+			obozWilkow.style.display = "none";
+			lesnaDroga1.style.display = "none";
+			posterunekWilkow.style.display = "none";
+			zrujnowanyOboz.style.display = "none";
+			lesnaDroga2.style.display = "none";
+			wiezaMaga.style.display = "none";
+			grzybowePole.style.display = "none";
+			zniszczonaDroga.style.display = "none";
+			grota.style.display = "none";
+			lesnaDroga3.style.display = "none";
+			cofnij.style.display = "none";
+			cofnijOboz.style.display = "inline";
+			}
 			break;
 		}
 		case "lesnaDroga2":{
@@ -855,9 +1103,11 @@ function lokacja(lokacja){
 			break;
 		}
 		case "wiezaMaga":{
+			rozpocznijWalke("wiezaMaga", 1);
 			break;
 		}
 		case "grzybowePole":{
+			rozpocznijWalke("grzybowePole", 1);
 			break;
 		}
 		case "lesnaDroga3":{
@@ -866,6 +1116,7 @@ function lokacja(lokacja){
 		}
 		case "cofnij":{
 			las.style.display = "inline";
+			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			mapa.src = "Obrazy/Mapa/Mapa.png";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
@@ -874,6 +1125,8 @@ function lokacja(lokacja){
 			lesnaDroga2.style.display = "none";
 			wiezaMaga.style.display = "none";
 			grzybowePole.style.display = "none";
+			zniszczonaDroga.style.display = "none";
+			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
 			cofnij.style.display = "none";
 			break;
@@ -890,4 +1143,15 @@ function getNick(zmienna) {
 		nickWpisano = true;
 		zapis();
     }
+}
+
+function kondycjaLiczenie(){
+	if(kondycjaKoncowa < kondycjaEkwipunek){
+	kondycjaKoncowa += kondycjaRegeneracja;
+	if(kondycjaKoncowa > kondycjaEkwipunek){ kondycjaKoncowa = koncydjaEkwipunek };
+	kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+	document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+	document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+	odswiezZmienne("sprawdzUmiejetnosci");
+	}
 }

@@ -151,7 +151,7 @@ button:hover {
 	padding: 1%;
 	margin: 0.5%;
 	background-color: #6edb9c;
-	height: 20%;
+	height: 25%;
 	width: 24.5%;
 	top: 50%;
 	position: absolute;
@@ -300,14 +300,6 @@ button:hover {
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
-}
-
-.przyciskLas {
-	position: absolute;
-	top: 22%;
-	right: 11%;
-	background-color: #38c95f;
-	border: solid black 1px;
 }
 
 .przyciskGory {
