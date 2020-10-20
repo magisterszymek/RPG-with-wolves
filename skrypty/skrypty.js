@@ -74,7 +74,7 @@
 		var kondycjaBazowa = 10;
 		var kondycjaEkwipunek = 10;
 		var kondycjaKoncowa = 10;
-		var kondycjaRegeneracja = 0.5;
+		var kondycjaRegeneracja = 0.25;
 		var obrazeniaBazowe = 3;	// Obrażenia bazowe
 		var obrazeniaEkwipunek = 3;	// obrażeniaBazowe + Obrażenia z ekwipunku
 		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
@@ -181,7 +181,7 @@ function rozpocznijWalke(biom, trudnosc){
 		blokadaWalki = true;
 		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
-		interval2 = setInterval(kondycjaLiczenie, 500);
+		interval2 = setInterval(kondycjaLiczenie, 250);
 	}
 }
 
@@ -1111,7 +1111,7 @@ function lokacja(lokacja){
 		}
 		case "cofnij":{
 			las.style.display = "inline";
-			dolina.style.display = "inline";
+			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			mapa.src = "Obrazy/Mapa/Mapa.png";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
@@ -1143,6 +1143,7 @@ function getNick(zmienna) {
 function kondycjaLiczenie(){
 	if(kondycjaKoncowa < kondycjaEkwipunek){
 	kondycjaKoncowa += kondycjaRegeneracja;
+	if(kondycjaKoncowa > kondycjaEkwipunek){ kondycjaKoncowa = koncydjaEkwipunek };
 	kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 	document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 	document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
