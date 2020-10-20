@@ -171,7 +171,7 @@ function zakladka(NrZakladki) {
 
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
-	if(zdrowieKoncowe >= 1 && blokadaWalki == false && walkaTrwa == false){
+	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){
 		walkaTrwa = true;
 		wpiszTekst("linia");
 		wpiszTekst("linia");
@@ -197,7 +197,7 @@ function walka(typ){
 		wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 		
 		// Koniec tury gracza, początek tury przeciwnika
-		if(zdrowiePrzeciwnik >= 1){
+		if(zdrowiePrzeciwnik >= 0.1){
 			if(zakresPrzeciwnik != 0){
 				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
 			} else {
