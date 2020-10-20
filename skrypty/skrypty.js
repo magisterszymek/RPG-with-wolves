@@ -2,9 +2,8 @@
 
 // Przedmioty
 	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
-		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 5, 1, 10];
-		var prdm_bron_a_2 = ["Drewniany topór", "Świeżo wystrugany.", 8, 2, 15,];
-		var prdm_bron_a_3 = ["Drewniany miecz", "Nawet trochę ostry.", 3, 1, 7,];
+		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 2, 1, 10];
+		var prdm_bron_a_1 = ["Drewniana nakładka na pazury", "Beznadziejne ale lepsze niż nic.", 2, 1, 10];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", "Hełm", 2, 1, 13,];
@@ -369,7 +368,7 @@ function wybierzCios(nazwaCiosu){
 					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 					setTimeout(function pazuryPierwszy(){
-						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
 						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 						if(kalkulacja < 0){
@@ -387,7 +386,7 @@ function wybierzCios(nazwaCiosu){
 					}, 1);
 					setTimeout(function pazuryDrugi(){
 						if(zdrowiePrzeciwnik > 0){
-							obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+							obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
 							szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 							kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 							if(kalkulacja < 0){
