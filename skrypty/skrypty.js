@@ -74,7 +74,7 @@
 		var kondycjaBazowa = 10;
 		var kondycjaEkwipunek = 10;
 		var kondycjaKoncowa = 10;
-		var kondycjaRegeneracja = 1;
+		var kondycjaRegeneracja = 0.5;
 		var obrazeniaBazowe = 3;	// Obrażenia bazowe
 		var obrazeniaEkwipunek = 3;	// obrażeniaBazowe + Obrażenia z ekwipunku
 		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
@@ -181,7 +181,7 @@ function rozpocznijWalke(biom, trudnosc){
 		blokadaWalki = true;
 		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
-		interval2 = setInterval(kondycjaLiczenie, 1000);
+		interval2 = setInterval(kondycjaLiczenie, 500);
 	}
 }
 
@@ -215,7 +215,6 @@ function walka(typ){
 		kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 		odswiezZmienne("walka");
-		odswiezZmienne("sprawdzUmiejetnosci");
 		} else {};
 		kalkulacja = 0;
 	}
@@ -363,11 +362,13 @@ function wybierzCios(nazwaCiosu){
 		}
 		case "pazury":{
 			if(walkaTrwa == true && kondycjaKoncowa >= 4){
-				przycisk = document.getElementById("pazury");
-				if(przycisk.disabled == false){
+				przyciskPazury = document.getElementById("pazury");
+				if(przyciskPazury.disabled == false){
+					kondycjaKoncowa -= 4;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 					setTimeout(function pazuryPierwszy(){
-						kondycjaKoncowa -= 2;
-						kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
@@ -378,18 +379,14 @@ function wybierzCios(nazwaCiosu){
 						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
-						document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
-						document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
 						document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-						przycisk.disabled = true;
-						przycisk.style.backgroundColor = "red";
-						if(kondycjaKoncowa < 4){ przycisk.style.backgroundColor = "gray"; }
+						przyciskPazury.disabled = true;
+						przyciskPazury.style.backgroundColor = "red";
+						if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
 					}, 1);
 					setTimeout(function pazuryDrugi(){
 						if(zdrowiePrzeciwnik > 0){
-							kondycjaKoncowa -= 2;
-							kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 							obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
 							szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 							kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
@@ -400,21 +397,19 @@ function wybierzCios(nazwaCiosu){
 							wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 							if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
 							zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
-							document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
-							document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 							document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
 							document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-							przycisk.disabled = true;
-							przycisk.style.backgroundColor = "red";
-							if(kondycjaKoncowa < 4){ przycisk.style.backgroundColor = "gray"; }
+							przyciskPazury.disabled = true;
+							przyciskPazury.style.backgroundColor = "red";
+							if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
 							odswiezZmienne("sprawdzUmiejetnosci");
 							setTimeout(walka("specjalny"), 1);
 						}
 					}, 300);
-					odliczaniePazury = setTimeout(function odblokujPrzyciskPazury(){
-						if(przycisk.disabled == true && walkaTrwa == true){
-						przycisk.disabled = false; 
-						przycisk.style.backgroundColor = "";
+					odliczaniePazury = setTimeout(function odblokujprzyciskPazuryPazury(){
+						if(przyciskPazury.disabled == true && walkaTrwa == true){
+						przyciskPazury.disabled = false; 
+						przyciskPazury.style.backgroundColor = "";
 						odswiezZmienne("sprawdzUmiejetnosci");
 						}
 					}, 2000);
@@ -428,8 +423,8 @@ function wybierzCios(nazwaCiosu){
 		}
 		case "kly":{
 			if(walkaTrwa == true && kondycjaKoncowa >= 7){
-				przycisk = document.getElementById("kly");
-				if(przycisk.disabled == false){
+				przyciskKly = document.getElementById("kly");
+				if(przyciskKly.disabled == false){
 					kondycjaKoncowa -= 7;
 					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
 					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
@@ -446,12 +441,12 @@ function wybierzCios(nazwaCiosu){
 					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 					document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
 					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
-					przycisk.disabled = true;
-					przycisk.style.backgroundColor = "red";
-					odliczanieKly = setTimeout(function odblokujPrzyciskKly(){
-						if(przycisk.disabled == true && walkaTrwa == true){
-						przycisk.disabled = false; 
-						przycisk.style.backgroundColor = "";
+					przyciskKly.disabled = true;
+					przyciskKly.style.backgroundColor = "red";
+					odliczanieKly = setTimeout(function odblokujprzyciskKlyKly(){
+						if(przyciskKly.disabled == true && walkaTrwa == true){
+						przyciskKly.disabled = false; 
+						przyciskKly.style.backgroundColor = "";
 						odswiezZmienne("sprawdzUmiejetnosci");
 						}
 					}, 3000);
@@ -999,8 +994,8 @@ function odswiezZmienne(rodzaj){
 				document.getElementById("pazury").style.backgroundColor = "";
 				clearTimeout(odliczaniePazury);
 			}
-			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; }
-			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; }
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; } else { document.getElementById("kly").style.backgroundColor = "red"; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; } else { document.getElementById("pazury").style.backgroundColor = "red"; }
 			break;
 		}
 		case "zapis":{
@@ -1042,8 +1037,8 @@ function odswiezZmienne(rodzaj){
 			break;
 		}
 		case "sprawdzUmiejetnosci":{
-			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; }
-			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; }
+			if(kondycjaKoncowa < 7){ document.getElementById("kly").style.backgroundColor = "gray"; } else if(document.getElementById("kly").disabled == false){ document.getElementById("kly").style.backgroundColor = ""; } else { document.getElementById("kly").style.backgroundColor = "red"; }
+			if(kondycjaKoncowa < 4){ document.getElementById("pazury").style.backgroundColor = "gray"; } else if(document.getElementById("pazury").disabled == false){ document.getElementById("pazury").style.backgroundColor = ""; } else { document.getElementById("pazury").style.backgroundColor = "red"; }
 		}
 	}
 }
@@ -1148,5 +1143,9 @@ function getNick(zmienna) {
 function kondycjaLiczenie(){
 	if(kondycjaKoncowa < kondycjaEkwipunek){
 	kondycjaKoncowa += kondycjaRegeneracja;
+	kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+	document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
+	document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
+	odswiezZmienne("sprawdzUmiejetnosci");
 	}
 }
