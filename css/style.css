@@ -397,3 +397,28 @@ button:hover {
 	background-color: #82b74b;
 	border: none;
 }
+.oboz{
+	z-index:1;
+	height:95%;
+	width:100%;
+	position:absolute;
+	background-color:red;
+}
+.mapaOboz{
+	width:75%;
+	height:100%;
+	background-color:brown;
+	float:left;
+}
+.statystykiOboz {
+	width: 25%;
+	height: 75%;
+	background-color: yellow;
+	float:right;
+}
+.przedmiotyOboz {
+	width: 25%;
+	height: 25%;
+	background-color: green;
+	float: right;
+}
