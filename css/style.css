@@ -129,6 +129,24 @@ button:hover {
 .slot:hover{
 	filter: brightness(80%);
 }
+
+.slotCrafting {
+	border: 1px solid black;
+	background-color: #ddd;
+	padding: 0.3%;
+	height: 20%;
+	width: 10%;
+	cursor: move;
+	position: relative;
+	float: left;
+	cursor: pointer;
+}
+.slotCrafting:active {
+	filter: brightness(60%);
+}
+.slotCrafting:hover{
+	filter: brightness(80%);
+}
 	
 .smietnik {
 	border: 1px solid black;
@@ -421,6 +439,11 @@ button:hover {
 	height: 25%;
 	background-color: green;
 	float: right;
+	font-size: 0.83vw;
+	padding: 0.5%;
+}
+.wrzucPrzedmioty {
+	float: right;
 }
 .budynek {
 	width: 10%;
@@ -448,10 +471,13 @@ button:hover {
 	height: 25%;
 	background-color: green;
 	float: right;
+	font-size: 0.83vw;
+	padding: 0.5%;
 }
 .polePoSrodku {
 	width: 75%;
 	height: 75%;
 	background-color: lightgreen;
 	float: left;
+	overflow-y: scroll;
 }
