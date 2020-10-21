@@ -5,7 +5,7 @@
 		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", 2, 1, 5];
 		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", 3, 1, 8];
 		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", 5, 1, 20];
-		var prdm_bron_a_4 = ["Drewniany kostur", "Zarówno jest bronią, jak i ułatwia chodzenie.", 2.5, 1, 5];
+		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", 2.5, 1, 5];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
@@ -30,7 +30,9 @@
 		
 	// Przedmioty do craftingu ["nazwa", "opis", cena]
 		var crft_1 = ["Kłoda", "Gotowe do rąbania.", "Wytwarzanie", 1];
+		klody = 0;
 		var crft_2 = ["Drewno", "Służy głównie do budowy, ale można coś z niego wystrugać.", "Wytwarzanie", 3]
+		drewno = 0;
 		
 // Przeciwnicy ["nazwa", "nazwa obrazka (bez spacji)", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
@@ -489,7 +491,7 @@ function wybierzCios(nazwaCiosu){
 function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
 		case "Leżące drzewo":{
-			utworzPrzedmiot("prdm_2", "crafting", "Obrazy/Przedmioty/Kłoda.png");
+			utworzPrzedmiot("crft_1", "crafting", "Obrazy/Przedmioty/Kłoda.png");
 			break;
 		}
 		case "Grzybiarz":{
@@ -1092,15 +1094,17 @@ function lokacja(lokacja){
 		case "obozWilkow":{
 			craftingWlaczony = false;
 			obozWlaczony = true;
-			document.getElementsByClassName("oboz")[0].hidden=false;
-			document.getElementsByClassName("crafting")[0].hidden=true;
+			document.getElementsByClassName("oboz")[0].hidden = false;
+			document.getElementsByClassName("crafting")[0].hidden = true;
+			document.getElementById("licznikKlody").innerHTML = klody;
+			document.getElementById("licznikDrewno").innerHTML = drewno;
 			break;
 		}
 		case "crafting":{
 			craftingWlaczony = true;
 			obozWlaczony = false;
-			document.getElementsByClassName("crafting")[0].hidden=false;
-			document.getElementsByClassName("oboz")[0].hidden=true;
+			document.getElementsByClassName("crafting")[0].hidden = false;
+			document.getElementsByClassName("oboz")[0].hidden = true;
 			break;
 		}
 		case "lesnaDroga1":{
@@ -1167,6 +1171,167 @@ function lokacja(lokacja){
 		}
 	}
 }
+
+function crafting(przedmiot, doBazy, element){
+	switch(przedmiot){
+		case "drewno":{
+			if(klody >= 3){
+				klody -= 3;
+				if(doBazy == true){
+					drewno += 1;
+				} else {
+					utworzPrzedmiot("crft_2", "skladnik", "Obrazy/Przedmioty/Drewno.png");
+				}
+			}
+			break;
+		}
+		case "przerobionySztylet":{ // TODO: sprawdzanie czy sztylet znajduje się w ekwipunku
+			break;
+		}
+		case "nakladkaNaLape":{ // TODO: sprawdzanie czy sztylet znajduje się w ekwipunku
+			break;
+		}
+		case "drewnianyHelm":{
+			if(drewno >= 1){
+				drewno -= 1;
+				utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Drewniany_hełm.png");
+			}
+			break;
+		}
+		case "drewnianyNapiersnik":{
+			if(drewno >= 3){
+				drewno -= 3;
+				utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Drewniany_napierśnik.png");
+			}
+			break;
+		}
+		case "drewnianeNagolenniki":{
+			if(drewno >= 2){
+				drewno -= 2;
+				utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Drewniane_nagolenniki.png");
+			}
+			break;
+		}
+		case "drewnianeOchronnikiNaLapy":{
+			if(drewno >= 2){
+				drewno -= 2;
+				utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Drewniane_ochronniki_na_łapy.png");
+			}
+			break;
+		}
+		case "drewnianyPojemnik":{
+			if(drewno >= 1){
+				drewno -= 1;
+				utworzPrzedmiot("prdm_1", "przedmiot", "Obrazy/Przedmioty/Drewniany_pojemnik.png");
+			}
+			break;
+		}
+		case "drewnianyKostur":{
+			if(drewno >= 2){
+				drewno -= 2;
+				utworzPrzedmiot("prdm_bron_a_4", "bron", "Obrazy/Przedmioty/Drewniany_kostur.png");
+			}
+			break;
+		}
+	}
+	document.getElementById(element).style.filter = "brightness(40%)";
+	setTimeout(function stop(){ document.getElementById(element).style.filter = ""; }, 50);
+}
+
+function craftingInfo(przedmiot){
+	switch(przedmiot){
+		case "drewno":{
+			przedmiotOpis = crft_1;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "3x Kłoda";
+			break;
+		}
+		case "przerobionySztylet":{
+			przedmiotOpis = prdm_bron_a_1;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "1x Sztylet, 1x Drewno";
+			break;
+		}
+		case "nakladkaNaLape":{
+			przedmiotOpis = prdm_bron_a_2;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "3x Sztylet, 1x Drewno";
+			break;
+		}
+		case "drewnianyHelm":{
+			przedmiotOpis = prdm_zbroja_a_1;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "1x Drewno";
+			break;
+		}
+		case "drewnianyNapiersnik":{
+			przedmiotOpis = prdm_zbroja_a_2;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "3x Drewno";
+			break;
+		}
+		case "drewnianeNagolenniki":{
+			przedmiotOpis = prdm_zbroja_a_3;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "2x Drewno";
+			break;
+		}
+		case "drewnianeOchronnikiNaLapy":{
+			przedmiotOpis = prdm_zbroja_a_4;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "2x Drewno";
+			break;
+		}
+		case "drewnianyPojemnik":{
+			przedmiotOpis = prdm_1;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "1x Drewno";
+			break;
+		}
+		case "drewnianyKostur":{
+			przedmiotOpis = prdm_bron_a_3;
+			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
+			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
+			document.getElementById("craftingKoszt").innerHTML = "2x Drewno";
+			break;
+		}
+	}
+}
+
+function wrzucPrzedmioty(przedmiot){
+	switch(przedmiot){
+		case "klody":{
+			var liczba = 1;
+			while (liczba <= 159) {
+				slot = "slot" + liczba;
+				calySlot = document.getElementById(slot);
+					if(calySlot.hasChildNodes() == true){
+						calySlotChild = calySlot.childNodes[0];
+						if(calySlotChild.alt= "crft_1"){
+							console.log(calySlotChild);
+							calySlot.removeChild(calySlotChild);
+							klody += 1;
+							document.getElementById("licznikKlody").innerHTML = klody;
+						}
+					}
+				liczba += 1;
+			}
+			break;
+		}
+		case "drewno":{
+			break;
+		}
+	}
+}
+
 function getNick(zmienna) {
 	if (nickWpisano == true) {
 		document.getElementsByClassName("wyborNicku")[0].style.visibility = "hidden";
