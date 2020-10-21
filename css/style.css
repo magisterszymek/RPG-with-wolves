@@ -422,6 +422,14 @@ button:hover {
 	background-color: green;
 	float: right;
 }
+.budynek {
+	width: 10%;
+	height: 10%;
+	cursor: pointer;
+}
+.budynek:hover {
+	filter: brightness(110%);
+}
 .crafting {
 	z-index: 1;
 	height: 95%;
