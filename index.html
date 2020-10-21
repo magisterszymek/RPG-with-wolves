@@ -9,7 +9,7 @@
 </head>
 <body onload="zapamietajZakladke(false)" onbeforeunload="zapamietajZakladke(true)">
 	<div class="pasekNawigacji noselect">
-		<div class="przyciskNawigacji" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
+		<div class="przyciskNawigacji" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Podróże</div>
 		<div class="przyciskNawigacji" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
 		<div class="przyciskNawigacji" style="background:var(--zakladka-menu-color);" onclick="zakladka(2);">Menu</div>
 		<div class="przyciskNawigacji" style="background:var(--zakladka-ustawienia-color);" onclick="zakladka(3);">Ustawienia</div>
@@ -274,7 +274,7 @@
 	</div>
 	<div class="oboz" hidden>
 		<div class="mapaOboz">
-			<img src="Obrazy/Budynki/Dom.png" style="width: 10%; height: 10%" onclick="lokacja('crafting')">
+			<img src="Obrazy/Budynki/Dom.png" class="budynek" onclick="lokacja('crafting')">
 		</div>
 		<div class="statystykiOboz">
 			<button onclick="lokacja('pradawnyLas')">Cofnij</button>
