@@ -1199,7 +1199,7 @@ function crafting(przedmiot, doBazy, element){
 					slot = "slot" + liczba;
 					calySlotCrafting = document.getElementById(slot);
 						if(calySlotCrafting.hasChildNodes() == true){
-							calySlotChild = calySlot.childNodes[0];
+							calySlotChild = calySlotCrafting.childNodes[0];
 							if(calySlotChild.lang == "prdm_bron_a_1"){
 								calySlotCrafting.removeChild(calySlotChild);
 								drewno -= 1;
@@ -1345,7 +1345,7 @@ function wrzucPrzedmioty(przedmiot){
 				slot = "slot" + liczba;
 				calySlotCrafting = document.getElementById(slot);
 					if(calySlotCrafting.hasChildNodes() == true){
-						calySlotChild = calySlot.childNodes[0];
+						calySlotChild = calySlotCrafting.childNodes[0];
 						if(calySlotChild.lang == "crft_1"){
 							calySlotCrafting.removeChild(calySlotChild);
 							klody += 1;
@@ -1363,7 +1363,7 @@ function wrzucPrzedmioty(przedmiot){
 				slot = "slot" + liczba;
 				calySlotCrafting = document.getElementById(slot);
 					if(calySlotCrafting.hasChildNodes() == true){
-						calySlotChild = calySlot.childNodes[0];
+						calySlotChild = calySlotCrafting.childNodes[0];
 						if(calySlotChild.lang == "crft_2"){
 							calySlotCrafting.removeChild(calySlotChild);
 							drewno += 1;
