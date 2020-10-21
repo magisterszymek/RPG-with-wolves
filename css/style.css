@@ -465,6 +465,7 @@ button:hover {
 	height: 100%;
 	background-color: yellow;
 	float: right;
+	padding: 0.5%;
 }
 .pasekNaDole {
 	width: 75%;
