@@ -422,3 +422,28 @@ button:hover {
 	background-color: green;
 	float: right;
 }
+.crafting {
+	z-index: 1;
+	height: 95%;
+	width: 100%;
+	position: absolute;
+	background-color: red;
+}
+.pasekPoPrawej {
+	width: 25%;
+	height: 100%;
+	background-color: yellow;
+	float: right;
+}
+.pasekNaDole {
+	width: 75%;
+	height: 25%;
+	background-color: green;
+	float: right;
+}
+.polePoSrodku {
+	width: 75%;
+	height: 75%;
+	background-color: lightgreen;
+	float: left;
+}
