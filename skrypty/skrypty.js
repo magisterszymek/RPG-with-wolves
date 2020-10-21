@@ -140,11 +140,19 @@
 		
 		var bossZrujnowanyOboz = false;
 		
+		var obozWlaczony = false; // Do obsługiwania zakładek przy włączonym obozie
+		var craftingWlaczony = false;
+		
 // ---------- Koniec zmiennych ----------
 
 function zakladka(NrZakladki) {
 	switch(NrZakladki){
 		case 0:{
+		if(obozWlaczony == true){
+			document.getElementsByClassName("oboz")[0].hidden = false;
+		} else if(craftingWlaczony == true){
+			document.getElementsByClassName("crafting")[0].hidden = false;
+		}
 		document.getElementById("zakladkaWalka").style.zIndex="0";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
@@ -152,6 +160,8 @@ function zakladka(NrZakladki) {
 		break;
 		}
 		case 1:{
+		document.getElementsByClassName("oboz")[0].hidden = true;
+		document.getElementsByClassName("crafting")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="0";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
@@ -159,6 +169,8 @@ function zakladka(NrZakladki) {
 		break;
 		}
 		case 2:{
+		document.getElementsByClassName("oboz")[0].hidden = true;
+		document.getElementsByClassName("crafting")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="0";
@@ -166,6 +178,8 @@ function zakladka(NrZakladki) {
 		break;
 		}
 		case 3:{
+		document.getElementsByClassName("oboz")[0].hidden = true;
+		document.getElementsByClassName("crafting")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
@@ -1056,6 +1070,8 @@ function odswiezZmienne(rodzaj){
 function lokacja(lokacja){
 	switch(lokacja){
 		case "pradawnyLas":{
+			obozWlaczony = false;
+			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "none";
 			dolina.style.display = "none";
 			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
@@ -1073,8 +1089,18 @@ function lokacja(lokacja){
 			cofnijOboz.style.display = "none";
 			break;
 		}
-		case "obozWilkow": {
+		case "obozWilkow":{
+			craftingWlaczony = false;
+			obozWlaczony = true;
 			document.getElementsByClassName("oboz")[0].hidden=false;
+			document.getElementsByClassName("crafting")[0].hidden=true;
+			break;
+		}
+		case "crafting":{
+			craftingWlaczony = true;
+			obozWlaczony = false;
+			document.getElementsByClassName("crafting")[0].hidden=false;
+			document.getElementsByClassName("oboz")[0].hidden=true;
 			break;
 		}
 		case "lesnaDroga1":{
@@ -1121,6 +1147,8 @@ function lokacja(lokacja){
 			break;
 		}
 		case "cofnij":{
+			document.getElementsByClassName("crafting")[0].hidden=true;
+			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "inline";
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			mapa.src = "Obrazy/Mapa/Mapa.png";
