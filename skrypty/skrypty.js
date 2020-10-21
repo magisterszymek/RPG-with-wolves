@@ -2,14 +2,16 @@
 
 // Przedmioty
 	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
-		var prdm_bron_a_1 = ["Drewniany miecz", "Nie masz nic twardszego?", 2, 1, 10];
-		var prdm_bron_a_1 = ["Drewniana nakładka na pazury", "Beznadziejne ale lepsze niż nic.", 2, 1, 10];
+		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", 2, 1, 5];
+		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", 3, 1, 8];
+		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", 5, 1, 20];
+		var prdm_bron_a_4 = ["Drewniany kostur", "Zarówno jest bronią, jak i ułatwia chodzenie.", 2.5, 1, 5];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
-		var prdm_zbroja_a_1 = ["Drewniany hełm", "Ochroni przed jabłkami i kokosami.", "Hełm", 2, 1, 13,];
-		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 3, 1, 25];
-		var prdm_zbroja_a_3 = ["Drewniane spodnie", "Naprawdę?", "Spodnie", 2, 1, 17];						
-		var prdm_zbroja_a_4 = ["Drewniane buty", "Niewygodne ale... nie, nie są dobre.", "Buty", 1, 1, 10];
+		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
+		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 2, 1, 10];
+		var prdm_zbroja_a_3 = ["Drewniane nagolenniki", "Niewiele chronią, jednak lepsze one niż nic.", "Spodnie", 1, 1, 7];						
+		var prdm_zbroja_a_4 = ["Drewniane ochronniki na łapy", "Jedne z dziwniejszych rzeczy jakie udało się wystrugać.", "Buty", 0.5, 1, 6];
 		
 		//utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
 		//utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
@@ -17,14 +19,18 @@
 		//utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
 			
 	// Inne przedmioty ["nazwa", "opis", "rodzaj", cena]
-		var prdm_1 = ["Różowy kwiatek", "Pachnie trawą.", "Przedmiot", 3];
-		var prdm_2 = ["Kłoda", "Gotowe do rąbania", "Przedmiot", 1];
-		var prdm_3 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
-		var prdm_4 = ["Zielony grzyb", "Bardzo sycący.", "Składnik", 3];
-		var prdm_5 = ["Czerwony grzyb", "Trujący dla ludzi, zdrowy dla wilków.", "Składnik", 3];
-		var prdm_6 = ["Niebieski grzyb", "Duszący i niezbyt jadalny.", "Składnik", 5];
-		var prdm_7 = ["Różowy grzyb", "Nieczęsto spotykany, o specyficznych magicznych właściwościach.", "Składnik", 10];
-		var prdm_8 = ["Przezroczysty grzyb", "Niezwykle rzadki. Jego właściwości nie są znane.", "Składnik", 30];
+		var prdm_1 = ["Drewniany pojemnik", "Może przechowywać ciecze, dodając im posmaku żywicy.", "Przedmiot", 3];
+		var prdm_2 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
+		
+		var grzyb_1 = ["Zielony grzyb", "Bardzo sycący.", "Składnik", 3];
+		var grzyb_2 = ["Czerwony grzyb", "Trujący dla ludzi, zdrowy dla wilków.", "Składnik", 3];
+		var grzyb_3 = ["Niebieski grzyb", "Duszący i niezbyt jadalny.", "Składnik", 5];
+		var grzyb_4 = ["Różowy grzyb", "Nieczęsto spotykany, o specyficznych magicznych właściwościach.", "Składnik", 10];
+		var grzyb_5 = ["Przezroczysty grzyb", "Niezwykle rzadki. Jego właściwości nie są znane.", "Składnik", 30];
+		
+	// Przedmioty do craftingu ["nazwa", "opis", cena]
+		var crft_1 = ["Kłoda", "Gotowe do rąbania.", "Wytwarzanie", 1];
+		var crft_2 = ["Drewno", "Służy głównie do budowy, ale można coś z niego wystrugać.", "Wytwarzanie", 3]
 		
 // Przeciwnicy ["nazwa", "nazwa obrazka (bez spacji)", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
 	var prze_lesnaDroga1_ = [
@@ -475,15 +481,15 @@ function loot(nazwaPrzeciwnik){
 		case "Grzybiarz":{
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){ 
-				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+				utworzPrzedmiot("grzyb_1", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){
-				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+				utworzPrzedmiot("grzyb_2", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){
-				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+				utworzPrzedmiot("grzyb_3", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
 			}
 			break;
 		}
@@ -496,15 +502,15 @@ function loot(nazwaPrzeciwnik){
 		case "Doświadczony grzybiarz":{
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){ 
-				utworzPrzedmiot("prdm_4", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+				utworzPrzedmiot("grzyb_1", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){
-				utworzPrzedmiot("prdm_5", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+				utworzPrzedmiot("grzyb_2", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){
-				utworzPrzedmiot("prdm_6", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+				utworzPrzedmiot("grzyb_3", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
 			}
 			break;
 		}
@@ -515,7 +521,6 @@ function loot(nazwaPrzeciwnik){
 			break;
 		}
 	}
-	//document.getElementById("slot50").appendChild(item);
 }
 
 	// Funkcja do wpisywania tekstu
