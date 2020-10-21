@@ -2,10 +2,10 @@
 
 // Przedmioty
 	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
-		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", 2, 1, 5];
-		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", 3, 1, 8];
-		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", 5, 1, 20];
-		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", 2.5, 1, 5];
+		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", "Broń", 2, 1, 5];
+		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", "Broń", 3, 1, 8];
+		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", "Broń", 5, 1, 20];
+		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 2.5, 1, 5];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
@@ -737,6 +737,7 @@ function zapamietajZakladke(bool) {
 	else {
 		odczyt();
 		getNick();
+		if(nickWpisano == true){ setInterval(zapis, 30000); }
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
 			document.getElementsByClassName("zakladka")[zakladka].style.zIndex = 0;
@@ -851,6 +852,7 @@ function sprawdzWyposazenieNull(){
 }
 
 function zapis() {
+	if(walkaTrwa == null){} else {
 	var liczba = 1;
 	arr = [];
 	while (liczba <= 159) {
@@ -865,6 +867,7 @@ function zapis() {
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	odswiezZmienne("zapis");
+	}
 }
 
 function odczyt() {
@@ -948,7 +951,7 @@ document.onmouseover = function opis(id) {
 		document.getElementById("opisWartosc").innerHTML = "Wartość:";
 		if(przedmiotOpis[2] == "Broń"){
 			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
-			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[2];
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
 		} else if(przedmiotOpis[2] == "Hełm" || przedmiotOpis[2] == "Napierśnik" || przedmiotOpis[2] == "Spodnie" || przedmiotOpis[2] == "Buty"){
 			document.getElementById("opisTyp").innerHTML = "Pancerz:";
 			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
@@ -1105,6 +1108,8 @@ function lokacja(lokacja){
 			obozWlaczony = false;
 			document.getElementsByClassName("crafting")[0].hidden = false;
 			document.getElementsByClassName("oboz")[0].hidden = true;
+			document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "lesnaDroga1":{
@@ -1183,9 +1188,29 @@ function crafting(przedmiot, doBazy, element){
 					utworzPrzedmiot("crft_2", "skladnik", "Obrazy/Przedmioty/Drewno.png");
 				}
 			}
+			document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
-		case "przerobionySztylet":{ // TODO: sprawdzanie czy sztylet znajduje się w ekwipunku
+		case "przerobionySztylet":{
+			if(drewno >= 1){
+				var liczba = 1;
+				while (liczba <= 159) {
+					slot = "slot" + liczba;
+					calySlotCrafting = document.getElementById(slot);
+						if(calySlotCrafting.hasChildNodes() == true){
+							calySlotChild = calySlot.childNodes[0];
+							if(calySlotChild.lang == "prdm_bron_a_1"){
+								calySlotCrafting.removeChild(calySlotChild);
+								drewno -= 1;
+								utworzPrzedmiot("prdm_bron_a_2", "bron", "Obrazy/Przedmioty/Przerobiony_sztylet.png");
+								break;
+							}
+						}
+					liczba += 1;
+				}
+			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "nakladkaNaLape":{ // TODO: sprawdzanie czy sztylet znajduje się w ekwipunku
@@ -1196,6 +1221,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 1;
 				utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Drewniany_hełm.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianyNapiersnik":{
@@ -1203,6 +1229,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 3;
 				utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Drewniany_napierśnik.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianeNagolenniki":{
@@ -1210,6 +1237,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 2;
 				utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Drewniane_nagolenniki.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianeOchronnikiNaLapy":{
@@ -1217,6 +1245,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 2;
 				utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Drewniane_ochronniki_na_łapy.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianyPojemnik":{
@@ -1224,6 +1253,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 1;
 				utworzPrzedmiot("prdm_1", "przedmiot", "Obrazy/Przedmioty/Drewniany_pojemnik.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianyKostur":{
@@ -1231,6 +1261,7 @@ function crafting(przedmiot, doBazy, element){
 				drewno -= 2;
 				utworzPrzedmiot("prdm_bron_a_4", "bron", "Obrazy/Przedmioty/Drewniany_kostur.png");
 			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 	}
@@ -1312,14 +1343,14 @@ function wrzucPrzedmioty(przedmiot){
 			var liczba = 1;
 			while (liczba <= 159) {
 				slot = "slot" + liczba;
-				calySlot = document.getElementById(slot);
-					if(calySlot.hasChildNodes() == true){
+				calySlotCrafting = document.getElementById(slot);
+					if(calySlotCrafting.hasChildNodes() == true){
 						calySlotChild = calySlot.childNodes[0];
-						if(calySlotChild.alt= "crft_1"){
-							console.log(calySlotChild);
-							calySlot.removeChild(calySlotChild);
+						if(calySlotChild.lang == "crft_1"){
+							calySlotCrafting.removeChild(calySlotChild);
 							klody += 1;
 							document.getElementById("licznikKlody").innerHTML = klody;
+							document.getElementById("licznikKlodyCrafting").innerHTML = klody;
 						}
 					}
 				liczba += 1;
@@ -1327,6 +1358,21 @@ function wrzucPrzedmioty(przedmiot){
 			break;
 		}
 		case "drewno":{
+			var liczba = 1;
+			while (liczba <= 159) {
+				slot = "slot" + liczba;
+				calySlotCrafting = document.getElementById(slot);
+					if(calySlotCrafting.hasChildNodes() == true){
+						calySlotChild = calySlot.childNodes[0];
+						if(calySlotChild.lang == "crft_2"){
+							calySlotCrafting.removeChild(calySlotChild);
+							drewno += 1;
+							document.getElementById("licznikDrewno").innerHTML = drewno;
+							document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
+						}
+					}
+				liczba += 1;
+			}
 			break;
 		}
 	}
