@@ -1068,7 +1068,8 @@ function lokacja(lokacja){
 			cofnijOboz.style.display = "none";
 			break;
 		}
-		case "obozWilkow":{
+		case "obozWilkow": {
+			document.getElementsByClassName("oboz")[0].hidden=false;
 			break;
 		}
 		case "lesnaDroga1":{
