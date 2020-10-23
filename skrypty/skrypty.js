@@ -9,7 +9,7 @@
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
-		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 2, 1, 10];
+		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 1.5, 1, 10];
 		var prdm_zbroja_a_3 = ["Drewniane nagolenniki", "Niewiele chronią, jednak lepsze one niż nic.", "Spodnie", 1, 1, 7];						
 		var prdm_zbroja_a_4 = ["Drewniane ochronniki na łapy", "Jedne z dziwniejszych rzeczy jakie udało się wystrugać.", "Buty", 0.5, 1, 6];
 		
@@ -41,16 +41,17 @@
 	];
 	var prze_lesnaDroga2_ = [
 	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
 	var prze_zrujnowanyOboz_ = [
-	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 3, 2, 2, 1],
+	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 5, 3, 2, 1],
 	["null"]
 	];
 	var prze_lesnaDroga3_ = [
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
-	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 1, 0, 1],
-	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 2, 4, 2, 2]
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 4, 6, 2, 2]
 	];
 	var prze_grzybowePole_ = [
 	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 1, 2, 1],
@@ -111,12 +112,10 @@
 		var walkaTrwa = false;
 		var walkaKoniec = false;
 		var wybranyCios = "default";
-		var mnoznikObrazenCiosu = [1, 3, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
+		var mnoznikObrazenCiosu = [1, 1.75, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
 		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
-		var tymczasoweZdrowie = 0; // Służy do przywracania zdrowia po walce
 		
 	// HTML
-		var zdrowieMaksymalne = zdrowieKoncowe;
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
 		
 	// Textbox
@@ -200,7 +199,6 @@ function rozpocznijWalke(biom, trudnosc){
 		wybierzPrzeciwnika(biom, trudnosc);
 		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
 		blokadaWalki = true;
-		tymczasoweZdrowie = zdrowieKoncowe;
 		interval = setInterval(walka, 1000);
 		interval2 = setInterval(kondycjaLiczenie, 250);
 	}
@@ -231,10 +229,6 @@ function walka(typ){
 			zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
 			wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
 		// Koniec tury przeciwnika
-		
-		zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100;
-		kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
-		zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 		odswiezZmienne("walka");
 		} else {};
 		kalkulacja = 0;
@@ -294,9 +288,9 @@ function walka(typ){
 				}
 			}
 			obraz(-1);
-			odswiezZmienne("koniecWalki");
 			clearInterval(interval);
 			clearInterval(interval2);
+			odswiezZmienne("koniecWalki");
 		}
 }
   
@@ -386,7 +380,7 @@ function wybierzCios(nazwaCiosu){
 				przyciskPazury = document.getElementById("pazury");
 				if(przyciskPazury.disabled == false){
 					kondycjaKoncowa -= 4;
-					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
 					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 					setTimeout(function pazuryPierwszy(){
@@ -447,7 +441,7 @@ function wybierzCios(nazwaCiosu){
 				przyciskKly = document.getElementById("kly");
 				if(przyciskKly.disabled == false){
 					kondycjaKoncowa -= 7;
-					kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+					kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
 					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
 					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
 					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
@@ -863,9 +857,11 @@ function zapis() {
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
 	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+	magazynArray = [klody, drewno];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+	localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
 	odswiezZmienne("zapis");
 	}
 }
@@ -933,7 +929,16 @@ function odczyt() {
 		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
+	if (localStorage.getItem("Magazyn") !== null) {
+		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
+		klody = magazynArray[0];
+		drewno = magazynArray[0];
+	} else {
+		magazynArray = [klody, drewno];
+		localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
+	}
 }
+
 function reset() {
 	localStorage.clear();
 	resetKlikniety = true;
@@ -975,6 +980,9 @@ document.onmouseover = function opis(id) {
 function odswiezZmienne(rodzaj){
 	switch(rodzaj){
 		case "walka":{
+			zdrowieProcent = (zdrowieKoncowe / zdrowieEkwipunek) * 100;
+			kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
 			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 			document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%"
@@ -989,17 +997,16 @@ function odswiezZmienne(rodzaj){
 			blokadaWalki = false;
 			nazwaPrzeciwnik = "Brak przeciwnika";
 			opisPrzeciwnik = "";
-			zdrowieKoncowe = tymczasoweZdrowie;
+			zdrowieKoncowe = zdrowieEkwipunek;
 			kondycjaKoncowa = kondycjaEkwipunek;
-			tymczasoweZdrowie = 0;
 			zdrowieMaksymalnePrzeciwnik = 0;
 			zdrowiePrzeciwnik = 0;
 			pancerzPrzeciwnik = 0;
 			obrazeniaPrzeciwnik = 0;
 			zakresPrzeciwnik = 0;
-			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
-			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
-			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
+			zdrowieProcent = (zdrowieKoncowe / zdrowieEkwipunek) * 100;
+			kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
+			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
@@ -1007,8 +1014,8 @@ function odswiezZmienne(rodzaj){
 			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
-			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieEkwipunek;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaEkwipunek;
 			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
 			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
 			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
@@ -1029,8 +1036,6 @@ function odswiezZmienne(rodzaj){
 		}
 		case "zapis":{
 			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
-			zdrowieMaksymalne = zdrowieKoncowe;
-			kondycjaMaksymalna = kondycjaKoncowa;
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
@@ -1038,17 +1043,15 @@ function odswiezZmienne(rodzaj){
 			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
-			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieEkwipunek;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaEkwipunek;
 			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
 			break;
 		}
 		case "poczatekWalki":{
 			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
-			zdrowieMaksymalne = zdrowieKoncowe;
-			kondycjaMaksymalna = kondycjaKoncowa;
-			zdrowieProcent = (zdrowieKoncowe / zdrowieMaksymalne) * 100
-			kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+			zdrowieProcent = (zdrowieKoncowe / zdrowieEkwipunek) * 100
+			kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
 			zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
@@ -1057,8 +1060,8 @@ function odswiezZmienne(rodzaj){
 			document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 			document.getElementById("pancerzPrzeciwnik").innerHTML = pancerzPrzeciwnik;
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
-			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieMaksymalne;
-			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaMaksymalna;
+			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieEkwipunek;
+			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaEkwipunek;
 			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
 			document.getElementById("zdrowiePasek").style.width = zdrowieProcent + "%"
 			document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
@@ -1393,8 +1396,8 @@ function getNick(zmienna) {
 function kondycjaLiczenie(){
 	if(kondycjaKoncowa < kondycjaEkwipunek){
 	kondycjaKoncowa += kondycjaRegeneracja;
-	if(kondycjaKoncowa > kondycjaEkwipunek){ kondycjaKoncowa = koncydjaEkwipunek };
-	kondycjaProcent = (kondycjaKoncowa / kondycjaMaksymalna) * 100;
+	if(kondycjaKoncowa > kondycjaEkwipunek){ kondycjaKoncowa = kondycjaEkwipunek };
+	kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
 	document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 	document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 	odswiezZmienne("sprawdzUmiejetnosci");
