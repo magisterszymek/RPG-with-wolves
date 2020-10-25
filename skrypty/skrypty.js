@@ -1,4 +1,5 @@
-// ---------- Zmienne ----------
+// ---------- Array'e ----------
+// Główne array'e (poza tymi od zapisu) wykorzystywane do przechowywania informacji o przedmiotach i przeciwnikach.
 
 // Przedmioty
 	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
@@ -12,16 +13,12 @@
 		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 1.5, 1, 10];
 		var prdm_zbroja_a_3 = ["Drewniane nagolenniki", "Niewiele chronią, jednak lepsze one niż nic.", "Spodnie", 1, 1, 7];						
 		var prdm_zbroja_a_4 = ["Drewniane ochronniki na łapy", "Jedne z dziwniejszych rzeczy jakie udało się wystrugać.", "Buty", 0.5, 1, 6];
-		
-		//utworzPrzedmiot("prdm_zbroja_a_1", "helm", "Obrazy/Przedmioty/Hełm.png");
-		//utworzPrzedmiot("prdm_zbroja_a_2", "napiersnik", "Obrazy/Przedmioty/Napierśnik.png");
-		//utworzPrzedmiot("prdm_zbroja_a_3", "spodnie", "Obrazy/Przedmioty/Spodnie.png");
-		//utworzPrzedmiot("prdm_zbroja_a_4", "buty", "Obrazy/Przedmioty/Buty.png");
-			
+
 	// Inne przedmioty ["nazwa", "opis", "rodzaj", cena]
 		var prdm_1 = ["Drewniany pojemnik", "Może przechowywać ciecze, dodając im posmaku żywicy.", "Przedmiot", 3];
 		var prdm_2 = ["Połamany miecz", "Nadaje się już tylko na przetopienie.", "Przedmiot", 5];
 		
+	// Grzyby [Takie same jak przedmioty]
 		var grzyb_1 = ["Zielony grzyb", "Bardzo sycący.", "Składnik", 3];
 		var grzyb_2 = ["Czerwony grzyb", "Trujący dla ludzi, zdrowy dla wilków.", "Składnik", 3];
 		var grzyb_3 = ["Niebieski grzyb", "Duszący i niezbyt jadalny.", "Składnik", 5];
@@ -35,114 +32,110 @@
 		drewno = 0;
 		
 // Przeciwnicy ["nazwa", "nazwa obrazka (bez spacji)", "opis", zdrowie, pancerz, obrażenia, zakres, trudność]
-	var prze_lesnaDroga1_ = [
+	var prze_lesnaDroga1_ = [ // Przeciwnicy z "Leśna droga [1]"
 	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["null"]
 	];
-	var prze_lesnaDroga2_ = [
+	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
 	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
-	var prze_zrujnowanyOboz_ = [
+	var prze_zrujnowanyOboz_ = [ // Przeciwnicy ze "Zrujnowany obóz"
 	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 5, 3, 2, 1],
 	["null"]
 	];
-	var prze_lesnaDroga3_ = [
+	var prze_lesnaDroga3_ = [ // Przeciwnicy z "Leśna droga [3]"
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 4, 6, 2, 2]
 	];
-	var prze_grzybowePole_ = [
+	var prze_grzybowePole_ = [ // Przeciwnicy z "Grzybowe Pole"
 	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 1, 2, 1],
 	["Doświadczony grzybiarz", "Doświadczony_grzybiarz", "Ma dwa koszyki pełne grzybów", 20, 3, 2, 2, 1],
 	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
 	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
 	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
 	];
-	var prze_wiezaMaga_ = [
+	var prze_wiezaMaga_ = [ // Przeciwnicy z "Wieża maga"
 	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
 	["null"]
 	];
 	var prze_dolina = []
-		
+
+// ---------- Koniec array'ów ---------
+
+// ---------- Zmienne ----------
 // Statystyki
 	// Gracz
-		var nick = "Ruffus";
-		var nickWpisano = false;
-		var pancerzHelm = 0;
-		var pancerzNapiersnik = 0;
-		var pancerzSpodnie = 0;
-		var pancerzButy = 0;
-		var pancerzKoncowy = 0;
-		var waluta = 20;
-		var zdrowieBazowe = 20;		// Zdrowie Bazowe
-		var zdrowieEkwipunek = 20;	// zdrowieBazowe + Zdrowie z ekwipunku
-		var zdrowieKoncowe = 20;	// zdrowieEkwipunek + Zdrowie z buffów
-		var kondycjaBazowa = 10;
-		var kondycjaEkwipunek = 10;
-		var kondycjaKoncowa = 10;
-		var kondycjaRegeneracja = 0.25;
-		var obrazeniaBazowe = 3;	// Obrażenia bazowe
-		var obrazeniaEkwipunek = 3;	// obrażeniaBazowe + Obrażenia z ekwipunku
-		var obrazeniaKoncowe = 3;	// obrażeniaEkwipunek + Obrażenia z wybranego ciosu
-		var szybkoscBazowa = 1;		// Szybkość bazowa
-		var szybkoscEkwipunek = 1;	// szybkoscBazowa + Szybkość z ekwipunku
-		var szybkoscKoncowa	= 1;	// szybkoscEkwipunek + Szybkość z wybranego ciosu
+		var nick = "Ruffus";			// Nick gracza, defaultowo "Ruffus"
+		var nickWpisano = false;		// Przechowuje informacje o wpisanym nicku
+		var pancerzHelm = 0;			// Ilość pancerza z 1 slotu od góry w wyposażeniu
+		var pancerzNapiersnik = 0;		// Ilość pancerza z 2 slotu od góry w wyposażeniu
+		var pancerzSpodnie = 0;			// Ilość pancerza z 3 slotu od góry w wyposażeniu
+		var pancerzButy = 0;			// Ilość pancerza z 4 slotu od góry w wyposażeniu
+		var pancerzKoncowy = 0;			// Ilość pancerza po podliczeniu wszystkich powyższych slotów, wykorzystywana do walki
+		var waluta = 20;				// NIE WYKORZYSTYWANE	Waluta gracza, służąca do kupna
+		var zdrowieBazowe = 20;			// Zdrowie bazowe gracza
+		var zdrowieEkwipunek = 20;		// Zdrowie gracza po podliczeniu ekwipunku i innych bonusów
+		var zdrowieKoncowe = 20;		// Zdrowie gracza wykorzystywane do walki
+		var kondycjaBazowa = 10;		// Kondycja bazowa gracza
+		var kondycjaEkwipunek = 10;		// Kondycja gracza po podliczeniu ekwipunku i innych bonusów
+		var kondycjaKoncowa = 10;		// Kondycja gracza wykorzystywana do walki
+		var kondycjaRegeneracja = 0.25; // Określa o ile regeneruje się kondycja gracza (raz na 250ms, inaczej 1/4 sekundy)
+		var obrazeniaBazowe = 3;		// Obrażenia bazowe gracza
+		var obrazeniaEkwipunek = 3;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
+		var obrazeniaKoncowe = 3;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
+		var szybkoscBazowa = 1;			// NIE WYKORZYSTYWANE	Szybkość bazowa gracza
+		var szybkoscEkwipunek = 1;		// NIE WYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
+		var szybkoscKoncowa	= 1;		// NIE WYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
 
 	// Przeciwnik
-		var nazwaPrzeciwnik = "Brak przeciwnika";
-		var opisPrzeciwnik = " ";
-		var zdrowiePrzeciwnik = " ";
-		var pancerzPrzeciwnik = 0;
-		var obrazeniaPrzeciwnik = 0;
-		var zakresPrzeciwnik = 0;
-		var lokacjaId = "null"; // Lokacja w której rozgrywa się walka, wykorzystywane do odblokowywania dróg
+		var nazwaPrzeciwnik = "Brak przeciwnika"; 	// Służy do przechowywania nazwy przeciwnika podczas walki
+		var opisPrzeciwnik = " ";					// Służy do przechowywania opisu przeciwnika podczas walki
+		var zdrowiePrzeciwnik = " ";				// Służy do przechowywania zdrowia przeciwnika podczas walki
+		var pancerzPrzeciwnik = 0;					// Pancerza przeciwnika podczas walki
+		var obrazeniaPrzeciwnik = 0;				// Obrażenia przeciwnika podczas walki
+		var zakresPrzeciwnik = 0;					// Zakres obrażeń przeciwnika podczas walki
+		var lokacjaId = "null"; 					// Lokacja w której rozgrywa się walka, wykorzystywane do odblokowywania dróg
 		
 	// Ekwipunek
-		var zalozonaBron = "brak";
-		var zalozonyHelm = "brak";
-		var zalozonyNapiersnik = "brak";
-		var zalozonaZbroja = "brak";
-		var slotWolny = 1;
-		var itemIdMax = 1;
+		var slotWolny = 1;	// Przechowuje informacje o tym który slot jest wolny
+		var itemIdMax = 1;	// Przechowuje informacje o maksymalnym wykorzystywanym id przedmiotu (w rzeczywistości o ostatnim zajętym slocie przed slotem wolnym: itemIdMax == 3 oznacza więc że slot 4 jest pusty nawet jeśli slot 5 czy inne są zajęte)
 		
 	// Walka
-		var blokadaWalki = false;
-		var walkaTrwa = false;
-		var walkaKoniec = false;
-		var wybranyCios = "default";
-		var mnoznikObrazenCiosu = [1, 1.75, 0.65]; // Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
-		var szybkoscCiosu = [1, 1, 3] // Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
+		var blokadaWalki = false;					// Blokada dla rozpoczęcia walki, gdy wartość jest równa "false" walka nie może się rozpocząć
+		var walkaTrwa = false;						// Przechowuje informacje czy walka jeszcze trwa
+		var walkaKoniec = false; 					// Przechowuje informacje czy walka właśnie się skończyła
+		var wybranyCios = "default"; 				// Służy do przechowywania podstawowego rodzaju ciosu dla funkcji, "default" jest jako zabezpieczenie dla pierwszego ciosu
+		var mnoznikObrazenCiosu = [1, 1.75, 0.65];	// Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
+		var szybkoscCiosu = [1, 1, 3] 				// Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		
 	// HTML
-		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
-		
-	// Textbox
-		var id = 1;
-		var tekstId = "tekstId1";
-		var odwrotneTekstId = "tekstId1";
-		var tekst = "&nbsp";
-		var arr = tekst.split(' ');
+		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
 		
 	// Mapa
-		var blokadaPosterunekWilkow = true;
-		var blokadaZrujnowanyOboz = true;
-		var blokadaLesnaDroga2 = true;
-		var blokadaZniszczonaDroga = true;
-		var blokadaGrota = true;
-		var blokadaLesnaDroga3 = true;
-		var blokadaWiezaMaga = true;
-		var blokadaGrzybowePole = true;
-		var blokadaGory = true;
-		var blokadaDolina = true;
-		var blokadaMoczary = true;
-		var resetKlikniety = false;
+		// Blokady - służą do wyświetlania przycisków na mapie
+			var blokadaPosterunekWilkow = true;	// Blokada przycisku "Posterunek wilków"
+			var blokadaZrujnowanyOboz = true;	// Blokada przycisku "Zrujnowany obóz"
+			var blokadaLesnaDroga2 = true;		// Blokada przycisku "Leśna droga [2]"
+			var blokadaZniszczonaDroga = true;	// Blokada przycisku "Zniszczona droga"
+			var blokadaGrota = true;			// Blokada przycisku "Grota"
+			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
+			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
+			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
+			var blokadaGory = true;				// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
+			var blokadaDolina = true;			// Blokada przycisku "Dolina"
+			var blokadaMoczary = true;			// Blokada przycisku "Moczary"
 		
-		var bossZrujnowanyOboz = false;
+		// Bossowie - zmienne służą do określania czy bossowie zostali pokonani, "true" oznacza że tak
+			var bossZrujnowanyOboz = false; 	// Boss z lokacji "Zrujnowany obóz"
 		
-		var obozWlaczony = false; // Do obsługiwania zakładek przy włączonym obozie
-		var craftingWlaczony = false;
+		// Inne
+			var resetKlikniety = false; 	// Safe-switch do wykonania resetu, gdy jest ustawiony na "false" gra nie usunie progressu.
+			var obozWlaczony = false; 		// Przechowuje informacje o tym czy obóz jest włączony
+			var craftingWlaczony = false;	// Przechowuje informacje o tym czy 
+		
 		
 // ---------- Koniec zmiennych ----------
 
@@ -192,46 +185,48 @@ function zakladka(NrZakladki) {
 
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
-	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){
-		walkaTrwa = true;
+	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
+		walkaTrwa = true;  // Określa że walka trwa
+		blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
+		wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
 		wpiszTekst("linia");
-		wpiszTekst("linia");
-		wybierzPrzeciwnika(biom, trudnosc);
-		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);
-		blokadaWalki = true;
-		interval = setInterval(walka, 1000);
-		interval2 = setInterval(kondycjaLiczenie, 250);
+		wybierzPrzeciwnika(biom, trudnosc);  // Wywołuje funkcję do wybrania przeciwnika
+		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
+		interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
+		interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
 	}
 }
 
 	// Funkcja odpowiedzialna za loopa walki
 function walka(typ){
-	if(typ != "specjalny"){
+	if(typ != "specjalny"){  // Jeśli typ jest specjalny funkcja pomija zadawanie obrażeń i przeskakuje od razu do sprawdzenia zdrowia gracza i przeciwnika
+	
 		//Początek tury gracza
-		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
-		if(kalkulacja < 0){
-			kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+		kalkulacja = (obrazeniaKoncowe - pancerzPrzeciwnik) * szybkoscKoncowa  // Obliczanie realnych obrażeń zadanych przez gracza po trafieniu przeciwnika w pancerz
+		if(kalkulacja < 0){  // Zerowanie obrażeń jeśli mniejsze od zera
+			kalkulacja = 0; 
 		}
-		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
-		if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
+		zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;  // Zapisuje zdrowie przeciwnika po otrzymaniu obrażeń
+		if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }  // Wyzerowanie zdrowia przeciwnika jeśli zeszło na minus
 		wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja);
 		
 		// Koniec tury gracza, początek tury przeciwnika
-		if(zdrowiePrzeciwnik >= 0.1){
-			if(zakresPrzeciwnik != 0){
-				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+		if(zdrowiePrzeciwnik >= 0.1){  // Jeśli przeciwnik żyje, zada obrażenia
+			if(zakresPrzeciwnik != 0){  // Jeśli zakres obrażeń przeciwnika nie jest równy zero
+				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik + 1))) - pancerzKoncowy;  // Obliczanie realnych obrażeń zadanych przez przeciwnika po trafieniu gracza w pancerz
 			} else {
-				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerzKoncowy; // Obliczanie realnych obrażeń przeciwnika po trafieniu w pancerz
+				kalkulacja = ((obrazeniaPrzeciwnik - (zakresPrzeciwnik * 0.5)) + (Math.floor(Math.random() * zakresPrzeciwnik))) - pancerzKoncowy;  // Obliczanie realnych obrażeń zadanych przez przeciwnika po trafieniu gracza w pancerz
 			}
-			if(kalkulacja < 0){
-				kalkulacja = 0; // Zerowanie obrażeń jeśli mniejsze od zera
+			if(kalkulacja < 0){  // Zerowanie obrażeń jeśli mniejsze od zera
+				kalkulacja = 0;
 			}
-			zdrowieKoncowe = zdrowieKoncowe - kalkulacja;
+			zdrowieKoncowe = zdrowieKoncowe - kalkulacja;  // Zapisuje zdrowie gracza po otrzymaniu obrażeń
 			wpiszTekst("walka", nazwaPrzeciwnik, nick, kalkulacja);
 		// Koniec tury przeciwnika
-		odswiezZmienne("walka");
+		
+		odswiezZmienne("walka");  // Wywołuje funkcję odpowiedzialną za odświeżenie liczb w HTML'u
 		} else {};
-		kalkulacja = 0;
+		kalkulacja = 0;  // Wyzerowanie zmiennej od przechowywania obrażeń
 	}
 		if(zdrowieKoncowe <= 0 || zdrowiePrzeciwnik <= 0){
 			if(zdrowieKoncowe <= 0){
