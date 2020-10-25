@@ -75,7 +75,7 @@
 		var pancerzSpodnie = 0;			// Ilość pancerza z 3 slotu od góry w wyposażeniu
 		var pancerzButy = 0;			// Ilość pancerza z 4 slotu od góry w wyposażeniu
 		var pancerzKoncowy = 0;			// Ilość pancerza po podliczeniu wszystkich powyższych slotów, wykorzystywana do walki
-		var waluta = 20;			// NIE WYKORZYSTYWANE	Waluta gracza, służąca do kupna
+		var waluta = 20;			// NIEWYKORZYSTYWANE	Waluta gracza, służąca do kupna
 		var zdrowieBazowe = 20;			// Zdrowie bazowe gracza
 		var zdrowieEkwipunek = 20;		// Zdrowie gracza po podliczeniu ekwipunku i innych bonusów
 		var zdrowieKoncowe = 20;		// Zdrowie gracza wykorzystywane do walki
@@ -86,9 +86,9 @@
 		var obrazeniaBazowe = 3;		// Obrażenia bazowe gracza
 		var obrazeniaEkwipunek = 3;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
 		var obrazeniaKoncowe = 3;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
-		var szybkoscBazowa = 1;			// NIE WYKORZYSTYWANE	Szybkość bazowa gracza
-		var szybkoscEkwipunek = 1;		// NIE WYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
-		var szybkoscKoncowa	= 1;		// NIE WYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
+		var szybkoscBazowa = 1;			// NIEWYKORZYSTYWANE	Szybkość bazowa gracza
+		var szybkoscEkwipunek = 1;		// NIEWYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
+		var szybkoscKoncowa	= 1;		// NIEWYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = "Brak przeciwnika"; 	// Służy do przechowywania nazwy przeciwnika podczas walki
@@ -124,7 +124,7 @@
 			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
-			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
+			var blokadaGory = true;			// NIEWYKORZYSTYWANE	Blokada przycisku "Góry"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 		
