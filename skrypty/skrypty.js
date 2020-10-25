@@ -473,9 +473,9 @@ function wybierzCios(nazwaCiosu){
 				break;
 			}
 		}
-		case "szybki":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
-			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[2];
+		case "szybki":{ // Chwilowo niewykorzystywany
+			//obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[2];
+			//szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[2];
 			break;
 		}
 	}
