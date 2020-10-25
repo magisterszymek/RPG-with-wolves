@@ -75,14 +75,14 @@
 		var pancerzSpodnie = 0;			// Ilość pancerza z 3 slotu od góry w wyposażeniu
 		var pancerzButy = 0;			// Ilość pancerza z 4 slotu od góry w wyposażeniu
 		var pancerzKoncowy = 0;			// Ilość pancerza po podliczeniu wszystkich powyższych slotów, wykorzystywana do walki
-		var waluta = 20;				// NIE WYKORZYSTYWANE	Waluta gracza, służąca do kupna
+		var waluta = 20;			// NIE WYKORZYSTYWANE	Waluta gracza, służąca do kupna
 		var zdrowieBazowe = 20;			// Zdrowie bazowe gracza
 		var zdrowieEkwipunek = 20;		// Zdrowie gracza po podliczeniu ekwipunku i innych bonusów
 		var zdrowieKoncowe = 20;		// Zdrowie gracza wykorzystywane do walki
 		var kondycjaBazowa = 10;		// Kondycja bazowa gracza
 		var kondycjaEkwipunek = 10;		// Kondycja gracza po podliczeniu ekwipunku i innych bonusów
 		var kondycjaKoncowa = 10;		// Kondycja gracza wykorzystywana do walki
-		var kondycjaRegeneracja = 0.25; // Określa o ile regeneruje się kondycja gracza (raz na 250ms, inaczej 1/4 sekundy)
+		var kondycjaRegeneracja = 0.25; 	// Określa o ile regeneruje się kondycja gracza (raz na 250ms, inaczej 1/4 sekundy)
 		var obrazeniaBazowe = 3;		// Obrażenia bazowe gracza
 		var obrazeniaEkwipunek = 3;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
 		var obrazeniaKoncowe = 3;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
@@ -92,24 +92,24 @@
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = "Brak przeciwnika"; 	// Służy do przechowywania nazwy przeciwnika podczas walki
-		var opisPrzeciwnik = " ";					// Służy do przechowywania opisu przeciwnika podczas walki
-		var zdrowiePrzeciwnik = " ";				// Służy do przechowywania zdrowia przeciwnika podczas walki
-		var pancerzPrzeciwnik = 0;					// Pancerza przeciwnika podczas walki
-		var obrazeniaPrzeciwnik = 0;				// Obrażenia przeciwnika podczas walki
-		var zakresPrzeciwnik = 0;					// Zakres obrażeń przeciwnika podczas walki
-		var lokacjaId = "null"; 					// Lokacja w której rozgrywa się walka, wykorzystywane do odblokowywania dróg
+		var opisPrzeciwnik = " ";			// Służy do przechowywania opisu przeciwnika podczas walki
+		var zdrowiePrzeciwnik = " ";			// Służy do przechowywania zdrowia przeciwnika podczas walki
+		var pancerzPrzeciwnik = 0;			// Pancerza przeciwnika podczas walki
+		var obrazeniaPrzeciwnik = 0;			// Obrażenia przeciwnika podczas walki
+		var zakresPrzeciwnik = 0;			// Zakres obrażeń przeciwnika podczas walki
+		var lokacjaId = "null"; 			// Lokacja w której rozgrywa się walka, wykorzystywane do odblokowywania dróg
 		
 	// Ekwipunek
 		var slotWolny = 1;	// Przechowuje informacje o tym który slot jest wolny
 		var itemIdMax = 1;	// Przechowuje informacje o maksymalnym wykorzystywanym id przedmiotu (w rzeczywistości o ostatnim zajętym slocie przed slotem wolnym: itemIdMax == 3 oznacza więc że slot 4 jest pusty nawet jeśli slot 5 czy inne są zajęte)
 		
 	// Walka
-		var blokadaWalki = false;					// Blokada dla rozpoczęcia walki, gdy wartość jest równa "false" walka nie może się rozpocząć
-		var walkaTrwa = false;						// Przechowuje informacje czy walka jeszcze trwa
-		var walkaKoniec = false; 					// Przechowuje informacje czy walka właśnie się skończyła
-		var wybranyCios = "default"; 				// Służy do przechowywania podstawowego rodzaju ciosu dla funkcji, "default" jest jako zabezpieczenie dla pierwszego ciosu
+		var blokadaWalki = false;			// Blokada dla rozpoczęcia walki, gdy wartość jest równa "false" walka nie może się rozpocząć
+		var walkaTrwa = false;				// Przechowuje informacje czy walka jeszcze trwa
+		var walkaKoniec = false; 			// Przechowuje informacje czy walka właśnie się skończyła
+		var wybranyCios = "default"; 			// Służy do przechowywania podstawowego rodzaju ciosu dla funkcji, "default" jest jako zabezpieczenie dla pierwszego ciosu
 		var mnoznikObrazenCiosu = [1, 1.75, 0.65];	// Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
-		var szybkoscCiosu = [1, 1, 3] 				// Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
+		var szybkoscCiosu = [1, 1, 3] 			// Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
 		
 	// HTML
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
@@ -120,20 +120,20 @@
 			var blokadaZrujnowanyOboz = true;	// Blokada przycisku "Zrujnowany obóz"
 			var blokadaLesnaDroga2 = true;		// Blokada przycisku "Leśna droga [2]"
 			var blokadaZniszczonaDroga = true;	// Blokada przycisku "Zniszczona droga"
-			var blokadaGrota = true;			// Blokada przycisku "Grota"
+			var blokadaGrota = true;		// Blokada przycisku "Grota"
 			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
-			var blokadaGory = true;				// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
-			var blokadaDolina = true;			// Blokada przycisku "Dolina"
-			var blokadaMoczary = true;			// Blokada przycisku "Moczary"
+			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
+			var blokadaDolina = true;		// Blokada przycisku "Dolina"
+			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 		
 		// Bossowie - zmienne służą do określania czy bossowie zostali pokonani, "true" oznacza że tak
 			var bossZrujnowanyOboz = false; 	// Boss z lokacji "Zrujnowany obóz"
 		
 		// Inne
 			var resetKlikniety = false; 	// Safe-switch do wykonania resetu, gdy jest ustawiony na "false" gra nie usunie progressu.
-			var obozWlaczony = false; 		// Przechowuje informacje o tym czy obóz jest włączony
+			var obozWlaczony = false; 	// Przechowuje informacje o tym czy obóz jest włączony
 			var craftingWlaczony = false;	// Przechowuje informacje o tym czy 
 		
 		
