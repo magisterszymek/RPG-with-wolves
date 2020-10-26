@@ -18,10 +18,10 @@
 		<!-- zakładka jeden-->
 		<div class="walka">
 			<div class="gracz noselect">
-				<div class="nick"><span id="nick">&nbsp;</span></div>
-				<div class="tloHp"><div class="napisHp"><span id="zdrowieKoncowe"> </span>/<span id="zdrowieMaksymalne"> </span></div><div class="zdrowieKoncowe" id="zdrowiePasek"></div></div>
-				<div class="tloHp"><div class="napisHp"><span id="kondycjaKoncowa"> </span>/<span id="kondycjaMaksymalna"> </span></div><div class="kondycja" id="kondycjaPasek"></div></div>
-				<div class="nick">Pancerz: <span id="pancerzKoncowy">&nbsp;</span></div>
+				<div class="nick"><span class="duze" id="nick">&nbsp;</span></div>
+				<div class="tloHp"><div class="napisHp"><span class="duze" id="zdrowieKoncowe"> </span>/<span class="duze" id="zdrowieMaksymalne"> </span></div><div class="zdrowieKoncowe" id="zdrowiePasek"></div></div>
+				<div class="tloHp"><div class="napisHp"><span class="duze" id="kondycjaKoncowa"> </span>/<span class="duze" id="kondycjaMaksymalna"> </span></div><div class="kondycja" id="kondycjaPasek"></div></div>
+				<div class="nick">Pancerz: <span class="duze" id="pancerzKoncowy">&nbsp;</span></div>
 				<div class="ataki">
 					<button class="przyciskAtaku" onclick="wybierzCios('pazury')" id="pazury">Atak pazurami</button>
 					<button class="przyciskAtaku" onclick="wybierzCios('kly')" id="kly">Ugryzienie</button>
@@ -30,9 +30,9 @@
 				</div>
 			</div>
 			<div class="przeciwnik noselect">
-				<div class="nick"><span id="nazwaPrzeciwnika">Brak przeciwnika</span></div>
-				<div class="tloHpPrzeciwnika"><div class="napisHpPrzeciwnika"><span id="zdrowiePrzeciwnik"> </span>/<span id="zdrowieMaksymalnePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik" id="zdrowiePasekPrzeciwnik"></div></div>
-				<div class="nick">Pancerz: <span id="pancerzPrzeciwnik">&nbsp;</span></div>
+				<div class="nick"><span class="duze" id="nazwaPrzeciwnika">Brak przeciwnika</span></div>
+				<div class="tloHpPrzeciwnika"><div class="napisHpPrzeciwnika"><span class="duze" id="zdrowiePrzeciwnik"> </span>/<span class="duze" id="zdrowieMaksymalnePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik" id="zdrowiePasekPrzeciwnik"></div></div>
+				<div class="nick">Pancerz: <span class="duze" id="pancerzPrzeciwnik">&nbsp;</span></div>
 				<div class="ataki">
 					<img id="obrazPrzeciwnik" alt="przeciwnik" class="nodrag" src="Obrazy/Inne/pustka.png" />
 				</div>
@@ -277,24 +277,24 @@
 			<img src="Obrazy/Budynki/Dom.png" class="budynek" onclick="lokacja('crafting')">
 		</div>
 		<div class="statystykiOboz">
-			<button onclick="lokacja('pradawnyLas')">Cofnij</button>
+			<button class="przyciskDefaultowy" style="background-color: white;" onclick="lokacja('pradawnyLas')">Cofnij</button>
 		</div>
 		<div class="przedmiotyOboz">
-			Kłody: <span id="licznikKlody">0</span><button onclick="wrzucPrzedmioty('klody')" class="wrzucPrzedmioty">Wrzuć wszystkie kłody do składowiska</button><br /><br />
+			Kłody: <span id="licznikKlody">0</span><button onclick="wrzucPrzedmioty('klody')" class="wrzucPrzedmioty">Wrzuć wszystkie kłody do składowiska</button><br /><br /><br />
 			Drewno: <span id="licznikDrewno">0</span><button onclick="wrzucPrzedmioty('drewno')" class="wrzucPrzedmioty">Wrzuć całe drewno do składowiska</button><br />
 		</div>
 	</div>
 	<div class="crafting" hidden>
 		<div class="polePoSrodku">
-		<div class="slotCrafting" id="crafting1" onmouseover="craftingInfo('drewno')" onclick="crafting('drewno', true, 'crafting1')">							<img src="Obrazy/Przedmioty/Drewno.png"></div>
-		<div class="slotCrafting" id="crafting2" hidden="" onmouseover="craftingInfo('przerobionySztylet')" onclick="crafting('przerobionySztylet', '', 'crafting2')">			<img src="Obrazy/Przedmioty/Przerobiony_sztylet.png"></div>
-		<div class="slotCrafting" id="crafting3" hidden="" onmouseover="craftingInfo('nakladkaNaLape')" onclick="crafting('nakladkaNaLape', '', 'crafting3')">				<img src="Obrazy/Przedmioty/Nakładka_na_łapę.png"></div>
-		<div class="slotCrafting" id="crafting4" hidden="" onmouseover="craftingInfo('drewnianyHelm')" onclick="crafting('drewnianyHelm', '', 'crafting4')">				<img src="Obrazy/Przedmioty/Drewniany_hełm.png"></div>
-		<div class="slotCrafting" id="crafting5" hidden="" onmouseover="craftingInfo('drewnianyNapiersnik')" onclick="crafting('drewnianyNapiersnik', '', 'crafting5')">		<img src="Obrazy/Przedmioty/Drewniany_napierśnik.png"></div>
-		<div class="slotCrafting" id="crafting6" hidden="" onmouseover="craftingInfo('drewnianeNagolenniki')" onclick="crafting('drewnianeNagolenniki', '', 'crafting6')">		<img src="Obrazy/Przedmioty/Drewniane_nagolenniki.png"></div>
+		<div class="slotCrafting" id="crafting1" onmouseover="craftingInfo('drewno')" onclick="crafting('drewno', true, 'crafting1')">													<img src="Obrazy/Przedmioty/Drewno.png"></div>
+		<div class="slotCrafting" id="crafting2" hidden="" onmouseover="craftingInfo('przerobionySztylet')" onclick="crafting('przerobionySztylet', '', 'crafting2')">					<img src="Obrazy/Przedmioty/Przerobiony_sztylet.png"></div>
+		<div class="slotCrafting" id="crafting3" hidden="" onmouseover="craftingInfo('nakladkaNaLape')" onclick="crafting('nakladkaNaLape', '', 'crafting3')">							<img src="Obrazy/Przedmioty/Nakładka_na_łapę.png"></div>
+		<div class="slotCrafting" id="crafting4" hidden="" onmouseover="craftingInfo('drewnianyHelm')" onclick="crafting('drewnianyHelm', '', 'crafting4')">							<img src="Obrazy/Przedmioty/Drewniany_hełm.png"></div>
+		<div class="slotCrafting" id="crafting5" hidden="" onmouseover="craftingInfo('drewnianyNapiersnik')" onclick="crafting('drewnianyNapiersnik', '', 'crafting5')">				<img src="Obrazy/Przedmioty/Drewniany_napierśnik.png"></div>
+		<div class="slotCrafting" id="crafting6" hidden="" onmouseover="craftingInfo('drewnianeNagolenniki')" onclick="crafting('drewnianeNagolenniki', '', 'crafting6')">				<img src="Obrazy/Przedmioty/Drewniane_nagolenniki.png"></div>
 		<div class="slotCrafting" id="crafting7" hidden="" onmouseover="craftingInfo('drewnianeOchronnikiNaLapy')" onclick="crafting('drewnianeOchronnikiNaLapy', '', 'crafting7')">	<img src="Obrazy/Przedmioty/Drewniane_ochronniki_na_łapy.png"></div>
-		<div class="slotCrafting" id="crafting8" hidden="" onmouseover="craftingInfo('drewnianyPojemnik')" onclick="crafting('drewnianyPojemnik', '', 'crafting8')">			<img src="Obrazy/Przedmioty/Drewniany_pojemnik.png"></div>
-		<div class="slotCrafting" id="crafting9" hidden="" onmouseover="craftingInfo('drewnianyKostur')" onclick="crafting('drewnianyKostur', '', 'crafting9')">			<img src="Obrazy/Przedmioty/Drewniany_kostur.png"></div>
+		<div class="slotCrafting" id="crafting8" hidden="" onmouseover="craftingInfo('drewnianyPojemnik')" onclick="crafting('drewnianyPojemnik', '', 'crafting8')">					<img src="Obrazy/Przedmioty/Drewniany_pojemnik.png"></div>
+		<div class="slotCrafting" id="crafting9" hidden="" onmouseover="craftingInfo('drewnianyKostur')" onclick="crafting('drewnianyKostur', '', 'crafting9')">						<img src="Obrazy/Przedmioty/Drewniany_kostur.png"></div>
 		<div class="slotCrafting" id="crafting10" hidden=""></div>
 		<div class="slotCrafting" id="crafting11" hidden=""></div>
 		<div class="slotCrafting" id="crafting12" hidden=""></div>
@@ -348,13 +348,13 @@
 		<div class="slotCrafting" id="crafting60" hidden=""></div>
 		</div>
 		<div class="pasekPoPrawej">
-			<button onclick="odczytCrafting()">Wyświetl wszystko</button><br />
-			<button onclick="odczytCrafting('bron')">Wyświetl bronie</button><br />
-			<button onclick="odczytCrafting('pancerz')">Wyświetl ubrania</button><br />
-			<button onclick="odczytCrafting('przedmioty')">Wyświetl przedmioty</button><br />
-			<button onclick="odczytCrafting('skladniki')">Wyświetl składniki</button><br />
-			<button onclick="odczytCrafting('inne')">Wyświetl inne</button><br /><br />
-			<button onclick="lokacja('obozWilkow')">Cofnij</button><br /><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting()">Wyświetl wszystko</button><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting('bron')">Wyświetl bronie</button><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting('pancerz')">Wyświetl ubrania</button><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting('przedmioty')">Wyświetl przedmioty</button><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting('skladniki')">Wyświetl składniki</button><br />
+			<button class="przyciskDefaultowy" onclick="odczytCrafting('inne')">Wyświetl inne</button><br /><br />
+			<button class="przyciskDefaultowy" onclick="lokacja('obozWilkow')" style="background-color: white;">Cofnij</button><br /><br />
 			Kłody: <span id="licznikKlodyCrafting">0</span><br />
 			Drewno: <span id="licznikDrewnoCrafting">0</span><br />
 		</div>
