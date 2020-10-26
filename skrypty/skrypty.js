@@ -75,7 +75,7 @@
 		var pancerzSpodnie = 0;			// Ilość pancerza z 3 slotu od góry w wyposażeniu
 		var pancerzButy = 0;			// Ilość pancerza z 4 slotu od góry w wyposażeniu
 		var pancerzKoncowy = 0;			// Ilość pancerza po podliczeniu wszystkich powyższych slotów, wykorzystywana do walki
-		var waluta = 20;			// NIEWYKORZYSTYWANE	Waluta gracza, służąca do kupna
+		var waluta = 20;			// NIE WYKORZYSTYWANE	Waluta gracza, służąca do kupna
 		var zdrowieBazowe = 20;			// Zdrowie bazowe gracza
 		var zdrowieEkwipunek = 20;		// Zdrowie gracza po podliczeniu ekwipunku i innych bonusów
 		var zdrowieKoncowe = 20;		// Zdrowie gracza wykorzystywane do walki
@@ -86,9 +86,9 @@
 		var obrazeniaBazowe = 3;		// Obrażenia bazowe gracza
 		var obrazeniaEkwipunek = 3;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
 		var obrazeniaKoncowe = 3;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
-		var szybkoscBazowa = 1;			// NIEWYKORZYSTYWANE	Szybkość bazowa gracza
-		var szybkoscEkwipunek = 1;		// NIEWYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
-		var szybkoscKoncowa	= 1;		// NIEWYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
+		var szybkoscBazowa = 1;			// NIE WYKORZYSTYWANE	Szybkość bazowa gracza
+		var szybkoscEkwipunek = 1;		// NIE WYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
+		var szybkoscKoncowa	= 1;		// NIE WYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
 
 	// Przeciwnik
 		var nazwaPrzeciwnik = "Brak przeciwnika"; 	// Służy do przechowywania nazwy przeciwnika podczas walki
@@ -114,6 +114,13 @@
 	// HTML
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
 		
+	// Crafting
+		// Przepisy
+			var przepisyDrewno = false;
+			var przepisyDrewnoSpecjalne = false;
+			var przepisyMiedziane = false;
+			var przepisyŻelazne = false;
+		
 	// Mapa
 		// Blokady - służą do wyświetlania przycisków na mapie
 			var blokadaPosterunekWilkow = true;	// Blokada przycisku "Posterunek wilków"
@@ -124,7 +131,7 @@
 			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
-			var blokadaGory = true;			// NIEWYKORZYSTYWANE	Blokada przycisku "Góry"
+			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 		
@@ -725,6 +732,7 @@ function zapamietajZakladke(bool) {
 	}
 	else {
 		odczyt();
+		odczytCrafting();
 		getNick();
 		if(nickWpisano == true){ setInterval(zapis, 30000); }
 		if (localStorage.getItem("zakladka") !== null) {
@@ -1396,5 +1404,95 @@ function kondycjaLiczenie(){
 	document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 	document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 	odswiezZmienne("sprawdzUmiejetnosci");
+	}
+}
+
+	// Funkcja odpowiadająca za wyświetlanie przedmiotów do wytworzenia
+function odczytCrafting(sposobWyswietlania){
+	switch(sposobWyswietlania){
+		default:{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").removeAttribute("hidden");
+				document.getElementById("crafting2").removeAttribute("hidden");
+				document.getElementById("crafting3").removeAttribute("hidden");
+				document.getElementById("crafting4").removeAttribute("hidden");
+				document.getElementById("crafting5").removeAttribute("hidden");
+				document.getElementById("crafting6").removeAttribute("hidden");
+				document.getElementById("crafting7").removeAttribute("hidden");
+				document.getElementById("crafting8").removeAttribute("hidden");
+				document.getElementById("crafting9").removeAttribute("hidden");
+			}
+			break;
+		}
+		case "bron":{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").setAttribute("hidden", "");
+				document.getElementById("crafting2").removeAttribute("hidden");
+				document.getElementById("crafting3").removeAttribute("hidden");
+				document.getElementById("crafting4").setAttribute("hidden", "");
+				document.getElementById("crafting5").setAttribute("hidden", "");
+				document.getElementById("crafting6").setAttribute("hidden", "");
+				document.getElementById("crafting7").setAttribute("hidden", "");
+				document.getElementById("crafting8").setAttribute("hidden", "");
+				document.getElementById("crafting9").setAttribute("hidden", "");
+			}
+			break;
+		}
+		case "pancerz":{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").setAttribute("hidden", "");
+				document.getElementById("crafting2").setAttribute("hidden", "");
+				document.getElementById("crafting3").setAttribute("hidden", "");
+				document.getElementById("crafting4").removeAttribute("hidden");
+				document.getElementById("crafting5").removeAttribute("hidden");
+				document.getElementById("crafting6").removeAttribute("hidden");
+				document.getElementById("crafting7").removeAttribute("hidden");
+				document.getElementById("crafting8").setAttribute("hidden", "");
+				document.getElementById("crafting9").setAttribute("hidden", "");
+			}
+			break;
+		}
+		case "przedmioty":{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").setAttribute("hidden", "");
+				document.getElementById("crafting2").setAttribute("hidden", "");
+				document.getElementById("crafting3").setAttribute("hidden", "");
+				document.getElementById("crafting4").setAttribute("hidden", "");
+				document.getElementById("crafting5").setAttribute("hidden", "");
+				document.getElementById("crafting6").setAttribute("hidden", "");
+				document.getElementById("crafting7").setAttribute("hidden", "");
+				document.getElementById("crafting8").removeAttribute("hidden");
+				document.getElementById("crafting9").removeAttribute("hidden");
+			}
+			break;
+		}
+		case "skladniki":{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").removeAttribute("hidden");
+				document.getElementById("crafting2").setAttribute("hidden", "");
+				document.getElementById("crafting3").setAttribute("hidden", "");
+				document.getElementById("crafting4").setAttribute("hidden", "");
+				document.getElementById("crafting5").setAttribute("hidden", "");
+				document.getElementById("crafting6").setAttribute("hidden", "");
+				document.getElementById("crafting7").setAttribute("hidden", "");
+				document.getElementById("crafting8").setAttribute("hidden", "");
+				document.getElementById("crafting9").setAttribute("hidden", "");
+			}
+			break;
+		}
+		case "inne":{
+			if(przepisyDrewno == true){
+				document.getElementById("crafting1").setAttribute("hidden", "");
+				document.getElementById("crafting2").setAttribute("hidden", "");
+				document.getElementById("crafting3").setAttribute("hidden", "");
+				document.getElementById("crafting4").setAttribute("hidden", "");
+				document.getElementById("crafting5").setAttribute("hidden", "");
+				document.getElementById("crafting6").setAttribute("hidden", "");
+				document.getElementById("crafting7").setAttribute("hidden", "");
+				document.getElementById("crafting8").setAttribute("hidden", "");
+				document.getElementById("crafting9").setAttribute("hidden", "");
+			}
+			break;
+		}
 	}
 }
