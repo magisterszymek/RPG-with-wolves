@@ -119,7 +119,7 @@
 			var przepisyDrewno = false;
 			var przepisyDrewnoSpecjalne = false;
 			var przepisyMiedziane = false;
-			var przepisyŻelazne = false;
+			var przepisyZelazne = false;
 		
 	// Mapa
 		// Blokady - służą do wyświetlania przycisków na mapie
@@ -861,10 +861,12 @@ function zapis() {
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
 	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 	magazynArray = [klody, drewno];
+	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
+	localStorage.setItem("Crafting", JSON.stringify(craftingArray));
 	odswiezZmienne("zapis");
 	}
 }
@@ -932,13 +934,23 @@ function odczyt() {
 		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
-	if (localStorage.getItem("Magazyn") !== null) {
+	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
 		klody = magazynArray[0];
 		drewno = magazynArray[0];
 	} else {
 		magazynArray = [klody, drewno];
 		localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
+	}
+	if (localStorage.getItem("Crafting") !== null){
+		craftingArray = JSON.parse(localStorage.getItem("Crafting"));
+		przepisyDrewno = craftingArray[0];
+		przepisyDrewnoSpecjalne = craftingArray[1];
+		przepisyMiedziane = craftingArray[2];
+		przepisyZelazne = craftingArray[3];
+	} else {
+		craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
+		localStorage.setItem("Crafting", JSON.stringify(craftingArray));
 	}
 }
 
