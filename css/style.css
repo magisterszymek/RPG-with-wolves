@@ -7,6 +7,7 @@ html, body {
 * {
 	box-sizing: border-box;
 	font-family: Arial, Helvetica, sans-serif; /*Tymczasowy Font*/
+	font-size: 0.83vw;
 }
 
 img {
@@ -36,6 +37,10 @@ button:hover {
 	--zakladka-menu-color: blue;
 	--zakladka-ustawienia-color: green;
 	/*Koniec kolorów i przycisków do nich*/
+}
+
+.duze {
+	font-size: 110%;
 }
 
 .pasekNawigacji {
@@ -70,6 +75,16 @@ button:hover {
 .przyciskAtaku:hover {
 	/*Efekt po najechaniu na przycisk ataku*/
 	border: 3px solid #27420b;
+}
+
+.przyciskDefaultowy {
+	width: 25%;
+	height: 5%;
+	background-color: #82b74b;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+	margin: 1%;
 }
 
 .zakladkaWalka {
@@ -174,7 +189,6 @@ button:hover {
 	top: 50%;
 	position: absolute;
 	color: #2a3b2f;
-	font-size: 0.83vw;
 }
 
 .zakladkaMenu {
@@ -433,16 +447,22 @@ button:hover {
 	height: 75%;
 	background-color: yellow;
 	float:right;
+	padding: 0.5%;
 }
 .przedmiotyOboz {
 	width: 25%;
 	height: 25%;
 	background-color: green;
 	float: right;
-	font-size: 0.83vw;
 	padding: 0.5%;
 }
 .wrzucPrzedmioty {
+	width: 50%;
+	height: 20%;
+	background-color: #82b74b;
+	border: none;
+	cursor: pointer;
+	text-align: center;
 	float: right;
 }
 .budynek {
@@ -472,7 +492,6 @@ button:hover {
 	height: 25%;
 	background-color: green;
 	float: right;
-	font-size: 0.83vw;
 	padding: 0.5%;
 }
 .polePoSrodku {
