@@ -13,6 +13,10 @@
 		var prdm_zbroja_a_2 = ["Drewniany napierśnik", "Wytrzyma kilka uderzeń.", "Napierśnik", 1.5, 1, 10];
 		var prdm_zbroja_a_3 = ["Drewniane nagolenniki", "Niewiele chronią, jednak lepsze one niż nic.", "Spodnie", 1, 1, 7];						
 		var prdm_zbroja_a_4 = ["Drewniane ochronniki na łapy", "Jedne z dziwniejszych rzeczy jakie udało się wystrugać.", "Buty", 0.5, 1, 6];
+		var prdm_zbroja_b_1 = ["Wzmocniony drewniany hełm", "W końcu da się go nosić bez otarć.", "Hełm", 1, 1, 10,];
+		var prdm_zbroja_b_2 = ["Wzmocniony drewniany napierśnik", "Całkiem lekki.", "Napierśnik", 2	, 1, 20];
+		var prdm_zbroja_b_3 = ["Wzmocnione drewniane nagolenniki", "Twarde ale elastyczne... na swój sposób.", "Spodnie", 1.5, 1, 14];						
+		var prdm_zbroja_b_4 = ["Wzmocnione drewniane ochronniki na łapy", "Jedne z lepszych dzieł Nagala.", "Buty", 1, 1, 12];
 
 	// Inne przedmioty ["nazwa", "opis", "rodzaj", cena]
 		var prdm_1 = ["Drewniany pojemnik", "Może przechowywać ciecze, dodając im posmaku żywicy.", "Przedmiot", 3];
@@ -260,7 +264,7 @@ function walka(typ){
 					}
 					case "lesnaDroga2":{
 						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
-							if(nazwaPrzeciwnika == "Pułapka"){
+							if(nazwaPrzeciwnik == "Pułapka"){
 								wpiszTekst("odblokowanieLokacji", "Wieża maga");
 								wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
 								wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
@@ -574,7 +578,12 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 			break;
 		}
 		case "linia":{
-			var tekst = " ";
+			logi = document.getElementById("logi");
+			if(typeof logi.childNodes[0] !== "undefined"){
+				var tekst = " ";
+			} else {
+				return;
+			}
 			break;
 		}
 		case "item":{
@@ -745,6 +754,7 @@ function zapamietajZakladke(bool) {
 			document.getElementsByClassName("zakladka")[0].style.zIndex = 0;
 		}
 		odswiezZmienne("zapis");
+		wyczyscTekst()
     }
 }
 
@@ -756,7 +766,7 @@ function wybieranieSlotu(){
 	liczba = 1;
 	slotWolny = "slot" + liczba;
 	slotWolny2 = document.getElementById(slotWolny);
-	while(slotWolny2.hasChildNodes() == true){
+	while(slotWolny2.hasChildNodes() == true || slotWolny2.hidden == true){
 		liczba += 1;
 		slotWolny = "slot" + liczba;
 		slotWolny2 = document.getElementById(slotWolny);
@@ -1094,6 +1104,7 @@ function odswiezZmienne(rodzaj){
 }
 
 function lokacja(lokacja){
+	if(walkaTrwa == false){
 	switch(lokacja){
 		case "pradawnyLas":{
 			obozWlaczony = false;
@@ -1101,6 +1112,7 @@ function lokacja(lokacja){
 			las.style.display = "none";
 			dolina.style.display = "none";
 			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			obozWilkow.style.display = "inline";
 			lesnaDroga1.style.display = "inline";
 			if(blokadaPosterunekWilkow == false){ posterunekWilkow.style.display = "inline"; }
@@ -1134,17 +1146,21 @@ function lokacja(lokacja){
 			break;
 		}
 		case "lesnaDroga1":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga1", 1);
 			break;
 		}
 		case "posterunekWilkow":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			break;
 		}
 		case "zrujnowanyOboz":{
 			if(bossZrujnowanyOboz == false){
+				zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/ZrujnowanyObóz.png')";
 				rozpocznijWalke("zrujnowanyOboz", 1);
 			} else {
 			mapa.src = "Obrazy/Mapa/ZrujnowanyObóz.png";
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/ZrujnowanyObóz.png')";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
 			posterunekWilkow.style.display = "none";
@@ -1161,18 +1177,22 @@ function lokacja(lokacja){
 			break;
 		}
 		case "lesnaDroga2":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga2", 1);
 			break;
 		}
 		case "wiezaMaga":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/WieżaMaga.png')";
 			rozpocznijWalke("wiezaMaga", 1);
 			break;
 		}
 		case "grzybowePole":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/GrzybowePole.png')";
 			rozpocznijWalke("grzybowePole", 1);
 			break;
 		}
 		case "lesnaDroga3":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga3", 1);
 			break;
 		}
@@ -1182,6 +1202,7 @@ function lokacja(lokacja){
 			las.style.display = "inline";
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			mapa.src = "Obrazy/Mapa/Mapa.png";
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
 			posterunekWilkow.style.display = "none";
@@ -1195,6 +1216,7 @@ function lokacja(lokacja){
 			cofnij.style.display = "none";
 			break;
 		}
+	}
 	}
 }
 
