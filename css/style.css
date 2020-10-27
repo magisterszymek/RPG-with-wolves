@@ -40,6 +40,7 @@ button:hover {
 }
 
 .duze {
+	-webkit-text-stroke: 0.1px black;
 	font-size: 110%;
 }
 
@@ -92,6 +93,9 @@ button:hover {
 	height: 95%;
 	position: absolute;
 	background: var(--zakladka-walka-color);
+	background-image: url('Obrazy/Tła/Mapa.png');
+	background-size: 100%;
+	background-repeat: no-repeat;
 	z-index:-1;
 }
 
@@ -252,6 +256,7 @@ button:hover {
 	padding: 2%;
 	bottom: 2%;
 	position: relative;
+	background-color: rgb(0, 0, 0, 0.1);
 }
 
 .ataki {
@@ -263,6 +268,7 @@ button:hover {
 .nick {
 	text-align: center;
 	font-size: 150%;
+	-webkit-text-stroke: 0.1px black;
 	color: white;
 }
 
