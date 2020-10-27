@@ -37,7 +37,6 @@
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
-	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
@@ -243,33 +242,35 @@ function walka(typ){
 				loot(nazwaPrzeciwnik);
 				switch(lokacjaId){
 					case "lesnaDroga1":{
-						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true && blokadaLesnaDroga2 == true){
+						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true  && blokadaZniszczonaDroga == true && blokadaLesnaDroga2 == true){
 							wpiszTekst("odblokowanieLokacji", "Zrujnowany obóz")
 							wpiszTekst("odblokowanieLokacji", "Posterunek wilków")
 							wpiszTekst("odblokowanieLokacji", "Leśna droga [2]")
+							wpiszTekst("odblokowanieLokacji", "Zniszczona droga");
 							blokadaZrujnowanyOboz = false;
 							blokadaPosterunekWilkow = false;
+							blokadaZniszczonaDroga = false;
 							blokadaLesnaDroga2 = false;
 							zrujnowanyOboz.style.display = "inline";
 							posterunekWilkow.style.display = "inline";
 							lesnaDroga2.style.display = "inline";
+							zniszczonaDroga.style.display = "inline";
 						}
 						break;
 					}
 					case "lesnaDroga2":{
-						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaZniszczonaDroga == true && blokadaLesnaDroga3 == true){
-							wpiszTekst("odblokowanieLokacji", "Wieża maga");
-							wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
-							wpiszTekst("odblokowanieLokacji", "Zniszczona droga");
-							wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
-							blokadaWiezaMaga = false;
-							blokadaGrzybowePole = false;
-							blokadaZniszczonaDroga = false;
-							blokadaLesnaDroga3 = false;
-							wiezaMaga.style.display = "inline";
-							grzybowePole.style.display = "inline";
-							zniszczonaDroga.style.display = "inline";
-							lesnaDroga3.style.display = "inline";
+						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
+							if(nazwaPrzeciwnika == "Pułapka"){
+								wpiszTekst("odblokowanieLokacji", "Wieża maga");
+								wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
+								wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
+								blokadaWiezaMaga = false;
+								blokadaGrzybowePole = false;
+								blokadaLesnaDroga3 = false;
+								wiezaMaga.style.display = "inline";
+								grzybowePole.style.display = "inline";
+								lesnaDroga3.style.display = "inline";
+							}
 						}
 						break;
 					}
