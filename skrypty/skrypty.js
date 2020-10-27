@@ -937,7 +937,9 @@ function odczyt() {
 	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
 		klody = magazynArray[0];
-		drewno = magazynArray[0];
+		drewno = magazynArray[1];
+		document.getElementsByClassName("licznikKlody").innerHTML = klody;
+		document.getElementsByClassName("licznikDrewno").innerHTML = drewno;
 	} else {
 		magazynArray = [klody, drewno];
 		localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
