@@ -78,6 +78,23 @@ button:hover {
 	border: 3px solid #27420b;
 }
 
+.przyciskRozmowy {
+	width: 98%;
+	height: 10%;
+	cursor: pointer;
+	text-align: center;
+	color: white;
+	background-color: #82b74b;
+	float: left;
+	margin: 1%;
+	border: none;
+}
+
+.przyciskRozmowy:hover {
+	/*Efekt po najechaniu na przycisk ataku*/
+	border: 3px solid #27420b;
+}
+
 .przyciskDefaultowy {
 	width: 25%;
 	height: 5%;
