@@ -27,5 +27,5 @@ setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Przeciwnicy/My
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Przeciwnicy/Młody_myśliwy.png')"; }, 2160);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Przeciwnicy/Szczurzy_strażnik.png')"; }, 2170);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Przeciwnicy/Wieśniak.png')"; }, 2180);
-setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Przeciwnicy/Wilk.png')"; }, 2190);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Postacie/Wilk.png')"; }, 2190);
 setTimeout(function(){ document.getElementById("ladowanie").setAttribute("hidden", ""); }, 3000);
