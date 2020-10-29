@@ -84,7 +84,7 @@ button:hover {
 	cursor: pointer;
 	text-align: center;
 	color: white;
-	background-color: #82b74b;
+	background-color: #3f81eb;
 	float: left;
 	margin: 1%;
 	border: none;
@@ -92,7 +92,7 @@ button:hover {
 
 .przyciskRozmowy:hover {
 	/*Efekt po najechaniu na przycisk ataku*/
-	border: 3px solid #27420b;
+	border: 3px solid #223d77;
 }
 
 .przyciskDefaultowy {
