@@ -5,6 +5,7 @@
 	<link rel="icon" href="Obrazy/Inne/icon.png">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<script src="skrypty/skrypty.js"></script>
+	<script src="skrypty/ładowanie.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 <body onload="zapamietajZakladke(false)" onbeforeunload="zapamietajZakladke(true)">
@@ -272,6 +273,8 @@
 			<div style="height:25%; width:70%; margin:auto;"><button class="przyciskNick" onclick='getNick("klik")'>Zacznij grę</button></div>
 		</div>
 	</div>
+	<div class="wyborNicku" id="ladowanie">
+	</div>
 	<div class="oboz" hidden>
 		<div class="mapaOboz">
 			<img src="Obrazy/Budynki/Dom.png" class="budynek" onclick="lokacja('crafting')">
@@ -366,3 +369,5 @@
 	</div>
 </body>
 </html>
+
+<script src="skrypty/ładowanie.js"></script>
