@@ -1,5 +1,6 @@
 //Ładowanie grafik
 div = document.createElement("DIV");
+image = document.getElementById("ladowanieZdjecie");
 div.style.backgroundImage = "url('Obrazy/Ładowanie.png')";
 div.style.backgroundPosition = "center";
 div.style.backgroundRepeat = "no-repeat";
@@ -8,7 +9,6 @@ div.style.zIndex = "10";
 div.className = "wyborNicku";
 div.id = "ladowanie";
 document.body.appendChild(div);
-var image = new Image(1, 1);
 image.src = "Obrazy/Mapa/Mapa.png";
 image.src = "Obrazy/Mapa/PradawnyLas.png";
 image.src = "Obrazy/Mapa/ZrujnowanyObóz.png";
