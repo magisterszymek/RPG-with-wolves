@@ -40,6 +40,10 @@
 	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
 	["null"]
 	];
+	var prze_zniszczonaDroga_ = [ // Przeciwnicy z "Zniszczona droga"
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["null"]
+	];
 	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
@@ -69,6 +73,13 @@
 // ---------- Koniec array'ów ---------
 
 // ---------- Zmienne ----------
+//Rozmowy
+	var rozmowaGrotaStart = "Witam, po co tutaj przyszedłeś?"
+	var rozmowaGrotaStartOdpowiedz = "Kim jesteś?"
+	var rozmowaGrotaA = "Wilkiem."
+	var rozmowaGrotaAOdpowiedz1 = "Opcja 1"
+	var rozmowaGrotaAOdpowiedz2 = "Opcja 2"
+
 // Statystyki
 	// Gracz
 		var nick = "Ruffus";			// Nick gracza, defaultowo "Ruffus"
@@ -195,6 +206,7 @@ function zakladka(NrZakladki) {
 
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
+	zakonczRozmowe();
 	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
 		walkaTrwa = true;  // Określa że walka trwa
 		blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
@@ -301,12 +313,14 @@ function walka(typ){
 		}
 }
   
-function obraz(losowe, nazwa) {
+function obraz(losowe, nazwa, postac) {
 	if (losowe == -1) {
 		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
 	}
-	else {
+	else if(postac !== true){
 		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/" + nazwa + ".png";
+	} else {
+		document.getElementById("obrazPrzeciwnik").src = "Obrazy/Postacie/" + nazwa + ".png";
 	}
 }
   
@@ -315,6 +329,10 @@ function wybierzPrzeciwnika(biom, trudnosc){
 	losowe = Math.floor(Math.random() * 1000) + 1;
 		switch(biom){
 			case "lesnaDroga1":{
+				losowe = 0;
+				break;
+			}
+			case "zniszczonaDroga":{
 				losowe = 0;
 				break;
 			}
@@ -594,6 +612,14 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 			var tekst = " " + "'Nie spodziewałem się, że będziesz taki silny! Wpuszczę Cię do obozu. Wiedz jednak, że w nim agresja nie będzie tolerowana.'";
 			break;
 		}
+		case "rozmowa":{
+			var tekst = " " + postacPierwsza;
+			break;
+		}
+		case "gracz":{
+			var tekst = " " + postacPierwsza;
+			break;
+		}
 	}
 	var pasekTekst = document.createTextNode(tekst);
 	pasek.appendChild(pasekTekst);
@@ -605,8 +631,10 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 		pasek.style.color = "#1d993e";
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		pasek.style.color = "#d10e00";
-	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec"){
-		pasek.style.color = "#3c62c7";
+	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec" || rodzaj == "rozmowa"){
+		pasek.style.color = "#34cceb";
+	} else if(rodzaj == "gracz"){
+		pasek.style.color = "#0f7bff";
 	}
 }
 
@@ -1176,6 +1204,11 @@ function lokacja(lokacja){
 			}
 			break;
 		}
+		case "zniszczonaDroga":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
+			rozpocznijWalke("zniszczonaDroga", 1);
+			break;
+		}
 		case "lesnaDroga2":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga2", 1);
@@ -1196,6 +1229,14 @@ function lokacja(lokacja){
 			rozpocznijWalke("lesnaDroga3", 1);
 			break;
 		}
+		case "grota":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Grota.png')";
+			if(document.getElementById("rozmowa") == null){
+				rozpocznijRozmowe("Wilk");
+				rozmowa("grota", "start");
+			}
+			break;
+		}
 		case "cofnij":{
 			document.getElementsByClassName("crafting")[0].hidden=true;
 			document.getElementsByClassName("oboz")[0].hidden=true;
@@ -1214,6 +1255,7 @@ function lokacja(lokacja){
 			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
 			cofnij.style.display = "none";
+			zakonczRozmowe();
 			break;
 		}
 	}
@@ -1532,4 +1574,80 @@ function odczytCrafting(sposobWyswietlania){
 			break;
 		}
 	}
+}
+
+function rozmowa(lokacja, odpowiedz){
+	wyczyscRozmowe();
+	switch(lokacja){
+		case "grota":{
+			switch(odpowiedz){
+				case "start":{
+					wpiszTekst("linia");
+					wpiszTekst("rozmowa", rozmowaGrotaStart);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "a", "Kim jesteś?");
+					break;
+				}
+				case "a":{
+					wpiszTekst("gracz", rozmowaGrotaStartOdpowiedz);
+					wpiszTekst("rozmowa", rozmowaGrotaA);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "b1", "Opcja 2");
+					utworzPrzycisk("grota", "b2", "Opcja 3");
+					break;
+				}
+				case "b1":{
+					break;
+				}
+				case "b2":{
+					break;
+				}
+			break;
+			}
+		}
+	}
+}
+
+function rozpocznijRozmowe(nazwaObrazu){
+	document.getElementById("pazury").setAttribute("hidden", "");
+	document.getElementById("kly").setAttribute("hidden", "");
+	document.getElementById("atak3").setAttribute("hidden", "");
+	document.getElementById("atak4").setAttribute("hidden", "");
+	document.getElementById("hpGraczDiv").setAttribute("hidden", "");
+	document.getElementById("kondycjaGraczDiv").setAttribute("hidden", "");
+	document.getElementById("pancerzGraczDiv").setAttribute("hidden", "");
+	document.getElementById("hpPrzeciwnikDiv").setAttribute("hidden", "");
+	document.getElementById("pancerzPrzeciwnikDiv").setAttribute("hidden", "");
+	document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaObrazu;
+	obraz(1, nazwaObrazu, true);
+	odswiezZmienne("walka");
+	wyczyscRozmowe();
+}
+
+function zakonczRozmowe(){
+	document.getElementById("pazury").removeAttribute("hidden");
+	document.getElementById("kly").removeAttribute("hidden");
+	document.getElementById("atak3").removeAttribute("hidden");
+	document.getElementById("atak4").removeAttribute("hidden");
+	document.getElementById("hpGraczDiv").removeAttribute("hidden");
+	document.getElementById("kondycjaGraczDiv").removeAttribute("hidden");
+	document.getElementById("pancerzGraczDiv").removeAttribute("hidden");
+	document.getElementById("hpPrzeciwnikDiv").removeAttribute("hidden");
+	document.getElementById("pancerzPrzeciwnikDiv").removeAttribute("hidden");
+	odswiezZmienne("koniecWalki");
+	wyczyscRozmowe();
+}
+
+function wyczyscRozmowe(){
+	while(document.getElementById("rozmowa") !== null){ document.getElementById("rozmowa").remove() }
+}
+
+function utworzPrzycisk(lokacja, identyfikator, inner){
+	okno = document.getElementById("ataki");
+	przycisk = document.createElement("BUTTON");
+	przycisk.id = "rozmowa";
+	przycisk.className = "przyciskRozmowy";
+	przycisk.onclick = function(){ rozmowa(lokacja, identyfikator) };
+	przycisk.innerHTML = inner;
+	okno.appendChild(przycisk);
 }
