@@ -1634,7 +1634,7 @@ function zakonczRozmowe(){
 	document.getElementById("pancerzGraczDiv").removeAttribute("hidden");
 	document.getElementById("hpPrzeciwnikDiv").removeAttribute("hidden");
 	document.getElementById("pancerzPrzeciwnikDiv").removeAttribute("hidden");
-	document.getElementById("obrazPrzeciwnik).src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
+	document.getElementById("obrazPrzeciwnik").src = "Obrazy/Przeciwnicy/Brak_przeciwnika.png";
 	odswiezZmienne("koniecWalki");
 	wyczyscRozmowe();
 }
