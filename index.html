@@ -5,7 +5,6 @@
 	<link rel="icon" href="Obrazy/Inne/icon.png">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<script src="skrypty/skrypty.js"></script>
-	<script src="skrypty/ładowanie.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 </head>
 <body onload="zapamietajZakladke(false)" onbeforeunload="zapamietajZakladke(true)">
@@ -17,7 +16,7 @@
 	</div>
 	<div id="zakladkaWalka" class="zakladkaWalka zakladka">
 		<!-- zakładka jeden-->
-		<div class="walka">
+		<div class="walka" id="walkaDIV">
 			<div class="gracz noselect">
 				<div class="nick"><span class="duze" id="nick">&nbsp;</span></div>
 				<div class="tloHp" id="hpGraczDiv"><div class="napisHp"><span class="duze" id="zdrowieKoncowe"> </span>/<span class="duze" id="zdrowieMaksymalne"> </span></div><div class="zdrowieKoncowe" id="zdrowiePasek"></div></div>
@@ -272,8 +271,6 @@
 			<input id="wpiszNick" type="text" class="wpiszNick" placeholder="Proszę podać nick" required>
 			<div style="height:25%; width:70%; margin:auto;"><button class="przyciskNick" onclick='getNick("klik")'>Zacznij grę</button></div>
 		</div>
-	</div>
-	<div class="wyborNicku" id="ladowanie">
 	</div>
 	<div class="oboz" hidden>
 		<div class="mapaOboz">
