@@ -73,11 +73,6 @@ button:hover {
 	border: none;
 }
 
-.przyciskAtaku:hover {
-	/*Efekt po najechaniu na przycisk ataku*/
-	border: 3px solid #27420b;
-}
-
 .przyciskRozmowy {
 	width: 98%;
 	height: 10%;
@@ -88,6 +83,11 @@ button:hover {
 	float: left;
 	margin: 1%;
 	border: none;
+}
+
+.przyciskAtaku:hover {
+	/*Efekt po najechaniu na przycisk ataku*/
+	border: 3px solid #27420b;
 }
 
 .przyciskRozmowy:hover {
