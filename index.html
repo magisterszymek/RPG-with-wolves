@@ -19,20 +19,20 @@
 		<div class="walka">
 			<div class="gracz noselect">
 				<div class="nick"><span class="duze" id="nick">&nbsp;</span></div>
-				<div class="tloHp"><div class="napisHp"><span class="duze" id="zdrowieKoncowe"> </span>/<span class="duze" id="zdrowieMaksymalne"> </span></div><div class="zdrowieKoncowe" id="zdrowiePasek"></div></div>
-				<div class="tloHp"><div class="napisHp"><span class="duze" id="kondycjaKoncowa"> </span>/<span class="duze" id="kondycjaMaksymalna"> </span></div><div class="kondycja" id="kondycjaPasek"></div></div>
-				<div class="nick">Pancerz: <span class="duze" id="pancerzKoncowy">&nbsp;</span></div>
-				<div class="ataki">
+				<div class="tloHp" id="hpGraczDiv"><div class="napisHp"><span class="duze" id="zdrowieKoncowe"> </span>/<span class="duze" id="zdrowieMaksymalne"> </span></div><div class="zdrowieKoncowe" id="zdrowiePasek"></div></div>
+				<div class="tloHp" id="kondycjaGraczDiv"><div class="napisHp"><span class="duze" id="kondycjaKoncowa"> </span>/<span class="duze" id="kondycjaMaksymalna"> </span></div><div class="kondycja" id="kondycjaPasek"></div></div>
+				<div class="nick" id="pancerzGraczDiv">Pancerz: <span class="duze" id="pancerzKoncowy">&nbsp;</span></div>
+				<div class="ataki" id="ataki">
 					<button class="przyciskAtaku" onclick="wybierzCios('pazury')" id="pazury">Atak pazurami</button>
 					<button class="przyciskAtaku" onclick="wybierzCios('kly')" id="kly">Ugryzienie</button>
-					<button class="przyciskAtaku" onclick="wybierzCios('szybki')">Szybki cios</button>
-					<button class="przyciskAtaku" onclick="">4</button>
+					<button class="przyciskAtaku" onclick="wybierzCios('szybki')" id="atak3">Szybki cios</button>
+					<button class="przyciskAtaku" onclick="" id="atak4">4</button>
 				</div>
 			</div>
 			<div class="przeciwnik noselect">
 				<div class="nick"><span class="duze" id="nazwaPrzeciwnika">Brak przeciwnika</span></div>
-				<div class="tloHpPrzeciwnika"><div class="napisHpPrzeciwnika"><span class="duze" id="zdrowiePrzeciwnik"> </span>/<span class="duze" id="zdrowieMaksymalnePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik" id="zdrowiePasekPrzeciwnik"></div></div>
-				<div class="nick">Pancerz: <span class="duze" id="pancerzPrzeciwnik">&nbsp;</span></div>
+				<div class="tloHpPrzeciwnika" id="hpPrzeciwnikDiv"><div class="napisHpPrzeciwnika"><span class="duze" id="zdrowiePrzeciwnik"> </span>/<span class="duze" id="zdrowieMaksymalnePrzeciwnik"> </span></div><div class="zdrowiePrzeciwnik" id="zdrowiePasekPrzeciwnik"></div></div>
+				<div class="nick" id="pancerzPrzeciwnikDiv">Pancerz: <span class="duze" id="pancerzPrzeciwnik">&nbsp;</span></div>
 				<div class="ataki">
 					<img id="obrazPrzeciwnik" alt="przeciwnik" class="nodrag" src="Obrazy/Inne/pustka.png" />
 				</div>
