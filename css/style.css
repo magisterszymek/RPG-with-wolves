@@ -110,7 +110,7 @@ button:hover {
 	height: 95%;
 	position: absolute;
 	background: var(--zakladka-walka-color);
-	background-image: url('Obrazy/Tła/Mapa.png');
+	background-image: url('/Obrazy/Tła/Mapa.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	z-index:-1;
