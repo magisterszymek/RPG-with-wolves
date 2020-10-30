@@ -124,6 +124,8 @@
 		var wybranyCios = "default"; 			// Służy do przechowywania podstawowego rodzaju ciosu dla funkcji, "default" jest jako zabezpieczenie dla pierwszego ciosu
 		var mnoznikObrazenCiosu = [1, 1.75, 0.65];	// Mnożniki obrażeń ciosów [zwykły, potężny, szybki]
 		var szybkoscCiosu = [1, 1, 3] 			// Szybkości ciosu (ile razy na turę) [zwykły, potężny, szybki]
+		var interval1 = "";
+		var interval2 = "";
 		
 	// HTML
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
@@ -207,15 +209,18 @@ function zakladka(NrZakladki) {
 	// Funkcja odpowiedzialna za inicjalizację walki i wywoływanie loopa
 function rozpocznijWalke(biom, trudnosc){
 	zakonczRozmowe();
+	ekranPodrozy();
 	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
 		walkaTrwa = true;  // Określa że walka trwa
 		blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
-		wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
-		wpiszTekst("linia");
 		wybierzPrzeciwnika(biom, trudnosc);  // Wywołuje funkcję do wybrania przeciwnika
-		wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
-		interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
-		interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
+		setTimeout(function(){
+			wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
+			wpiszTekst("linia");
+			wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
+			interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
+			interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
+		}, 3000);
 	}
 }
 
@@ -1651,4 +1656,9 @@ function utworzPrzycisk(lokacja, identyfikator, inner){
 	przycisk.onclick = function(){ rozmowa(lokacja, identyfikator) };
 	przycisk.innerHTML = inner;
 	okno.appendChild(przycisk);
+}
+
+function ekranPodrozy(){
+	document.getElementById("podroz").removeAttribute("hidden");
+	setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 3000);
 }
