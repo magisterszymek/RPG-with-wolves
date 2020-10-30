@@ -220,7 +220,7 @@ function rozpocznijWalke(biom, trudnosc){
 			wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
 			interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
 			interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
-		}, 3000);
+		}, 2000);
 	}
 }
 
@@ -1660,5 +1660,5 @@ function utworzPrzycisk(lokacja, identyfikator, inner){
 
 function ekranPodrozy(){
 	document.getElementById("podroz").removeAttribute("hidden");
-	setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 3000);
+	setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 1800);
 }
