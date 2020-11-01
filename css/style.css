@@ -143,6 +143,19 @@ button:hover {
 .slotWyposazenie:hover{
 	filter: brightness(80%);
 }
+.slotBron {
+	border: 1px solid black;
+	background-color: #ddd;
+	position: absolute;
+	padding: 0.5%;
+	height: 12%;
+	width: 20%;
+	cursor: move;
+	margin-left: 60%;
+}
+.slotBron:hover{
+	filter: brightness(80%);
+}
 .glownyEkwipunek {
 	left: 25%;
 	padding: 0.3%;
