@@ -2,11 +2,12 @@
 // Główne array'e (poza tymi od zapisu) wykorzystywane do przechowywania informacji o przedmiotach i przeciwnikach.
 
 // Przedmioty
-	// Bronie ["nazwa", "opis", obrażenia, waga, cena]
+	// Bronie ["nazwa", "opis", "rodzaj", obrażenia, waga, cena]
 		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", "Broń", 2, 1, 5];
 		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", "Broń", 3, 1, 8];
 		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", "Broń", 5, 1, 20];
 		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 2.5, 1, 5];
+		var prdm_bron_a_5 = ["Patyk", "Lepszy niż nic.", "Broń", 1, 1, 2];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
@@ -45,7 +46,7 @@
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
-	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
 	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
 	]
 	var prze_zrujnowanyOboz_ = [ // Przeciwnicy ze "Zrujnowany obóz"
@@ -54,7 +55,7 @@
 	];
 	var prze_lesnaDroga3_ = [ // Przeciwnicy z "Leśna droga [3]"
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
-	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 5, 2, 0, 1],
+	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 4, 6, 2, 2]
 	];
 	var prze_grzybowePole_ = [ // Przeciwnicy z "Grzybowe Pole"
@@ -98,8 +99,8 @@
 		var kondycjaKoncowa = 10;		// Kondycja gracza wykorzystywana do walki
 		var kondycjaRegeneracja = 0.25; 	// Określa o ile regeneruje się kondycja gracza (raz na 250ms, inaczej 1/4 sekundy)
 		var obrazeniaBazowe = 3;		// Obrażenia bazowe gracza
-		var obrazeniaEkwipunek = 3;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
-		var obrazeniaKoncowe = 3;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
+		var obrazeniaEkwipunek = 0;		// Obrażenia gracza po podliczeniu ekwipunku i innych bonusów (obrazenia + obrazeniaBazowe)
+		var obrazeniaKoncowe = 0;		// Obrażenia gracza wykorzystywane do walki (obrazeniaEkwipunek + mnoznikObrazenCiosu[])
 		var szybkoscBazowa = 1;			// NIE WYKORZYSTYWANE	Szybkość bazowa gracza
 		var szybkoscEkwipunek = 1;		// NIE WYKORZYSTYWANE	Szybkość gracza po podliczeniu ekwipunku i innych bonusów
 		var szybkoscKoncowa	= 1;		// NIE WYKORZYSTYWANE	Szybkość gracza wykorzystywana do walki
@@ -210,18 +211,21 @@ function zakladka(NrZakladki) {
 function rozpocznijWalke(biom, trudnosc){
 	zakonczRozmowe();
 	ekranPodrozy();
-	if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
-		walkaTrwa = true;  // Określa że walka trwa
-		blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
-		wybierzPrzeciwnika(biom, trudnosc);  // Wywołuje funkcję do wybrania przeciwnika
-		setTimeout(function(){
-			wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
-			wpiszTekst("linia");
-			wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
-			interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
-			interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
-		}, 2000);
-	}
+	setTimeout(function(){
+		obrazeniaKoncowe = obrazeniaBazowe + obrazeniaEkwipunek;
+		if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
+			walkaTrwa = true;  // Określa że walka trwa
+			blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
+			wybierzPrzeciwnika(biom, trudnosc);  // Wywołuje funkcję do wybrania przeciwnika
+			setTimeout(function(){
+				wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
+				wpiszTekst("linia");
+				wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
+				interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
+				interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
+			}, 1500);
+		}
+	}, 300);
 }
 
 	// Funkcja odpowiedzialna za loopa walki
@@ -401,7 +405,7 @@ function wybierzCios(nazwaCiosu){
 	wybranyCios = nazwaCiosu;
 	switch(nazwaCiosu){
 		case "default":{
-			obrazeniaKoncowe = obrazeniaEkwipunek * mnoznikObrazenCiosu[0];
+			obrazeniaKoncowe = obrazeniaKoncowe * mnoznikObrazenCiosu[0];
 			szybkoscKoncowa = szybkoscEkwipunek * szybkoscCiosu[0];
 			break;
 		}
@@ -414,7 +418,7 @@ function wybierzCios(nazwaCiosu){
 					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
 					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
 					setTimeout(function pazuryPierwszy(){
-						obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
+						obrazeniaKoncoweAtak = obrazeniaBazowe * mnoznikObrazenCiosu[0] + (obrazeniaBazowe * 0.25);
 						szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 						kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 						if(kalkulacja < 0){
@@ -432,7 +436,7 @@ function wybierzCios(nazwaCiosu){
 					}, 1);
 					setTimeout(function pazuryDrugi(){
 						if(zdrowiePrzeciwnik > 0){
-							obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[0] + (obrazeniaEkwipunek * 0.25);
+							obrazeniaKoncoweAtak = obrazeniaBazowe * mnoznikObrazenCiosu[0] + (obrazeniaBazowe * 0.25);
 							szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[0];
 							kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 							if(kalkulacja < 0){
@@ -472,7 +476,7 @@ function wybierzCios(nazwaCiosu){
 				if(przyciskKly.disabled == false){
 					kondycjaKoncowa -= 7;
 					kondycjaProcent = (kondycjaKoncowa / kondycjaEkwipunek) * 100;
-					obrazeniaKoncoweAtak = obrazeniaEkwipunek * mnoznikObrazenCiosu[1];
+					obrazeniaKoncoweAtak = obrazeniaBazowe * mnoznikObrazenCiosu[1];
 					szybkoscKoncowaAtak = szybkoscEkwipunek * szybkoscCiosu[1];
 					kalkulacja = (obrazeniaKoncoweAtak - pancerzPrzeciwnik) * szybkoscKoncowaAtak; // Obliczanie realnych obrażeń gracza po trafieniu w pancerz
 					if(kalkulacja < 0){
@@ -516,6 +520,10 @@ function loot(nazwaPrzeciwnik){
 	switch(nazwaPrzeciwnik){
 		case "Leżące drzewo":{
 			utworzPrzedmiot("crft_1", "crafting", "Obrazy/Przedmioty/Kłoda.png");
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 6){
+				utworzPrzedmiot("prdm_bron_a_5", "bron", "Obrazy/Przedmioty/Patyk.png");
+			}
 			break;
 		}
 		case "Grzybiarz":{
@@ -688,6 +696,18 @@ function drop(ev) {
 			ev.target.removeChild(src);
 			break;
 		}
+		case "slotBron":{
+			if(src.alt != "bron"){ break; }
+			if(tgt == null){
+				var data = ev.dataTransfer.getData("src");
+				ev.target.appendChild(document.getElementById(data));
+			} else {
+				ev.currentTarget.replaceChild(src, tgt);
+				srcParent.appendChild(tgt);
+			}
+			sprawdzWyposazenie("bron", src, str);
+			break;
+		}
 		case "slotHelm":{
 			if(src.alt != "helm"){ break; }
 			if(tgt == null){
@@ -838,6 +858,15 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	// Funkcja do sprawdzania wyposażenia i dodawania jego statystyk
 function sprawdzWyposazenie(rodzaj, src, str){
 	switch(rodzaj){
+		case "bron":{
+			przedmiot = window[src.lang];
+			if(slotBron.hasChildNodes() == true){
+				obrazeniaEkwipunek = przedmiot[3];
+			} else {
+				obrazeniaEkwipunek = 0;
+			}
+			break;
+			}
 		case "helm":{
 			przedmiot = window[src.lang];
 			if(slotHelm.hasChildNodes() == true){
@@ -903,7 +932,7 @@ function zapis() {
 		liczba += 1;
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek,szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 	magazynArray = [klody, drewno];
 	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
@@ -956,26 +985,26 @@ function odczyt() {
 		kondycjaKoncowa = statystykiArray[12];
 		obrazeniaBazowe = statystykiArray[13];
 		obrazeniaEkwipunek = statystykiArray[14];
-		obrazeniaKoncowe = statystykiArray[15];
-		szybkoscBazowa = statystykiArray[16];
-		szybkoscEkwipunek = statystykiArray[17];
-		szybkoscKoncowa = statystykiArray[18];
-		blokadaPosterunekWilkow = statystykiArray[19];
-		blokadaZrujnowanyOboz = statystykiArray[20];
-		blokadaLesnaDroga2 = statystykiArray[21];
-		blokadaZniszczonaDroga = statystykiArray[22];
-		blokadaGrota = statystykiArray[23];
-		blokadaLesnaDroga3 = statystykiArray[24];
-		blokadaWiezaMaga = statystykiArray[25];
-		blokadaGrzybowePole = statystykiArray[26];
-		blokadaDolina = statystykiArray[27];
-		blokadaMoczary = statystykiArray[28];
-		bossZrujnowanyOboz = statystykiArray[29];
+		szybkoscBazowa = statystykiArray[15];
+		szybkoscEkwipunek = statystykiArray[16];
+		szybkoscKoncowa = statystykiArray[17];
+		blokadaPosterunekWilkow = statystykiArray[18];
+		blokadaZrujnowanyOboz = statystykiArray[19];
+		blokadaLesnaDroga2 = statystykiArray[20];
+		blokadaZniszczonaDroga = statystykiArray[21];
+		blokadaGrota = statystykiArray[22];
+		blokadaLesnaDroga3 = statystykiArray[23];
+		blokadaWiezaMaga = statystykiArray[24];
+		blokadaGrzybowePole = statystykiArray[25];
+		blokadaDolina = statystykiArray[26];
+		blokadaMoczary = statystykiArray[27];
+		bossZrujnowanyOboz = statystykiArray[28];
+		obrazeniaKoncowe = obrazeniaBazowe + obrazeniaEkwipunek;
 		zdrowieKoncowe = zdrowieEkwipunek;
 		kondycjaKoncowa = kondycjaEkwipunek;
 		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, obrazeniaKoncowe, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
 	}
 	if (localStorage.getItem("Magazyn") !== null){
