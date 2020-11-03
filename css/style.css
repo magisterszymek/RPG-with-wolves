@@ -509,6 +509,13 @@ button:hover {
 .budynek:hover {
 	filter: brightness(110%);
 }
+.alfa {
+	z-index: 1;
+	height: 95%;
+	width: 100%;
+	position: absolute;
+	background-color: brown;
+}
 .crafting {
 	z-index: 1;
 	height: 95%;
