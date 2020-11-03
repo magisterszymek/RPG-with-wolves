@@ -6,7 +6,7 @@
 		var prdm_bron_a_1 = ["Sztylet", "Nawet nie naostrzony.", "Broń", 2, 1, 5];
 		var prdm_bron_a_2 = ["Przerobiony sztylet", "W końcu dopasowany do wilczej łapy.", "Broń", 3, 1, 8];
 		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", "Broń", 5, 1, 20];
-		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 2.5, 1, 5];
+		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 1.5, 1, 5];
 		var prdm_bron_a_5 = ["Patyk", "Lepszy niż nic.", "Broń", 1, 1, 2];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
@@ -47,19 +47,19 @@
 	];
 	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
-	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 1, 2, 1]
+	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 2, 1, 1]
 	]
 	var prze_zrujnowanyOboz_ = [ // Przeciwnicy ze "Zrujnowany obóz"
 	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 5, 3, 2, 1],
 	["null"]
 	];
 	var prze_lesnaDroga3_ = [ // Przeciwnicy z "Leśna droga [3]"
-	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 1, 2, 1],
+	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 2, 1, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 4, 6, 2, 2]
 	];
 	var prze_grzybowePole_ = [ // Przeciwnicy z "Grzybowe Pole"
-	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 1, 2, 1],
+	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 2, 1, 1],
 	["Doświadczony grzybiarz", "Doświadczony_grzybiarz", "Ma dwa koszyki pełne grzybów", 20, 3, 2, 2, 1],
 	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
 	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
@@ -1199,6 +1199,7 @@ function lokacja(lokacja){
 			break;
 		}
 		case "crafting":{
+			odczytCrafting();
 			craftingWlaczony = true;
 			obozWlaczony = false;
 			document.getElementsByClassName("crafting")[0].hidden = false;
@@ -1269,6 +1270,7 @@ function lokacja(lokacja){
 				rozpocznijRozmowe("Wilk");
 				rozmowa("grota", "start");
 			}
+			przepisyDrewno = true;
 			break;
 		}
 		case "cofnij":{
@@ -1398,14 +1400,14 @@ function craftingInfo(przedmiot){
 			break;
 		}
 		case "przerobionySztylet":{
-			przedmiotOpis = prdm_bron_a_1;
+			przedmiotOpis = prdm_bron_a_2;
 			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
 			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
 			document.getElementById("craftingKoszt").innerHTML = "1x Sztylet, 1x Drewno";
 			break;
 		}
 		case "nakladkaNaLape":{
-			przedmiotOpis = prdm_bron_a_2;
+			przedmiotOpis = prdm_bron_a_3;
 			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
 			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
 			document.getElementById("craftingKoszt").innerHTML = "3x Sztylet, 1x Drewno";
@@ -1447,7 +1449,7 @@ function craftingInfo(przedmiot){
 			break;
 		}
 		case "drewnianyKostur":{
-			przedmiotOpis = prdm_bron_a_3;
+			przedmiotOpis = prdm_bron_a_4;
 			document.getElementById("craftingPrzedmiot").innerHTML = przedmiotOpis[0];
 			document.getElementById("craftingOpis").innerHTML = przedmiotOpis[1];
 			document.getElementById("craftingKoszt").innerHTML = "2x Drewno";
