@@ -46,8 +46,8 @@
 	["null"]
 	];
 	var prze_lesnaDroga2_ = [ // Przeciwnicy z "Leśna droga [2]"
-	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
-	["Grzybiarz", "Grzybiarz", "Zawędrował zbyt daleko.", 20, 2, 2, 1, 1]
+	["Leżące drzewo", "Leżące_drzewo", "Blokuje drogę.", 5, 1, 0, 0, 1],
+	["Grzybiarz", "Grzybiarz", "Przepłynął przez rzekę?!", 20, 2, 2, 1, 1],
 	]
 	var prze_zrujnowanyOboz_ = [ // Przeciwnicy ze "Zrujnowany obóz"
 	["Szczurzy strażnik", "Szczurzy_strażnik", "Strażnik zrujnowanego obozu. Ciekawe w jakim celu...", 20, 5, 3, 2, 1],
@@ -65,7 +65,7 @@
 	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
 	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
 	];
-	var prze_wiezaMaga_ = [ // Przeciwnicy z "Wieża maga"
+	var prze_wiezaMaga_ = [ // Przeciwnicy z "Wieża maga" NIEWYKORZYSTYWANE
 	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
 	["null"]
 	];
@@ -147,10 +147,16 @@
 			var blokadaGrota = true;		// Blokada przycisku "Grota"
 			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
-			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
+			var blokadaGrzybowePole = true;		// NIEWYKORZYSTYWANE   Blokada przycisku "Grzybowe pole"
 			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
+			
+		// Kamienie milowe - Naprawy, osiągnięcia i inne zdarzenia zmieniające wygląd mapy i odblokowujące nowe lokacje
+			var pradawnyLasDroga = false;	// Czy droga w pradawnym lesie jest naprawiona
+			var pradawnyLasStolarz = false; // Czy stolarz jest w obozie
+			var pradawnyLasMost = false;	// Czy most w pradawnym lesie jest naprawiony
+			var zniszczoneDrzewa = 0;		// Liczy ile drzew zostało zniszczonych przez gracza
 		
 		// Bossowie - zmienne służą do określania czy bossowie zostali pokonani, "true" oznacza że tak
 			var bossZrujnowanyOboz = false; 	// Boss z lokacji "Zrujnowany obóz"
@@ -158,7 +164,8 @@
 		// Inne
 			var resetKlikniety = false; 	// Safe-switch do wykonania resetu, gdy jest ustawiony na "false" gra nie usunie progressu.
 			var obozWlaczony = false; 	// Przechowuje informacje o tym czy obóz jest włączony
-			var craftingWlaczony = false;	// Przechowuje informacje o tym czy 
+			var craftingWlaczony = false;	// Przechowuje informacje o tym czy crafting jest włączony
+			var alfaWlaczony = false; // Przechowuje informacje o tym czy fracz jest u Alfy
 		
 		
 // ---------- Koniec zmiennych ----------
@@ -170,6 +177,8 @@ function zakladka(NrZakladki) {
 			document.getElementsByClassName("oboz")[0].hidden = false;
 		} else if(craftingWlaczony == true){
 			document.getElementsByClassName("crafting")[0].hidden = false;
+		} else if(alfaWlaczony == true){
+			document.getElementsByClassName("alfa")[0].hidden = false;
 		}
 		document.getElementById("zakladkaWalka").style.zIndex="0";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
@@ -180,6 +189,7 @@ function zakladka(NrZakladki) {
 		case 1:{
 		document.getElementsByClassName("oboz")[0].hidden = true;
 		document.getElementsByClassName("crafting")[0].hidden = true;
+		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="0";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
@@ -189,6 +199,7 @@ function zakladka(NrZakladki) {
 		case 2:{
 		document.getElementsByClassName("oboz")[0].hidden = true;
 		document.getElementsByClassName("crafting")[0].hidden = true;
+		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="0";
@@ -198,6 +209,7 @@ function zakladka(NrZakladki) {
 		case 3:{
 		document.getElementsByClassName("oboz")[0].hidden = true;
 		document.getElementsByClassName("crafting")[0].hidden = true;
+		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
@@ -267,35 +279,16 @@ function walka(typ){
 				loot(nazwaPrzeciwnik);
 				switch(lokacjaId){
 					case "lesnaDroga1":{
-						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true  && blokadaZniszczonaDroga == true && blokadaLesnaDroga2 == true){
+						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true  && blokadaZniszczonaDroga == true && blokadaLesnaDroga2 == true && zniszczoneDrzewa >= 5){
 							wpiszTekst("odblokowanieLokacji", "Zrujnowany obóz")
 							wpiszTekst("odblokowanieLokacji", "Posterunek wilków")
 							wpiszTekst("odblokowanieLokacji", "Leśna droga [2]")
-							wpiszTekst("odblokowanieLokacji", "Zniszczona droga");
 							blokadaZrujnowanyOboz = false;
 							blokadaPosterunekWilkow = false;
-							blokadaZniszczonaDroga = false;
 							blokadaLesnaDroga2 = false;
 							zrujnowanyOboz.style.display = "inline";
 							posterunekWilkow.style.display = "inline";
 							lesnaDroga2.style.display = "inline";
-							zniszczonaDroga.style.display = "inline";
-						}
-						break;
-					}
-					case "lesnaDroga2":{
-						if(blokadaWiezaMaga == true && blokadaGrzybowePole == true && blokadaLesnaDroga3 == true){
-							if(nazwaPrzeciwnik == "Pułapka"){
-								wpiszTekst("odblokowanieLokacji", "Wieża maga");
-								wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
-								wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
-								blokadaWiezaMaga = false;
-								blokadaGrzybowePole = false;
-								blokadaLesnaDroga3 = false;
-								wiezaMaga.style.display = "inline";
-								grzybowePole.style.display = "inline";
-								lesnaDroga3.style.display = "inline";
-							}
 						}
 						break;
 					}
@@ -379,10 +372,6 @@ function wybierzPrzeciwnika(biom, trudnosc){
 				} else {
 					losowe = 4;
 				}
-				break;
-			}
-			case "wiezaMaga":{
-				losowe = 0;
 				break;
 			}
 		}
@@ -524,6 +513,7 @@ function loot(nazwaPrzeciwnik){
 			if(losowe <= 6){
 				utworzPrzedmiot("prdm_bron_a_5", "bron", "Obrazy/Przedmioty/Patyk.png");
 			}
+			zniszczoneDrzewa += 1;
 			break;
 		}
 		case "Grzybiarz":{
@@ -931,13 +921,15 @@ function zapis() {
 		arr.push(calySlot);
 		liczba += 1;
 	}
-	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
-	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek,szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML, document.getElementById("slotBron").outerHTML];
+	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
+	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	magazynArray = [klody, drewno];
 	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
 	localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+	localStorage.setItem("Blokady", JSON.stringify(blokadyArray));
 	localStorage.setItem("Magazyn", JSON.stringify(magazynArray));
 	localStorage.setItem("Crafting", JSON.stringify(craftingArray));
 	odswiezZmienne("zapis");
@@ -964,8 +956,9 @@ function odczyt() {
 		slotNapiersnik.outerHTML = wyposazenieArray[1];
 		slotSpodnie.outerHTML = wyposazenieArray[2];
 		slotButy.outerHTML = wyposazenieArray[3];
+		slotBron.outerHTML = wyposazenieArray[4];
 	} else {
-		wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML];
+		wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML, document.getElementById("slotBron").outerHTML];
 		localStorage.setItem("Wyposazenie", JSON.stringify(wyposazenieArray));
 	}
 	if (localStorage.getItem("Statystyki") !== null) {
@@ -988,24 +981,31 @@ function odczyt() {
 		szybkoscBazowa = statystykiArray[15];
 		szybkoscEkwipunek = statystykiArray[16];
 		szybkoscKoncowa = statystykiArray[17];
-		blokadaPosterunekWilkow = statystykiArray[18];
-		blokadaZrujnowanyOboz = statystykiArray[19];
-		blokadaLesnaDroga2 = statystykiArray[20];
-		blokadaZniszczonaDroga = statystykiArray[21];
-		blokadaGrota = statystykiArray[22];
-		blokadaLesnaDroga3 = statystykiArray[23];
-		blokadaWiezaMaga = statystykiArray[24];
-		blokadaGrzybowePole = statystykiArray[25];
-		blokadaDolina = statystykiArray[26];
-		blokadaMoczary = statystykiArray[27];
-		bossZrujnowanyOboz = statystykiArray[28];
 		obrazeniaKoncowe = obrazeniaBazowe + obrazeniaEkwipunek;
 		zdrowieKoncowe = zdrowieEkwipunek;
 		kondycjaKoncowa = kondycjaEkwipunek;
-		if(blokadaGory == false){ document.getElementsByClassName("przyciskGory")[0].style.display = "inline"; }
 	} else {
-		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa, blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaWiezaMaga, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz];
+		statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
 		localStorage.setItem("Statystyki", JSON.stringify(statystykiArray));
+	}
+	if (localStorage.getItem("Blokady") !== null){
+		blokadyArray = JSON.parse(localStorage.getItem("Blokady"));
+		blokadaPosterunekWilkow = blokadyArray[0];
+		blokadaZrujnowanyOboz = blokadyArray[1];
+		blokadaLesnaDroga2 = blokadyArray[2];
+		blokadaZniszczonaDroga = blokadyArray[3];
+		blokadaGrota = blokadyArray[4];
+		blokadaLesnaDroga3 = blokadyArray[5];
+		blokadaGrzybowePole = blokadyArray[6];
+		blokadaDolina = blokadyArray[7];
+		blokadaMoczary = blokadyArray[8];
+		bossZrujnowanyOboz = blokadyArray[9];
+		pradawnyLasDroga = blokadyArray[10];
+		pradawnyLasStolarz = blokadyArray[11];
+		pradawnyLasMost = blokadyArray[12];
+		zniszczoneDrzewa = blokadyArray[13];
+	} else {
+		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	}
 	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
@@ -1027,6 +1027,12 @@ function odczyt() {
 		craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 		localStorage.setItem("Crafting", JSON.stringify(craftingArray));
 	}
+	
+	if(drewno >= 5 && pradawnyLasStolarz == true){
+		document.getElementById("naprawMost").style.background = "gray";
+		document.getElementById("naprawMost").setAttribute("disabled", "");
+	}
+	
 }
 
 function reset() {
@@ -1173,14 +1179,19 @@ function lokacja(lokacja){
 			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "none";
 			dolina.style.display = "none";
-			mapa.src = "Obrazy/Mapa/PradawnyLas.png";
+			if(pradawnyLasDroga == false && pradawnyLasMost == false){
+				mapa.src = "Obrazy/Mapa/PradawnyLas.png";
+			} else if(pradawnyLasDroga == true && pradawnyLasMost == false){
+				mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionaDroga.png";
+			} else {
+				mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionyMost.png";
+			}
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			obozWilkow.style.display = "inline";
 			lesnaDroga1.style.display = "inline";
 			if(blokadaPosterunekWilkow == false){ posterunekWilkow.style.display = "inline"; }
 			if(blokadaZrujnowanyOboz == false){ zrujnowanyOboz.style.display = "inline"; }
 			if(blokadaLesnaDroga2 == false){ lesnaDroga2.style.display = "inline"; }
-			if(blokadaWiezaMaga == false){ wiezaMaga.style.display = "inline"; }
 			if(blokadaGrzybowePole == false){ grzybowePole.style.display = "inline"; }
 			if(blokadaZniszczonaDroga == false){ zniszczonaDroga.style.display = "inline"; }
 			if(blokadaGrota == false){ grota.style.display = "inline"; }
@@ -1194,8 +1205,10 @@ function lokacja(lokacja){
 			obozWlaczony = true;
 			document.getElementsByClassName("oboz")[0].hidden = false;
 			document.getElementsByClassName("crafting")[0].hidden = true;
+			document.getElementsByClassName("alfa")[0].hidden = true;
 			document.getElementById("licznikKlody").innerHTML = klody;
 			document.getElementById("licznikDrewno").innerHTML = drewno;
+			zakonczRozmowe();
 			break;
 		}
 		case "crafting":{
@@ -1208,6 +1221,13 @@ function lokacja(lokacja){
 			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
+		case "alfa":{
+			alfaWlaczony = true;
+			obozWlaczony = false;
+			document.getElementsByClassName("alfa")[0].hidden = false;
+			document.getElementsByClassName("oboz")[0].hidden = true;
+			break;
+		}
 		case "lesnaDroga1":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga1", 1);
@@ -1215,6 +1235,7 @@ function lokacja(lokacja){
 		}
 		case "posterunekWilkow":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
+			zakonczRozmowe();
 			break;
 		}
 		case "zrujnowanyOboz":{
@@ -1229,13 +1250,13 @@ function lokacja(lokacja){
 			posterunekWilkow.style.display = "none";
 			zrujnowanyOboz.style.display = "none";
 			lesnaDroga2.style.display = "none";
-			wiezaMaga.style.display = "none";
 			grzybowePole.style.display = "none";
 			zniszczonaDroga.style.display = "none";
 			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
 			cofnij.style.display = "none";
 			cofnijOboz.style.display = "inline";
+			zakonczRozmowe();
 			}
 			break;
 		}
@@ -1247,11 +1268,6 @@ function lokacja(lokacja){
 		case "lesnaDroga2":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
 			rozpocznijWalke("lesnaDroga2", 1);
-			break;
-		}
-		case "wiezaMaga":{
-			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/WieżaMaga.png')";
-			rozpocznijWalke("wiezaMaga", 1);
 			break;
 		}
 		case "grzybowePole":{
@@ -1285,7 +1301,6 @@ function lokacja(lokacja){
 			posterunekWilkow.style.display = "none";
 			zrujnowanyOboz.style.display = "none";
 			lesnaDroga2.style.display = "none";
-			wiezaMaga.style.display = "none";
 			grzybowePole.style.display = "none";
 			zniszczonaDroga.style.display = "none";
 			grota.style.display = "none";
@@ -1692,4 +1707,17 @@ function utworzPrzycisk(lokacja, identyfikator, inner){
 function ekranPodrozy(){
 	document.getElementById("podroz").removeAttribute("hidden");
 	setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 1800);
+}
+
+function akcja(identyfikator){
+	switch(identyfikator){
+		case "naprawMost":{
+			if(drewno >= 5 && pradawnyLasStolarz == true){
+				document.getElementById("naprawMost").style.background = "gray";
+				document.getElementById("naprawMost").setAttribute("disabled", "");
+				pradawnyLasMost = true;
+			}
+			break;
+		}
+	}
 }
