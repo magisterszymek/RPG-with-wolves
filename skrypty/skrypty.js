@@ -1295,7 +1295,6 @@ function lokacja(lokacja){
 			las.style.display = "inline";
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			mapa.src = "Obrazy/Mapa/Mapa.png";
-			zakladkaWalka.style.backgroundImage = "url('Obrazy/Mapa/Mapa.png')";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
 			posterunekWilkow.style.display = "none";
