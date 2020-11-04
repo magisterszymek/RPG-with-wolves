@@ -13,18 +13,12 @@ div.id = "ladowanie";
 document.body.appendChild(div);
 
 //Ekran podróży
-div = document.createElement("DIV");
-image = document.getElementById("ladowanieZdjecie");
-div.style.backgroundImage = "url('Obrazy/Ładowanie/Podróż.png')";
-div.style.backgroundPosition = "center";
-div.style.backgroundRepeat = "no-repeat";
-div.style.backgroundSize = "100%";
-div.style.backgroundColor = "rgba(0, 0, 0, 0.3)";
-div.style.zIndex = "1";
-div.className = "wyborNicku";
-div.id = "podroz";
-document.body.appendChild(div);
-setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 1);
+setTimeout(function(){ 
+	document.getElementById("podroz").setAttribute("hidden", "");
+	document.getElementById("dalej1").setAttribute("hidden", "");
+	document.getElementById("dalej2").setAttribute("hidden", "");
+	document.getElementById("dalej3").setAttribute("hidden", "");	
+}, 1);
 
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/Podróż.png')"; }, 1010);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/Mapa.png')"; }, 1020);
