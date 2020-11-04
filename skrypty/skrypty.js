@@ -204,8 +204,8 @@ function zakladka(NrZakladki) {
 		}
 		document.getElementById("zakladkaWalka").style.zIndex="0";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
+		document.getElementById("zakladkaWyprawy").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
-		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
 		break;
 		}
 		case 1:{
@@ -214,8 +214,8 @@ function zakladka(NrZakladki) {
 		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="0";
+		document.getElementById("zakladkaWyprawy").style.zIndex="-1";
 		document.getElementById("zakladkaMenu").style.zIndex="-1";
-		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
 		break;
 		}
 		case 2:{
@@ -224,8 +224,8 @@ function zakladka(NrZakladki) {
 		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
-		document.getElementById("zakladkaMenu").style.zIndex="0";
-		document.getElementById("zakladkaUstawienia").style.zIndex="-1";
+		document.getElementById("zakladkaWyprawy").style.zIndex="0";
+		document.getElementById("zakladkaMenu").style.zIndex="-1";
 		break;
 		}
 		case 3:{
@@ -234,8 +234,8 @@ function zakladka(NrZakladki) {
 		document.getElementsByClassName("alfa")[0].hidden = true;
 		document.getElementById("zakladkaWalka").style.zIndex="-1";
 		document.getElementById("zakladkaEkwipunek").style.zIndex="-1";
-		document.getElementById("zakladkaMenu").style.zIndex="-1";
-		document.getElementById("zakladkaUstawienia").style.zIndex="0";
+		document.getElementById("zakladkaWyprawy").style.zIndex="-1";
+		document.getElementById("zakladkaMenu").style.zIndex="0";
 		break;
 		}
 	}
