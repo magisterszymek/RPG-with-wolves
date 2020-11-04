@@ -92,7 +92,7 @@ button:hover {
 
 .przyciskRozmowy:hover {
 	/*Efekt po najechaniu na przycisk ataku*/
-	border: 3px solid #223d77;
+	filter: brightness(80%);
 }
 
 .przyciskDefaultowy {
@@ -515,6 +515,11 @@ button:hover {
 	width: 100%;
 	position: absolute;
 	background-color: brown;
+}
+.podrozPostac {
+	height: 20%;
+	width: 10%;
+	position: absolute;
 }
 .crafting {
 	z-index: 1;
