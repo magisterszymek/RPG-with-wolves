@@ -1374,6 +1374,7 @@ function lokacja(lokacja){
 			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "inline";
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 			mapa.src = "Obrazy/Mapa/Mapa.png";
 			obozWilkow.style.display = "none";
 			lesnaDroga1.style.display = "none";
