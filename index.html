@@ -267,21 +267,22 @@
 			</div>
 			
 			<div class="przyciskiWyprawy">
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'pradawnyLas', 'wyprawaTrwa1')">Pradawny las</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'grota', 'wyprawaTrwa1')">Grota</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'grzybowePole', 'wyprawaTrwa1')">Grzybowe pole</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'PradawnyLas', 'wyprawaTrwa1')">Pradawny las</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'ZniszczonaDroga', 'wyprawaTrwa1')" id="zniszczonaDrogaWyprawa">Napraw zniszczoną drogę</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'Grota', 'wyprawaTrwa1')" hidden>Grota</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa1', 'GrzybowePole', 'wyprawaTrwa1')" hidden>Grzybowe pole</button>
 			</div>
 			
 			<div class="informacjeWyprawy">
 				<div class="pasekWyprawy">
 					<span class="spanPasekWyprawy" id="wyprawa1Procent">0%</span>
 					<div class="pasekWPaskuWyprawy" id="wyprawa1Progress"></div>
-					Obecna lokacja: <span id="wyprawa1Lokacja"></span>
+					Obecna lokacja: <span id="wyprawa1Lokacja">Obóz</span>
 				</div>
 			</div>
 		</div>
 		
-		<div class="zestawWyprawy" id="wyprawy2">
+		<div class="zestawWyprawy" id="wyprawy2" hidden>
 			<div class="oknoWyprawy" style="background-image: url('Obrazy/Wyprawy/Obóz.png');" id="wyprawa2Okno">
 				<img class="postacWyprawy" src="Obrazy/Wyprawy/Postać.png" id="wyprawa2Postac"></img>
 			</div>
@@ -292,21 +293,21 @@
 			</div>
 			
 			<div class="przyciskiWyprawy">
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'pradawnyLas', 'wyprawaTrwa2')">Pradawny las</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'grota', 'wyprawaTrwa2')">Grota</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'grzybowePole', 'wyprawaTrwa2')">Grzybowe pole</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'PradawnyLas', 'wyprawaTrwa2')">Pradawny las</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'Grota', 'wyprawaTrwa2')">Grota</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa2', 'GrzybowePole', 'wyprawaTrwa2')">Grzybowe pole</button>
 			</div>
 			
 			<div class="informacjeWyprawy">
 				<div class="pasekWyprawy">
 					<span class="spanPasekWyprawy" id="wyprawa2Procent">0%</span>
 					<div class="pasekWPaskuWyprawy" id="wyprawa2Progress"></div>
-					Obecna lokacja: <span id="wyprawa2Lokacja"></span>
+					Obecna lokacja: <span id="wyprawa2Lokacja">Obóz</span>
 				</div>
 			</div>
 		</div>
 		
-		<div class="zestawWyprawy" id="wyprawy3">
+		<div class="zestawWyprawy" id="wyprawy3" hidden>
 			<div class="oknoWyprawy" style="background-image: url('Obrazy/Wyprawy/Obóz.png');" id="wyprawa3Okno">
 				<img class="postacWyprawy" src="Obrazy/Wyprawy/Postać.png" id="wyprawa3Postac"></img>
 			</div>
@@ -317,16 +318,16 @@
 			</div>
 			
 			<div class="przyciskiWyprawy">
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'pradawnyLas', 'wyprawaTrwa3')">Pradawny las</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'grota', 'wyprawaTrwa3')">Grota</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'grzybowePole', 'wyprawaTrwa3')">Grzybowe pole</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'PradawnyLas', 'wyprawaTrwa3')">Pradawny las</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'Grota', 'wyprawaTrwa3')">Grota</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa3', 'GrzybowePole', 'wyprawaTrwa3')">Grzybowe pole</button>
 			</div>
 			
 			<div class="informacjeWyprawy">
 				<div class="pasekWyprawy">
 					<span class="spanPasekWyprawy" id="wyprawa3Procent">0%</span>
 					<div class="pasekWPaskuWyprawy" id="wyprawa3Progress"></div>
-					Obecna lokacja: <span id="wyprawa3Lokacja"></span>
+					Obecna lokacja: <span id="wyprawa3Lokacja">Obóz</span>
 				</div>
 			</div>
 		</div>
@@ -342,16 +343,16 @@
 			</div>
 			
 			<div class="przyciskiWyprawy">
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'pradawnyLas', 'wyprawaTrwa4')">Pradawny las</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'grota', 'wyprawaTrwa4')">Grota</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'grzybowePole', 'wyprawaTrwa4')">Grzybowe pole</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'PradawnyLas', 'wyprawaTrwa4')">Pradawny las</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'Grota', 'wyprawaTrwa4')">Grota</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa4', 'GrzybowePole', 'wyprawaTrwa4')">Grzybowe pole</button>
 			</div>
 			
 			<div class="informacjeWyprawy">
 				<div class="pasekWyprawy">
 					<span class="spanPasekWyprawy" id="wyprawa4Procent">0%</span>
 					<div class="pasekWPaskuWyprawy" id="wyprawa4Progress"></div>
-					Obecna lokacja: <span id="wyprawa4Lokacja"></span>
+					Obecna lokacja: <span id="wyprawa4Lokacja">Obóz</span>
 				</div>
 			</div>
 		</div>
@@ -367,16 +368,16 @@
 			</div>
 			
 			<div class="przyciskiWyprawy">
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'pradawnyLas', 'wyprawaTrwa5')">Pradawny las</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'grota', 'wyprawaTrwa5')">Grota</button>
-				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'grzybowePole', 'wyprawaTrwa5')">Grzybowe pole</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'PradawnyLas', 'wyprawaTrwa5')">Pradawny las</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'Grota', 'wyprawaTrwa5')">Grota</button>
+				<button class="przyciskWyprawy" onclick="rozpocznijWyprawe('wyprawa5', 'GrzybowePole', 'wyprawaTrwa5')">Grzybowe pole</button>
 			</div>
 			
 			<div class="informacjeWyprawy">
 				<div class="pasekWyprawy">
 					<span class="spanPasekWyprawy" id="wyprawa5Procent">0%</span>
 					<div class="pasekWPaskuWyprawy" id="wyprawa5Progress"></div>
-					Obecna lokacja: <span id="wyprawa5Lokacja"></span>
+					Obecna lokacja: <span id="wyprawa5Lokacja">Obóz</span>
 				</div>
 			</div>
 		</div>
