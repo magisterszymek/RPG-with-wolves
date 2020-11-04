@@ -35,7 +35,7 @@ button:hover {
 	--zakladka-walka-color: #0fbdb9;
 	--zakladka-ekwipunek-color: MediumSeaGreen;
 	--zakladka-menu-color: blue;
-	--zakladka-ustawienia-color: green;
+	--zakladka-wyprawy-color: green;
 	/*Koniec kolorów i przycisków do nich*/
 }
 
@@ -233,11 +233,11 @@ button:hover {
 	z-index: -1;
 }
 
-.zakladkaUstawienia {
+.zakladkaWyprawy {
 	width: 100%;
 	height: 95%;
 	position: absolute;
-	background: var(--zakladka-ustawienia-color);
+	background: var(--zakladka-wyprawy-color);
 	z-index: -1;
 }
 
