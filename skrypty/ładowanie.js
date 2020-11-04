@@ -33,4 +33,7 @@ setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Tła/Zrujnowan
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Postacie/Wilk.png')"; }, 2100);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/PradawnyLasNaprawionaDroga.png')"; }, 2110);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/PradawnyLasNaprawionyMost.png')"; }, 2120);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')"; }, 2130);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Wyprawy/PradawnyLas.png')"; }, 2140);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Wyprawy/Grota.png')"; }, 2150);
 setTimeout(function(){ document.getElementById("ladowanie").setAttribute("hidden", ""); }, 3000);
