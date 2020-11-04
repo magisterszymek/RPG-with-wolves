@@ -130,7 +130,7 @@
 	// HTML
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
 		
-	//Rozmowy
+	// Rozmowy
 		var rozmowaGrotaStart = "Radziłbym Ci uważać w tych rejonach. Nigdy nie wiesz kogo możesz spotkać, prawda?"
 		var rozmowaGrotaStartOdpowiedz = "'Kim jesteś?'"
 		var rozmowaGrotaA = "Nazywam się Nagal, ale wszyscy z obozu nazywają mnie Stolarzem. Zgadnij dlaczego."
@@ -151,6 +151,13 @@
 					var rozmowaGrotaC3Odpowiedz1 = "Zakończ rozmowę."
 					var rozmowaGrotaD = "Żyjemy w tym samym obozie od lat, głupio byłoby gdybym Cię nie znał. Tak czy siak, muszę się zbierać. Dziękuję ze za wszystko."
 						var rozmowaGrotaDOdpowiedz1 = "Zakończ rozmowę."
+						
+	// Wyprawy
+		var wyprawaTrwa1 = false;
+		var wyprawaTrwa2 = false;
+		var wyprawaTrwa3 = false;
+		var wyprawaTrwa4 = false;
+		var wyprawaTrwa5 = false;
 				
 	// Crafting
 		// Przepisy
@@ -1915,4 +1922,129 @@ function akcja(identyfikator){
 			break;
 		}
 	}
+}
+
+function rozpocznijWyprawe(wyprawa, lokacja, wyprawaTrwa){
+	wyprawaTrw = window[wyprawaTrwa];
+	if(wyprawaTrw !== false){ 
+		return;
+	}
+	window[wyprawaTrwa] = true;
+	wyprawaLok = wyprawa + "Lokacja";
+	switch(lokacja){
+		case "pradawnyLas":{
+			document.getElementById(wyprawaLok).innerHTML = "Pradawny las";
+			break;
+		}
+		case "grota":{
+			document.getElementById(wyprawaLok).innerHTML = "Grota";
+			break;
+		}
+		case "grzybowePole":{
+			document.getElementById(wyprawaLok).innerHTML = "Grzybowe pole";
+			break;
+		}
+	}
+	trwanieWyprawy(wyprawa, lokacja);
+}
+
+function trwanieWyprawy(wyprawa, lokacja){
+	idPask = wyprawa + "Progress";
+	liczenieProgressu(wyprawa, idPask, 10);
+}
+
+function liczenieProgressu(wyprawa, idPaska, dlugosc){
+  var element = document.getElementById(idPaska);
+  switch(wyprawa){
+	  case "wyprawa1":{
+		var width1 = 0;
+		var liczenieWyprawa1 = setInterval(klatka1, dlugosc);
+		function klatka1() {
+			if (width1 >= 100) {
+				wyprawaTrwa1 = false;
+				clearInterval(liczenieWyprawa1);
+				element.style.width = 0 + '%';
+				document.getElementById("wyprawa1Procent").innerHTML = 0 + "%";
+				document.getElementById(wyprawaLok).innerHTML = "Obóz";
+			} else {
+				document.getElementById("wyprawa1Procent").innerHTML = Math.round(width1) + "%";
+				width1 += 0.1;
+				element.style.width = width1 + '%';
+			}
+		}
+		break;
+	}
+	  case "wyprawa2":{
+		  var width2 = 0;
+		  var liczenieWyprawa2 = setInterval(klatka2, dlugosc);
+		  function klatka2() {
+			if (width2 >= 100) {
+				wyprawaTrwa1 = false;
+				clearInterval(liczenieWyprawa2);
+				element.style.width = 0 + '%'
+				document.getElementById("wyprawa2Procent").innerHTML = 0 + "%";
+				document.getElementById(wyprawaLok).innerHTML = "Obóz";
+			} else {
+				document.getElementById("wyprawa2Procent").innerHTML = Math.round(width2) + "%";
+				width2 += 0.1;
+				element.style.width2 = width2 + '%';
+			}
+		}
+		break;
+	}
+	  case "wyprawa3":{
+		  var width3 = 0;
+		  var liczenieWyprawa3 = setInterval(klatka3, dlugosc);
+		  function klatka3() {
+			if (width3 >= 100) {
+				wyprawaTrwa1 = false;
+				clearInterval(liczenieWyprawa3);
+				element.style.width = 0 + '%'
+				document.getElementById("wyprawa3Procent").innerHTML = 0 + "%";
+				document.getElementById(wyprawaLok).innerHTML = "Obóz";
+			} else {
+				document.getElementById("wyprawa3Procent").innerHTML = Math.round(width3) + "%";
+				width3 += 0.1;
+				element.style.width3 = width3 + '%';
+			}
+		}
+		break;
+	}
+	  case "wyprawa4":{
+		  var width4 = 0;
+		  var liczenieWyprawa4 = setInterval(klatka4, dlugosc);
+		  function klatka4() {
+			if (width4 >= 100) {
+				wyprawaTrwa1 = false;
+				clearInterval(liczenieWyprawa4);
+				element.style.width = 0 + '%'
+				document.getElementById("wyprawa4Procent").innerHTML = 0 + "%";
+				document.getElementById(wyprawaLok).innerHTML = "Obóz";
+			} else {
+				document.getElementById("wyprawa4Procent").innerHTML = Math.round(width4) + "%";
+				width4 += 0.1;
+				element.style.width4 = width4 + '%';
+			}
+		}
+		break;
+	}
+	  case "wyprawa5":{
+		  var width5 = 0;
+		  var liczenieWyprawa5 = setInterval(klatka5, dlugosc);
+		  function klatka5() {
+			if (width5 >= 100) {
+				wyprawaTrwa1 = false;
+				clearInterval(liczenieWyprawa5);
+				element.style.width = 0 + '%'
+				document.getElementById("wyprawa5Procent").innerHTML = 0 + "%";
+				document.getElementById(wyprawaLok).innerHTML = "Obóz";
+			} else {
+				document.getElementById("wyprawa5Procent").innerHTML = Math.round(width5) + "%";
+				width5 += 0.1;
+				element.style.width5 = width5 + '%';
+			}
+		}
+		break;
+	}
+  }
 }
