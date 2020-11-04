@@ -20,7 +20,8 @@ setTimeout(function(){
 	document.getElementById("dalej3").setAttribute("hidden", "");	
 }, 1);
 
-setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/Podróż.png')"; }, 1010);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Ładowanie/Dalej.png')"; }, 1000);
+setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Ładowanie/Podróż.png')"; }, 1010);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/Mapa.png')"; }, 1020);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/PradawnyLas.png')"; }, 2030);
 setTimeout(function(){ image.style.backgroundImage = "url('Obrazy/Mapa/ZrujnowanyObóz.png')"; }, 2040);
