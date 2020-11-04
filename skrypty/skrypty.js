@@ -840,6 +840,7 @@ function zapamietajZakladke(bool) {
 		odczyt();
 		odczytCrafting();
 		getNick();
+		zakonczRozmowe();
 		if(nickWpisano == true){ setInterval(zapis, 30000); }
 		if (localStorage.getItem("zakladka") !== null) {
 			var zakladka = localStorage.getItem("zakladka");
