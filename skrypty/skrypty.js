@@ -1974,10 +1974,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				clearInterval(liczenieWyprawa1);
 				element.style.width = 0 + '%';
 				document.getElementById("wyprawa1Procent").innerHTML = 0 + "%";
+				document.getElementById("wyprawa1Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok1).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 			} else {
 				document.getElementById("wyprawa1Procent").innerHTML = Math.round(width1) + "%";
+				document.getElementById("wyprawa1Postac").style.left = width1 * 0.85 + "%";
 				width1 += 0.1;
 				element.style.width = width1 + '%';
 			}
@@ -1995,10 +1997,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				clearInterval(liczenieWyprawa2);
 				element.style.width = 0 + '%'
 				document.getElementById("wyprawa2Procent").innerHTML = 0 + "%";
+				document.getElementById("wyprawa2Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok2).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn2).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 			} else {
 				document.getElementById("wyprawa2Procent").innerHTML = Math.round(width2) + "%";
+				document.getElementById("wyprawa2Postac").style.left = width2 * 0.85 + "%";
 				width2 += 0.1;
 				element.style.width = width2 + '%';
 			}
@@ -2016,10 +2020,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				clearInterval(liczenieWyprawa3);
 				element.style.width = 0 + '%'
 				document.getElementById("wyprawa3Procent").innerHTML = 0 + "%";
+				document.getElementById("wyprawa3Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok3).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn3).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 			} else {
 				document.getElementById("wyprawa3Procent").innerHTML = Math.round(width3) + "%";
+				document.getElementById("wyprawa3Postac").style.left = width3 * 0.85 + "%";
 				width3 += 0.1;
 				element.style.width = width3 + '%';
 			}
@@ -2037,10 +2043,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				clearInterval(liczenieWyprawa4);
 				element.style.width = 0 + '%'
 				document.getElementById("wyprawa4Procent").innerHTML = 0 + "%";
+				document.getElementById("wyprawa4Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok4).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn4).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 			} else {
 				document.getElementById("wyprawa4Procent").innerHTML = Math.round(width4) + "%";
+				document.getElementById("wyprawa4Postac").style.left = width4 * 0.85 + "%";
 				width4 += 0.1;
 				element.style.width = width4 + '%';
 			}
@@ -2058,10 +2066,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				clearInterval(liczenieWyprawa5);
 				element.style.width = 0 + '%'
 				document.getElementById("wyprawa5Procent").innerHTML = 0 + "%";
+				document.getElementById("wyprawa5Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok5).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn5).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 			} else {
 				document.getElementById("wyprawa5Procent").innerHTML = Math.round(width5) + "%";
+				document.getElementById("wyprawa5Postac").style.left = width5 * 0.85 + "%";
 				width5 += 0.1;
 				element.style.width = width5 + '%';
 			}
