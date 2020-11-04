@@ -8,6 +8,7 @@
 		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", "Broń", 5, 1, 20];
 		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 1.5, 1, 5];
 		var prdm_bron_a_5 = ["Patyk", "Lepszy niż nic.", "Broń", 1, 1, 2];
+		var prdm_bron_a_5 = ["Łuk", "Cięciwa jest trochę naderwana.", "Broń", 5, 1, 15];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
@@ -56,7 +57,7 @@
 	var prze_lesnaDroga3_ = [ // Przeciwnicy z "Leśna droga [3]"
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 2, 1, 1],
 	["Pułapka", "Pułapka", "Bardzo dobrze ukryta.", 10, 3, 2, 0, 1],
-	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 30, 4, 6, 2, 2]
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 5, 0.5, 2]
 	];
 	var prze_grzybowePole_ = [ // Przeciwnicy z "Grzybowe Pole"
 	["Grzybiarz", "Grzybiarz", "Ma koszyk pełen grzybów.", 20, 2, 2, 1, 1],
@@ -64,6 +65,10 @@
 	["Zielony grzyb", "Zielony_grzyb", "", 10, 0, 0, 0, 1],
 	["Czerwony grzyb", "Czerwony_grzyb", "", 10, 0, 0, 0, 1],
 	["Niebieski grzyb", "Niebieski_grzyb", "", 10, 0, 0, 0, 1]
+	];
+	var prze_wyjscieZLasu_ = [ // Przeciwnicy z "Wyjście z lasu"
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 5, 0.5, 2],
+	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 2, 1, 1],
 	];
 	var prze_wiezaMaga_ = [ // Przeciwnicy z "Wieża maga" NIEWYKORZYSTYWANE
 	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
@@ -74,12 +79,6 @@
 // ---------- Koniec array'ów ---------
 
 // ---------- Zmienne ----------
-//Rozmowy
-	var rozmowaGrotaStart = "Witam, po co tutaj przyszedłeś?"
-	var rozmowaGrotaStartOdpowiedz = "Kim jesteś?"
-	var rozmowaGrotaA = "Wilkiem."
-	var rozmowaGrotaAOdpowiedz1 = "Opcja 1"
-	var rozmowaGrotaAOdpowiedz2 = "Opcja 2"
 
 // Statystyki
 	// Gracz
@@ -131,6 +130,28 @@
 	// HTML
 		var zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;  // Służy do wyświetlania 0/0 w HTML po włączeniu gry, czysto estetyczne
 		
+	//Rozmowy
+		var rozmowaGrotaStart = "Radziłbym Ci uważać w tych rejonach. Nigdy nie wiesz kogo możesz spotkać, prawda?"
+		var rozmowaGrotaStartOdpowiedz = "'Kim jesteś?'"
+		var rozmowaGrotaA = "Nazywam się Nagal, ale wszyscy z obozu nazywają mnie Stolarzem. Zgadnij dlaczego."
+			var rozmowaGrotaAOdpowiedz1 = "'Ponieważ jesteś Stolarzem?'" //B1
+			var rozmowaGrotaAOdpowiedz2 = "'Poprosiłbym o łatwiejszą zagadkę.'" //B2
+			var rozmowaGrotaB1 = "Nieprawdopodobne, prawda? Niemniej jednak, widzę że udało wam się posprzątać ten chaos. Już dawno nie było takiej burzy..."
+				var rozmowaGrotaB1Odpowiedz1 = "'Nie do końca. Most jest zniszczony.'" //C1
+				var rozmowaGrotaB1Odpowiedz2 = "'Potrzebujemy Cię w obozie.'" //C2
+			var rozmowaGrotaB2 = "Dobrze. Ile zajmuje naprawienie drogi po przejściu okropnej burzy? Odpowiedź brzmi: najwyraźniej tydzień. Całkiem dobry wynik, jeśli się mnie spytasz."
+				var rozmowaGrotaB2Odpowiedz1 = "'Teraz moja kolej. Ile zajmuje naprawienie mostu po przejściu okropnej burzy?'" //C3
+				var rozmowaGrotaB2Odpowiedz2 = "'Potrzebujemy Cię w obozie.'" //C2
+				var rozmowaGrotaC1 = "Most jest... cholera. Dobrze, posprzątam tu nieco, zabiorę potrzebne rzeczy i... widzimy się w obozie, " + nick + "."
+					var rozmowaGrotaC1Odpowiedz1 = "'Czekaj, skąd wiesz jak się nazywam?'" //D
+					var rozmowaGrotaC1Odpowiedz2 = "Zakończ rozmowę."
+				var rozmowaGrotaC2 = "Coś się stało? Burza uszkodziła mur? Posterunek runął?"
+					var rozmowaGrotaC2Odpowiedz1 = "'Burza zniszczyła most.'" //C1
+				var rozmowaGrotaC3 = "Pomyślmy. Trzy dni na zebranie materiałów, dzień na przygotowanie narzędzi... chwila, most jest zniszczony?! Natychmiast muszę wrócić do obozu. Dziękuję za uratowanie mnie, jeśli można to tak nazwać."
+					var rozmowaGrotaC3Odpowiedz1 = "Zakończ rozmowę."
+					var rozmowaGrotaD = "Żyjemy w tym samym obozie od lat, głupio byłoby gdybym Cię nie znał. Tak czy siak, muszę się zbierać. Dziękuję ze za wszystko."
+						var rozmowaGrotaDOdpowiedz1 = "Zakończ rozmowę."
+				
 	// Crafting
 		// Przepisy
 			var przepisyDrewno = false;
@@ -147,7 +168,8 @@
 			var blokadaGrota = true;		// Blokada przycisku "Grota"
 			var blokadaLesnaDroga3 = true; 		// Blokada przycisku "Leśna droga [3]"
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
-			var blokadaGrzybowePole = true;		// NIEWYKORZYSTYWANE   Blokada przycisku "Grzybowe pole"
+			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
+			var blokadaWyjscieZLasu = true;		// Blokada przycisku "Wyjście z lasu"
 			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
@@ -223,6 +245,7 @@ function zakladka(NrZakladki) {
 function rozpocznijWalke(biom, trudnosc){
 	zakonczRozmowe();
 	ekranPodrozy();
+	sprawdzWyposazenie("walka");
 	setTimeout(function(){
 		obrazeniaKoncowe = obrazeniaBazowe + obrazeniaEkwipunek;
 		if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
@@ -277,6 +300,9 @@ function walka(typ){
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
 				loot(nazwaPrzeciwnik);
+				odswiezZmienne("koniecWalki");
+				clearInterval(interval);
+				clearInterval(interval2);
 				switch(lokacjaId){
 					case "lesnaDroga1":{
 						if(blokadaZrujnowanyOboz == true && blokadaPosterunekWilkow == true  && blokadaZniszczonaDroga == true && blokadaLesnaDroga2 == true && zniszczoneDrzewa >= 5){
@@ -301,6 +327,13 @@ function walka(typ){
 						break;
 					}
 					case "lesnaDroga3":{
+						if(blokadaWyjscieZLasu == true){
+							wpiszTekst("odblokowanieLokacji", "Wyjście z lasu")
+							blokadaWyjscieZLasu = false;
+							wyjscieZLasu.style.display = false;
+						}
+					}
+					case "wyjscieZLasu":{
 						if(blokadaDolina == true && nazwaPrzeciwnik == "Młody myśliwy"){
 							wpiszTekst("odblokowanieLokacji", "Dolina")
 							blokadaDolina = false;
@@ -351,12 +384,20 @@ function wybierzPrzeciwnika(biom, trudnosc){
 				break;
 			}
 			case "lesnaDroga3":{
-				if(losowe <= 400){
+				if(losowe <= 600){
 					losowe = 0;
-				} else if(losowe > 400 && losowe <= 600){
+				} else if(losowe > 600 && losowe <= 900){
 					losowe = 1;
 				} else {
 					losowe = 2;
+				}
+				break;
+			}
+			case "wyjscieZLasu":{
+				if(losowe <= 800){
+					losowe = 0;
+				} else {
+					losowe = 1;
 				}
 				break;
 			}
@@ -519,6 +560,10 @@ function loot(nazwaPrzeciwnik){
 		case "Grzybiarz":{
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){ 
+				utworzPrzedmiot("prdm_bron_a_1", "bron", "Obrazy/Przedmioty/Sztylet.png");
+			}
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){ 
 				utworzPrzedmiot("grzyb_1", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
@@ -555,7 +600,12 @@ function loot(nazwaPrzeciwnik){
 		case "Pułapka":{
 			break;
 		}
-		case "Młody myśliwy":{
+		case "Młody myśliwy":{ 
+			utworzPrzedmiot("prdm_bron_a_1", "bron", "Obrazy/Przedmioty/Sztylet.png");
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 2){
+				utworzPrzedmiot("prdm_bron_a_6", "bron", "Obrazy/Przedmioty/Łuk.png");
+			}
 			break;
 		}
 	}
@@ -621,7 +671,12 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 		}
 		case "gracz":{
 			var tekst = " " + postacPierwsza;
+			pasek.style.color = "#0f7bff";
 			break;
+		}
+		case "akcja":{
+			var tekst = " " + postacPierwsza;
+			pasek.style.color = "magenta";
 		}
 	}
 	var pasekTekst = document.createTextNode(tekst);
@@ -636,8 +691,6 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 		pasek.style.color = "#d10e00";
 	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec" || rodzaj == "rozmowa"){
 		pasek.style.color = "#34cceb";
-	} else if(rodzaj == "gracz"){
-		pasek.style.color = "#0f7bff";
 	}
 }
 
@@ -893,6 +946,23 @@ function sprawdzWyposazenie(rodzaj, src, str){
 			}
 			break;
 		}
+		case "walka":{
+			if(slotBron.hasChildNodes() !== true){
+				obrazeniaEkwipunek = 0;
+			}
+			if(slotHelm.hasChildNodes() !== true){
+				pancerzHelm = 0;
+			}
+			if(slotNapiersnik.hasChildNodes() !== true){
+				pancerzNapiersnik = 0;
+			}
+			if(slotSpodnie.hasChildNodes() !== true){
+				pancerzSpodnie = 0;
+			}
+			if(slotButy.hasChildNodes() !== true){
+				pancerzButy = 0;
+			}
+		}
 		default:{
 			break;
 		}
@@ -923,7 +993,7 @@ function zapis() {
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML, document.getElementById("slotBron").outerHTML];
 	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
-	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	magazynArray = [klody, drewno];
 	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
@@ -997,15 +1067,16 @@ function odczyt() {
 		blokadaGrota = blokadyArray[4];
 		blokadaLesnaDroga3 = blokadyArray[5];
 		blokadaGrzybowePole = blokadyArray[6];
-		blokadaDolina = blokadyArray[7];
-		blokadaMoczary = blokadyArray[8];
-		bossZrujnowanyOboz = blokadyArray[9];
-		pradawnyLasDroga = blokadyArray[10];
-		pradawnyLasStolarz = blokadyArray[11];
-		pradawnyLasMost = blokadyArray[12];
-		zniszczoneDrzewa = blokadyArray[13];
+		blokadaWyjscieZLasu = blokadyArray[7];
+		blokadaDolina = blokadyArray[8];
+		blokadaMoczary = blokadyArray[9];
+		bossZrujnowanyOboz = blokadyArray[10];
+		pradawnyLasDroga = blokadyArray[11];
+		pradawnyLasStolarz = blokadyArray[12];
+		pradawnyLasMost = blokadyArray[13];
+		zniszczoneDrzewa = blokadyArray[14];
 	} else {
-		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	}
 	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
@@ -1032,7 +1103,7 @@ function odczyt() {
 		document.getElementById("naprawMost").style.background = "gray";
 		document.getElementById("naprawMost").setAttribute("disabled", "");
 	}
-	
+	rozmowaGrotaC1 = "Most jest... cholera. Dobrze, posprzątam tu nieco, zabiorę potrzebne rzeczy i... widzimy się w obozie, " + nick + "."
 }
 
 function reset() {
@@ -1196,6 +1267,7 @@ function lokacja(lokacja){
 			if(blokadaZniszczonaDroga == false){ zniszczonaDroga.style.display = "inline"; }
 			if(blokadaGrota == false){ grota.style.display = "inline"; }
 			if(blokadaLesnaDroga3 == false){ lesnaDroga3.style.display = "inline"; }
+			if(blokadaWyjscieZLasu == false){ wyjscieZLasu.style.display = "inline"; }
 			cofnij.style.display = "inline";
 			cofnijOboz.style.display = "none";
 			break;
@@ -1254,6 +1326,7 @@ function lokacja(lokacja){
 			zniszczonaDroga.style.display = "none";
 			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
+			wyjscieZLasu.style.display = "none"
 			cofnij.style.display = "none";
 			cofnijOboz.style.display = "inline";
 			zakonczRozmowe();
@@ -1282,11 +1355,17 @@ function lokacja(lokacja){
 		}
 		case "grota":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Grota.png')";
-			if(document.getElementById("rozmowa") == null){
-				rozpocznijRozmowe("Wilk");
-				rozmowa("grota", "start");
+			if(pradawnyLasStolarz == false){
+				if(document.getElementById("rozmowa") == null){
+					rozpocznijRozmowe("Wilk");
+					rozmowa("grota", "start");
+				}
 			}
-			przepisyDrewno = true;
+			break;
+		}
+		case "wyjscieZLasu":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
+			rozpocznijWalke("wyjscieZLasu", 1);
 			break;
 		}
 		case "cofnij":{
@@ -1304,6 +1383,7 @@ function lokacja(lokacja){
 			zniszczonaDroga.style.display = "none";
 			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
+			wyjscieZLasu.style.display = "none";
 			cofnij.style.display = "none";
 			zakonczRozmowe();
 			break;
@@ -1348,7 +1428,54 @@ function crafting(przedmiot, doBazy, element){
 			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
-		case "nakladkaNaLape":{ // TODO: sprawdzanie czy sztylet znajduje się w ekwipunku
+		case "nakladkaNaLape":{
+			if(drewno >= 1){
+				var liczba = 1;
+				zajetySlot1 = 0;
+				zajetySlot2 = 0;
+				zajetySlot3 = 0;
+				slotCrafting = null;
+				slotCrafting1 = "nic";
+				slotCrafting2 = "nic";
+				slotCrafting3 = "nic";
+					while (liczba <= 159) {
+						slot = "slot" + liczba;
+						calySlotCrafting = document.getElementById(slot);
+							if(calySlotCrafting.hasChildNodes() == true){
+								calySlotChild = calySlotCrafting.childNodes[0];
+								if(calySlotChild.lang == "prdm_bron_a_1"){
+									slotCrafting = calySlotCrafting;
+								}
+							}
+						if(slotCrafting != null){
+							if(liczba != zajetySlot1 && liczba != zajetySlot2 && liczba != zajetySlot3 && slotCrafting1 == "nic"){
+								slotCrafting1 = slotCrafting;
+								zajetySlot1 = liczba;
+								slotCrafting = null;
+							} else if(liczba != zajetySlot1 && liczba != zajetySlot2 && liczba != zajetySlot3 && slotCrafting2 == "nic"){
+								slotCrafting2 = slotCrafting;
+								zajetySlot2 = liczba;
+								slotCrafting = null;
+							} else if(liczba != zajetySlot1 && liczba != zajetySlot2 && liczba != zajetySlot3 && slotCrafting3 == "nic"){
+								slotCrafting3 = slotCrafting;
+								zajetySlot3 = liczba;
+								slotCrafting = null;
+							}
+						}
+						liczba += 1;
+					}
+				if(slotCrafting1 != "nic" && slotCrafting2 != "nic" && slotCrafting3 != "nic"){
+					calySlotChild = slotCrafting1.childNodes[0];
+					slotCrafting1.removeChild(calySlotChild);
+					calySlotChild = slotCrafting2.childNodes[0];
+					slotCrafting2.removeChild(calySlotChild);
+					calySlotChild = slotCrafting3.childNodes[0];
+					slotCrafting3.removeChild(calySlotChild);
+					drewno -= 1;
+					utworzPrzedmiot("prdm_bron_a_3", "bron", "Obrazy/Przedmioty/Nakładka_na_łapę.png");
+				}
+			}
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
 			break;
 		}
 		case "drewnianyHelm":{
@@ -1635,21 +1762,66 @@ function rozmowa(lokacja, odpowiedz){
 					wpiszTekst("linia");
 					wpiszTekst("rozmowa", rozmowaGrotaStart);
 					wpiszTekst("linia");
-					utworzPrzycisk("grota", "a", "Kim jesteś?");
+					utworzPrzycisk("grota", "a", rozmowaGrotaStartOdpowiedz);
 					break;
 				}
 				case "a":{
 					wpiszTekst("gracz", rozmowaGrotaStartOdpowiedz);
 					wpiszTekst("rozmowa", rozmowaGrotaA);
 					wpiszTekst("linia");
-					utworzPrzycisk("grota", "b1", "Opcja 2");
-					utworzPrzycisk("grota", "b2", "Opcja 3");
+					utworzPrzycisk("grota", "b1", rozmowaGrotaAOdpowiedz1);
+					utworzPrzycisk("grota", "b2", rozmowaGrotaAOdpowiedz2);
 					break;
 				}
 				case "b1":{
+					wpiszTekst("gracz", rozmowaGrotaAOdpowiedz1);
+					wpiszTekst("rozmowa", rozmowaGrotaB1);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "c1", rozmowaGrotaB1Odpowiedz1);
+					utworzPrzycisk("grota", "c2", rozmowaGrotaB1Odpowiedz2);
 					break;
 				}
 				case "b2":{
+					wpiszTekst("gracz", rozmowaGrotaAOdpowiedz2);
+					wpiszTekst("rozmowa", rozmowaGrotaB2);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "c3", rozmowaGrotaB2Odpowiedz1);
+					utworzPrzycisk("grota", "c2", rozmowaGrotaB2Odpowiedz2);
+					break;
+				}
+				case "c1":{
+					wpiszTekst("gracz", rozmowaGrotaB1Odpowiedz1);
+					wpiszTekst("rozmowa", rozmowaGrotaC1);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "d", rozmowaGrotaC1Odpowiedz1);
+					utworzPrzycisk("grota", "zakoncz", rozmowaGrotaC1Odpowiedz2, "zakoncz");
+					break;
+				}
+				case "c2":{
+					wpiszTekst("gracz", rozmowaGrotaB1Odpowiedz2);
+					wpiszTekst("rozmowa", rozmowaGrotaC2);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "c1", rozmowaGrotaC2Odpowiedz1);
+					break;
+				}
+				case "c3":{
+					wpiszTekst("gracz", rozmowaGrotaB2Odpowiedz1);
+					wpiszTekst("rozmowa", rozmowaGrotaC3);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "zakoncz", rozmowaGrotaC3Odpowiedz1, "zakoncz");
+					break;
+				}
+				case "d":{
+					wpiszTekst("gracz", rozmowaGrotaC1Odpowiedz1);
+					wpiszTekst("rozmowa", rozmowaGrotaD);
+					wpiszTekst("linia");
+					utworzPrzycisk("grota", "zakoncz", rozmowaGrotaDOdpowiedz1, "zakoncz");
+					break;
+				}
+				case "zakoncz":{
+					pradawnyLasStolarz = true;
+					przepisyDrewno = true;
+					zakonczRozmowe();
 					break;
 				}
 			break;
@@ -1693,28 +1865,50 @@ function wyczyscRozmowe(){
 	while(document.getElementById("rozmowa") !== null){ document.getElementById("rozmowa").remove() }
 }
 
-function utworzPrzycisk(lokacja, identyfikator, inner){
+function utworzPrzycisk(lokacja, identyfikator, inner, background){
 	okno = document.getElementById("ataki");
 	przycisk = document.createElement("BUTTON");
 	przycisk.id = "rozmowa";
 	przycisk.className = "przyciskRozmowy";
 	przycisk.onclick = function(){ rozmowa(lokacja, identyfikator) };
 	przycisk.innerHTML = inner;
+	if(background !== null){
+		if(background == "zakoncz"){
+			przycisk.style.backgroundColor = "#d6d6d6";
+		} else if(background == "walka"){
+			przycisk.style.backgroundColor = "#d40000";
+		}
+	}
 	okno.appendChild(przycisk);
 }
 
 function ekranPodrozy(){
 	document.getElementById("podroz").removeAttribute("hidden");
-	setTimeout(function(){ document.getElementById("podroz").setAttribute("hidden", ""); }, 1800);
+	setTimeout(function(){ document.getElementById("dalej1").removeAttribute("hidden"); }, 500);
+	setTimeout(function(){ document.getElementById("dalej2").removeAttribute("hidden"); }, 1000);
+	setTimeout(function(){ document.getElementById("dalej3").removeAttribute("hidden"); }, 1500);
+	setTimeout(function(){ 
+		document.getElementById("podroz").setAttribute("hidden", ""); 
+		document.getElementById("dalej1").setAttribute("hidden", "");
+		document.getElementById("dalej2").setAttribute("hidden", "");
+		document.getElementById("dalej3").setAttribute("hidden", "");
+	}, 1800);
 }
 
 function akcja(identyfikator){
 	switch(identyfikator){
 		case "naprawMost":{
 			if(drewno >= 5 && pradawnyLasStolarz == true){
+				drewno -= 5;
+				wpiszTekst("akcja", "Naprawiłeś most w pradawnym lesie.");
+				wpiszTekst("odblokowanieLokacji", "Grzybowe pole");
+				wpiszTekst("odblokowanieLokacji", "Leśna droga [3]");
+				document.getElementById("licznikDrewno").innerHTML = drewno;
 				document.getElementById("naprawMost").style.background = "gray";
 				document.getElementById("naprawMost").setAttribute("disabled", "");
 				pradawnyLasMost = true;
+				blokadaGrzybowePole = false;
+				blokadaLesnaDroga3 = false;
 			}
 			break;
 		}
