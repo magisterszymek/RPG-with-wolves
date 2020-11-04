@@ -8,7 +8,7 @@
 		var prdm_bron_a_3 = ["Nakładka na łapę", "Wygodniejsze niż mogło by się wydawać.", "Broń", 5, 1, 20];
 		var prdm_bron_a_4 = ["Drewniany kostur", "Po prostu długi patyk.", "Broń", 1.5, 1, 5];
 		var prdm_bron_a_5 = ["Patyk", "Lepszy niż nic.", "Broń", 1, 1, 2];
-		var prdm_bron_a_5 = ["Łuk", "Cięciwa jest trochę naderwana.", "Broń", 5, 1, 15];
+		var prdm_bron_a_6 = ["Łuk", "Cięciwa jest trochę naderwana.", "Broń", 5, 1, 15];
 			
 	// Zbroje ["nazwa", "opis", "rodzaj", pancerz, waga, cena]
 		var prdm_zbroja_a_1 = ["Drewniany hełm", "Chroni, ale tylko trochę.", "Hełm", 0.5, 1, 5,];
@@ -615,6 +615,21 @@ function loot(nazwaPrzeciwnik){
 			}
 			break;
 		}
+		case "wyprawaPradawnyLas":{
+			losowe = Math.floor(Math.random() * 10) + 1;
+			if(losowe <= 4){
+				klody += 1;
+				document.getElementById("licznikKlody").innerHTML = klody;
+				document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+			}
+			break;
+		}
+		case "wyprawaGrota":{
+			break;
+		}
+		case "wyprawaGrzybowePole":{
+			break;
+		}
 	}
 }
 
@@ -1112,6 +1127,7 @@ function odczyt() {
 		document.getElementById("naprawMost").setAttribute("disabled", "");
 	}
 	rozmowaGrotaC1 = "Most jest... cholera. Dobrze, posprzątam tu nieco, zabiorę potrzebne rzeczy i... widzimy się w obozie, " + nick + "."
+	if(pradawnyLasDroga == true && blokadaZniszczonaDroga == false){ document.getElementById("zniszczonaDrogaWyprawa").remove(); }
 }
 
 function reset() {
@@ -1933,22 +1949,29 @@ function rozpocznijWyprawe(wyprawa, lokacja, wyprawaTrwa){
 	wyprawaLok = wyprawa + "Lokacja";
 	wyprawaOkn = wyprawa + "Okno";
 	switch(lokacja){
-		case "pradawnyLas":{
+		case "PradawnyLas":{
 			document.getElementById(wyprawaLok).innerHTML = "Pradawny las";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/PradawnyLas.png')";
-			dlugosc = 10;
+			dlugosc = 50;
 			break;
 		}
-		case "grota":{
+		case "Grota":{
 			document.getElementById(wyprawaLok).innerHTML = "Grota";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/Grota.png')";
-			dlugosc = 30;
+			dlugosc = 200;
 			break;
 		}
-		case "grzybowePole":{
+		case "GrzybowePole":{
 			document.getElementById(wyprawaLok).innerHTML = "Grzybowe pole";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/GrzybowePole.png')";
-			dlugosc = 2;
+			dlugosc = 80;
+			break;
+		}
+		case "ZniszczonaDroga":{
+			document.getElementById(wyprawaLok).innerHTML = "Zniszczona droga";
+			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/PradawnyLas.png')";
+			brakLootu = true;
+			dlugosc = 10;
 			break;
 		}
 	}
@@ -1957,10 +1980,70 @@ function rozpocznijWyprawe(wyprawa, lokacja, wyprawaTrwa){
 
 function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 	idPask = wyprawa + "Progress";
-	liczenieProgressu(wyprawa, idPask, dlugosc);
+	liczenieProgressu(wyprawa, idPask, dlugosc, lokacja);
+	
+	if(brakLootu == false){
+	switch(wyprawa){
+		case "wyprawa1":{
+			wyprawa1Obliczanie = setInterval(function obliczanie1(){
+				if(wyprawaTrwa1 == false){ clearInterval(wyprawa1Obliczania); } else {
+					losuj1 = Math.floor(Math.random() * 1000) + 1;
+					if(losuj1 <= 100){
+						loot("wyprawa" + lokacja);
+					}
+				}
+			}, dlugosc * 10);
+			break;
+		}
+		case "wyprawa2":{
+			wyprawa2Obliczanie = setInterval(function obliczanie2(){
+				if(wyprawaTrwa2 == false){ clearInterval(wyprawa2Obliczania); } else {
+					losuj2 = Math.floor(Math.random() * 1000) + 1;
+					if(losuj2 <= 100){
+						loot("wyprawa" + lokacja);
+					}
+				}
+			}, dlugosc * 10);
+			break;
+		}
+		case "wyprawa3":{
+			wyprawa3Obliczanie = setInterval(function obliczanie3(){
+				if(wyprawaTrwa3 == false){ clearInterval(wyprawa3Obliczania); } else {
+					losuj3 = Math.floor(Math.random() * 1000) + 1;
+					if(losuj3 <= 100){
+						loot("wyprawa" + lokacja);
+					}
+				}
+			}, dlugosc * 10);
+			break;
+		}
+		case "wyprawa4":{
+			wyprawa4Obliczanie = setInterval(function obliczanie4(){
+				if(wyprawaTrwa4 == false){ clearInterval(wyprawa4Obliczania); } else {
+					losuj4 = Math.floor(Math.random() * 1000) + 1;
+					if(losuj4 <= 100){
+						loot("wyprawaPradawnyLas");
+					}
+				}
+			}, dlugosc * 10);
+			break;
+		}
+		case "wyprawa5":{
+			wyprawa5Obliczanie = setInterval(function obliczanie5(){
+				if(wyprawaTrwa5 == false){ clearInterval(wyprawa5Obliczania); } else {
+					losuj5 = Math.floor(Math.random() * 1000) + 1;
+					if(losuj5 <= 100){
+						loot("wyprawaPradawnyLas");
+					}
+				}
+			}, dlugosc * 10);
+			break;
+		}
+	}
+	}
 }
 
-function liczenieProgressu(wyprawa, idPaska, dlugosc){
+function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
   var element = document.getElementById(idPaska);
   switch(wyprawa){
 	  case "wyprawa1":{
@@ -1977,6 +2060,12 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc){
 				document.getElementById("wyprawa1Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok1).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				if(lokacja == "ZniszczonaDroga"){
+					pradawnyLasDroga = true;
+					blokadaZniszczonaDroga = false;
+					if(mapa.src == "Obrazy/Mapa/PradawnyLas.png"){ mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionaDroga.png"; }
+					document.getElementById("zniszczonaDrogaWyprawa").remove();
+				}
 			} else {
 				document.getElementById("wyprawa1Procent").innerHTML = Math.round(width1) + "%";
 				document.getElementById("wyprawa1Postac").style.left = width1 * 0.85 + "%";
