@@ -1304,6 +1304,7 @@ function lokacja(lokacja){
 			obozWlaczony = false;
 			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "none";
+			wioska.style.display = "none";
 			dolina.style.display = "none";
 			if(pradawnyLasDroga == false && pradawnyLasMost == false){
 				mapa.src = "Obrazy/Mapa/PradawnyLas.png";
