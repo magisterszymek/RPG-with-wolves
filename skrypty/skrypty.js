@@ -1160,6 +1160,7 @@ function odczyt() {
 	if(blokadaZniszczonaDroga == false){ document.getElementById("naprawMost").setAttribute("disabled", ""); }
 	if(blokadaDolina == false){ dolina.style.display = "inline"; }
 	if(blokadaWioska == false){ wioska.style.display = "inline"; }
+	zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 }
 
 function reset() {
