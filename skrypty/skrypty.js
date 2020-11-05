@@ -177,7 +177,7 @@
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
 			var blokadaWyjscieZLasu = true;		// Blokada przycisku "Wyjście z lasu"
-			var blokadaGory = true;			// NIE WYKORZYSTYWANE	Blokada przycisku "Góry"
+			var blokadaWioska					// Blokada przycisku "Wioska"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 			
@@ -307,7 +307,6 @@ function walka(typ){
 			} else if(zdrowiePrzeciwnik <= 0){
 				wpiszTekst("koniecWalki", nick, nazwaPrzeciwnik);
 				loot(nazwaPrzeciwnik);
-				odswiezZmienne("koniecWalki");
 				clearInterval(interval);
 				clearInterval(interval2);
 				switch(lokacjaId){
@@ -335,15 +334,17 @@ function walka(typ){
 					}
 					case "lesnaDroga3":{
 						if(blokadaWyjscieZLasu == true){
-							wpiszTekst("odblokowanieLokacji", "Wyjście z lasu")
+							wpiszTekst("odblokowanieLokacji", "Wyjście z lasu");
 							blokadaWyjscieZLasu = false;
-							wyjscieZLasu.style.display = false;
+							wyjscieZLasu.style.display = "inline";
 						}
 					}
 					case "wyjscieZLasu":{
 						if(blokadaDolina == true && nazwaPrzeciwnik == "Młody myśliwy"){
-							wpiszTekst("odblokowanieLokacji", "Dolina")
+							wpiszTekst("odblokowanieLokacji", "Dolina");
+							wpiszTekst("odblokowanieLokacji", "Wioska");
 							blokadaDolina = false;
+							blokadaWioska = false
 						}
 					}
 				}
@@ -464,9 +465,7 @@ function wybierzCios(nazwaCiosu){
 						zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 						wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
 						if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-						zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
-						document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
-						document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+						odswiezZmienne("walka");
 						przyciskPazury.disabled = true;
 						przyciskPazury.style.backgroundColor = "red";
 						if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
@@ -482,9 +481,7 @@ function wybierzCios(nazwaCiosu){
 							zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 							wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "pazury");
 							if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-							zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
-							document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
-							document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+							odswiezZmienne("walka");
 							przyciskPazury.disabled = true;
 							przyciskPazury.style.backgroundColor = "red";
 							if(kondycjaKoncowa < 4){ przyciskPazury.style.backgroundColor = "gray"; }
@@ -522,11 +519,7 @@ function wybierzCios(nazwaCiosu){
 					zdrowiePrzeciwnik = zdrowiePrzeciwnik - kalkulacja;
 					wpiszTekst("walka", nick, nazwaPrzeciwnik, kalkulacja, "kly");
 					if(zdrowiePrzeciwnik < 0){ zdrowiePrzeciwnik = 0; }
-					zdrowieProcentPrzeciwnik = (zdrowiePrzeciwnik / zdrowieMaksymalnePrzeciwnik) * 100;
-					document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
-					document.getElementById("kondycjaPasek").style.width = kondycjaProcent + "%"
-					document.getElementById("zdrowiePasekPrzeciwnik").style.width = zdrowieProcentPrzeciwnik + "%";
-					document.getElementById("zdrowiePrzeciwnik").innerHTML = zdrowiePrzeciwnik;
+					odswiezZmienne("walka");
 					przyciskKly.disabled = true;
 					przyciskKly.style.backgroundColor = "red";
 					odliczanieKly = setTimeout(function odblokujPrzyciskKly(){
@@ -553,7 +546,7 @@ function wybierzCios(nazwaCiosu){
 }
 		
 	// Wybieranie loot-u
-function loot(nazwaPrzeciwnik){
+function loot(nazwaPrzeciwnik, wyprawa){
 	switch(nazwaPrzeciwnik){
 		case "Leżące drzewo":{
 			utworzPrzedmiot("crft_1", "crafting", "Obrazy/Przedmioty/Kłoda.png");
@@ -621,6 +614,7 @@ function loot(nazwaPrzeciwnik){
 				klody += 1;
 				document.getElementById("licznikKlody").innerHTML = klody;
 				document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+				wpiszTekstWyprawy("item", wyprawa, "Kłoda");
 			}
 			break;
 		}
@@ -712,6 +706,39 @@ function wpiszTekst(rodzaj, postacPierwsza, postacDruga, liczba, umiejetnosc){
 	} else if(rodzaj == "koniecWalki" && postacDruga == nick){ // Gdy przeciwnik wygra
 		pasek.style.color = "#d10e00";
 	} else if(rodzaj == "item" || rodzaj == "bossZrujnowanyObozKoniec" || rodzaj == "rozmowa"){
+		pasek.style.color = "#34cceb";
+	}
+}
+
+function wpiszTekstWyprawy(rodzaj, numerWyprawy, zmiennaPierwsza){
+	var pasek = document.createElement('i');
+	var pasekBR = document.createElement('br');	
+	switch(rodzaj){
+		case "linia":{
+			logiWyprawa = document.getElementById(numerWyprawy + "Logi");
+			if(typeof logiWyprawa.childNodes[1] !== "undefined"){
+				var tekst = " ";
+			} else {
+				return;
+			}
+			break;
+		}
+		case "item":{
+			var tekst = " " + "Wilk zdobył przedmiot:" + " " + zmiennaPierwsza + "!"
+			break;
+		}
+		case "akcja":{
+			var tekst = " " + zmiennaPierwsza;
+			pasek.style.color = "magenta";
+		}
+	}
+	var pasekTekst = document.createTextNode(tekst);
+	pasek.appendChild(pasekTekst);
+	document.getElementById(numerWyprawy + "Logi").appendChild(pasek);
+	document.getElementById(numerWyprawy + "Logi").appendChild(pasekBR);
+	var box = document.getElementById(numerWyprawy + "Logi");
+	box.scrollTop = box.scrollHeight;
+	if(rodzaj == "item"){
 		pasek.style.color = "#34cceb";
 	}
 }
@@ -1016,7 +1043,7 @@ function zapis() {
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML, document.getElementById("slotBron").outerHTML];
 	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
-	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaDolina,  blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	magazynArray = [klody, drewno];
 	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
@@ -1091,15 +1118,16 @@ function odczyt() {
 		blokadaLesnaDroga3 = blokadyArray[5];
 		blokadaGrzybowePole = blokadyArray[6];
 		blokadaWyjscieZLasu = blokadyArray[7];
-		blokadaDolina = blokadyArray[8];
-		blokadaMoczary = blokadyArray[9];
-		bossZrujnowanyOboz = blokadyArray[10];
-		pradawnyLasDroga = blokadyArray[11];
-		pradawnyLasStolarz = blokadyArray[12];
-		pradawnyLasMost = blokadyArray[13];
-		zniszczoneDrzewa = blokadyArray[14];
+		blokadaWioska = blokadyArray[8];
+		blokadaDolina = blokadyArray[9];
+		blokadaMoczary = blokadyArray[10];
+		bossZrujnowanyOboz = blokadyArray[11];
+		pradawnyLasDroga = blokadyArray[12];
+		pradawnyLasStolarz = blokadyArray[13];
+		pradawnyLasMost = blokadyArray[14];
+		zniszczoneDrzewa = blokadyArray[15];
 	} else {
-		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	}
 	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
@@ -1128,6 +1156,10 @@ function odczyt() {
 	}
 	rozmowaGrotaC1 = "Most jest... cholera. Dobrze, posprzątam tu nieco, zabiorę potrzebne rzeczy i... widzimy się w obozie, " + nick + "."
 	if(pradawnyLasDroga == true && blokadaZniszczonaDroga == false){ document.getElementById("zniszczonaDrogaWyprawa").remove(); }
+	if(blokadaZniszczonaDroga == false){ document.getElementById("naprawMost").style.background = "gray"; }
+	if(blokadaZniszczonaDroga == false){ document.getElementById("naprawMost").setAttribute("disabled", ""); }
+	if(blokadaDolina == false){ dolina.style.display = "inline"; }
+	if(blokadaWioska == false){ wioska.style.display = "inline"; }
 }
 
 function reset() {
@@ -1226,7 +1258,6 @@ function odswiezZmienne(rodzaj){
 			break;
 		}
 		case "zapis":{
-			zdrowieMaksymalnePrzeciwnik = zdrowiePrzeciwnik;
 			document.getElementById("nick").innerHTML = nick;
 			document.getElementById("zdrowieKoncowe").innerHTML = zdrowieKoncowe;
 			document.getElementById("kondycjaKoncowa").innerHTML = kondycjaKoncowa;
@@ -1236,7 +1267,6 @@ function odswiezZmienne(rodzaj){
 			document.getElementById("nazwaPrzeciwnika").innerHTML = nazwaPrzeciwnik;
 			document.getElementById("zdrowieMaksymalne").innerHTML = zdrowieEkwipunek;
 			document.getElementById("kondycjaMaksymalna").innerHTML = kondycjaEkwipunek;
-			document.getElementById("zdrowieMaksymalnePrzeciwnik").innerHTML = zdrowieMaksymalnePrzeciwnik;
 			break;
 		}
 		case "poczatekWalki":{
@@ -1299,6 +1329,14 @@ function lokacja(lokacja){
 		case "obozWilkow":{
 			craftingWlaczony = false;
 			obozWlaczony = true;
+			if(blokadaZniszczonaDroga == false){
+				if(drewno <= 5 || pradawnyLasStolarz == false){
+					document.getElementById("naprawMost").style.background = "gray";
+				} else if(drewno >= 5 && pradawnyLasStolarz == true){
+					document.getElementById("naprawMost").style.background = "";
+					document.getElementById("naprawMost").removeAttribute("disabled");
+				}
+			};
 			document.getElementsByClassName("oboz")[0].hidden = false;
 			document.getElementsByClassName("crafting")[0].hidden = true;
 			document.getElementsByClassName("alfa")[0].hidden = true;
@@ -1396,6 +1434,7 @@ function lokacja(lokacja){
 			document.getElementsByClassName("crafting")[0].hidden=true;
 			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "inline";
+			if(blokadaWioska == false){ wioska.style.display = "inline"; }
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 			mapa.src = "Obrazy/Mapa/Mapa.png";
@@ -1948,28 +1987,36 @@ function rozpocznijWyprawe(wyprawa, lokacja, wyprawaTrwa){
 	window[wyprawaTrwa] = true;
 	wyprawaLok = wyprawa + "Lokacja";
 	wyprawaOkn = wyprawa + "Okno";
+	wpiszTekstWyprawy("linia", wyprawa);
 	switch(lokacja){
 		case "PradawnyLas":{
 			document.getElementById(wyprawaLok).innerHTML = "Pradawny las";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/PradawnyLas.png')";
+			wpiszTekstWyprawy("akcja", wyprawa, "Rozpoczęto wyprawę do Pradawnego lasu.");
+			brakLootu = false;
 			dlugosc = 50;
 			break;
 		}
 		case "Grota":{
 			document.getElementById(wyprawaLok).innerHTML = "Grota";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/Grota.png')";
+			wpiszTekstWyprawy("akcja", wyprawa, "Rozpoczęto wyprawę do Groty.");
+			brakLootu = false;
 			dlugosc = 200;
 			break;
 		}
 		case "GrzybowePole":{
 			document.getElementById(wyprawaLok).innerHTML = "Grzybowe pole";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/GrzybowePole.png')";
+			wpiszTekstWyprawy("akcja", wyprawa, "Rozpoczęto wyprawę do Grzybowego pola.");
+			brakLootu = false;
 			dlugosc = 80;
 			break;
 		}
 		case "ZniszczonaDroga":{
 			document.getElementById(wyprawaLok).innerHTML = "Zniszczona droga";
 			document.getElementById(wyprawaOkn).style.backgroundImage = "url('Obrazy/Wyprawy/PradawnyLas.png')";
+			wpiszTekstWyprawy("akcja", wyprawa, "Rozpoczęto wyprawę w celu naprawienia zniszczonej drogi.");
 			brakLootu = true;
 			dlugosc = 10;
 			break;
@@ -1985,56 +2032,141 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 	if(brakLootu == false){
 	switch(wyprawa){
 		case "wyprawa1":{
+			liczenie1 = 0;
+			wyprawaLok1 = wyprawaLok;
+			wyprawaOkn1 = wyprawaOkn;
 			wyprawa1Obliczanie = setInterval(function obliczanie1(){
-				if(wyprawaTrwa1 == false){ clearInterval(wyprawa1Obliczania); } else {
+				if(wyprawaTrwa1 == false){
+					clearInterval(wyprawa1Obliczanie);
+				} else if(liczenie1 == dlugosc * 1000){
+					wyprawaTrwa1 = false;
+					element = document.getElementById(idPask);
+					element.style.width = 0 + '%';
+					document.getElementById("wyprawa1Procent").innerHTML = 0 + "%";
+					document.getElementById("wyprawa1Postac").style.left = 0 + "%";
+					document.getElementById(wyprawaLok1).innerHTML = "Obóz";
+					document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+					wpiszTekstWyprawy("akcja", "wyprawa1", "Wyprawa zakończona!");
+					clearInterval(liczenieWyprawa1);
+					return;
+				} else {
 					losuj1 = Math.floor(Math.random() * 1000) + 1;
 					if(losuj1 <= 100){
-						loot("wyprawa" + lokacja);
+						loot("wyprawa" + lokacja, "wyprawa1");
 					}
+					liczenie1 += dlugosc * 10;
 				}
 			}, dlugosc * 10);
 			break;
 		}
 		case "wyprawa2":{
+			liczenie2 = 0;
+			wyprawaLok2 = wyprawaLok;
+			wyprawaOkn2 = wyprawaOkn;
 			wyprawa2Obliczanie = setInterval(function obliczanie2(){
-				if(wyprawaTrwa2 == false){ clearInterval(wyprawa2Obliczania); } else {
+				if(wyprawaTrwa2 == false){
+					clearInterval(wyprawa2Obliczanie);
+				} else if(liczenie2 == dlugosc * 1000){
+					wyprawaTrwa2 = false;
+					element = document.getElementById(idPask);
+					element.style.width = 0 + '%';
+					document.getElementById("wyprawa2Procent").innerHTML = 0 + "%";
+					document.getElementById("wyprawa2Postac").style.left = 0 + "%";
+					document.getElementById(wyprawaLok2).innerHTML = "Obóz";
+					document.getElementById(wyprawaOkn2).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+					wpiszTekstWyprawy("akcja", "wyprawa2", "Wyprawa zakończona!");
+					clearInterval(liczenieWyprawa2);
+					return;
+				} else {
 					losuj2 = Math.floor(Math.random() * 1000) + 1;
 					if(losuj2 <= 100){
-						loot("wyprawa" + lokacja);
+						loot("wyprawa" + lokacja, "wyprawa2");
 					}
+					liczenie2 += dlugosc * 10;
 				}
 			}, dlugosc * 10);
 			break;
 		}
 		case "wyprawa3":{
+			liczenie3 = 0;
+			wyprawaLok3 = wyprawaLok;
+			wyprawaOkn3 = wyprawaOkn;
 			wyprawa3Obliczanie = setInterval(function obliczanie3(){
-				if(wyprawaTrwa3 == false){ clearInterval(wyprawa3Obliczania); } else {
+				if(wyprawaTrwa3 == false){
+					clearInterval(wyprawa3Obliczanie);
+				} else if(liczenie3 == dlugosc * 1000){
+					wyprawaTrwa3 = false;
+					element = document.getElementById(idPask);
+					element.style.width = 0 + '%';
+					document.getElementById("wyprawa3Procent").innerHTML = 0 + "%";
+					document.getElementById("wyprawa3Postac").style.left = 0 + "%";
+					document.getElementById(wyprawaLok3).innerHTML = "Obóz";
+					document.getElementById(wyprawaOkn3).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+					wpiszTekstWyprawy("akcja", "wyprawa3", "Wyprawa zakończona!");
+					clearInterval(liczenieWyprawa3);
+					return;
+				} else {
 					losuj3 = Math.floor(Math.random() * 1000) + 1;
 					if(losuj3 <= 100){
-						loot("wyprawa" + lokacja);
+						loot("wyprawa" + lokacja, "wyprawa3");
 					}
+					liczenie3 += dlugosc * 10;
 				}
 			}, dlugosc * 10);
 			break;
 		}
 		case "wyprawa4":{
+			liczenie4 = 0;
+			wyprawaLok4 = wyprawaLok;
+			wyprawaOkn4 = wyprawaOkn;
 			wyprawa4Obliczanie = setInterval(function obliczanie4(){
-				if(wyprawaTrwa4 == false){ clearInterval(wyprawa4Obliczania); } else {
+				if(wyprawaTrwa1 == false){
+					clearInterval(wyprawa4Obliczanie);
+				} else if(liczenie4 == dlugosc * 1000){
+					wyprawaTrwa4 = false;
+					element = document.getElementById(idPask);
+					element.style.width = 0 + '%';
+					document.getElementById("wyprawa4Procent").innerHTML = 0 + "%";
+					document.getElementById("wyprawa4Postac").style.left = 0 + "%";
+					document.getElementById(wyprawaLok4).innerHTML = "Obóz";
+					document.getElementById(wyprawaOkn4).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+					wpiszTekstWyprawy("akcja", "wyprawa4", "Wyprawa zakończona!");
+					clearInterval(liczenieWyprawa4);
+					return;
+				} else {
 					losuj4 = Math.floor(Math.random() * 1000) + 1;
 					if(losuj4 <= 100){
-						loot("wyprawaPradawnyLas");
+						loot("wyprawaPradawnyLas", "wyprawa4");
 					}
+					liczenie4 += dlugosc * 10;
 				}
 			}, dlugosc * 10);
 			break;
 		}
 		case "wyprawa5":{
+			liczenie5 = 0;
+			wyprawaLok5 = wyprawaLok;
+			wyprawaOkn5 = wyprawaOkn;
 			wyprawa5Obliczanie = setInterval(function obliczanie5(){
-				if(wyprawaTrwa5 == false){ clearInterval(wyprawa5Obliczania); } else {
+				if(wyprawaTrwa5 == false){
+					clearInterval(wyprawa5Obliczanie);
+				} else if(liczenie5 == dlugosc * 1000){
+					wyprawaTrwa5 = false;
+					element = document.getElementById(idPask);
+					element.style.width = 0 + '%';
+					document.getElementById("wyprawa5Procent").innerHTML = 0 + "%";
+					document.getElementById("wyprawa5Postac").style.left = 0 + "%";
+					document.getElementById(wyprawaLok5).innerHTML = "Obóz";
+					document.getElementById(wyprawaOkn5).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+					wpiszTekstWyprawy("akcja", "wyprawa5", "Wyprawa zakończona!");
+					clearInterval(liczenieWyprawa5);
+					return;
+				} else {
 					losuj5 = Math.floor(Math.random() * 1000) + 1;
 					if(losuj5 <= 100){
-						loot("wyprawaPradawnyLas");
+						loot("wyprawaPradawnyLas", "wyprawa5");
 					}
+					liczenie5 += dlugosc * 10;
 				}
 			}, dlugosc * 10);
 			break;
@@ -2060,10 +2192,14 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa1Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok1).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				wpiszTekstWyprawy("akcja", "wyprawa1", "Wyprawa zakończona!");
 				if(lokacja == "ZniszczonaDroga"){
 					pradawnyLasDroga = true;
 					blokadaZniszczonaDroga = false;
-					if(mapa.src == "Obrazy/Mapa/PradawnyLas.png"){ mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionaDroga.png"; }
+					if(mapa.src == "Obrazy/Mapa/PradawnyLas.png"){
+						mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionaDroga.png";
+						zniszczonaDroga.style.display = "inline";
+					}
 					document.getElementById("zniszczonaDrogaWyprawa").remove();
 				}
 			} else {
@@ -2089,6 +2225,7 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa2Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok2).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn2).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				wpiszTekstWyprawy("akcja", "wyprawa2", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa2Procent").innerHTML = Math.round(width2) + "%";
 				document.getElementById("wyprawa2Postac").style.left = width2 * 0.85 + "%";
@@ -2112,6 +2249,7 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa3Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok3).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn3).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				wpiszTekstWyprawy("akcja", "wyprawa3", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa3Procent").innerHTML = Math.round(width3) + "%";
 				document.getElementById("wyprawa3Postac").style.left = width3 * 0.85 + "%";
@@ -2135,6 +2273,7 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa4Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok4).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn4).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				wpiszTekstWyprawy("akcja", "wyprawa4", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa4Procent").innerHTML = Math.round(width4) + "%";
 				document.getElementById("wyprawa4Postac").style.left = width4 * 0.85 + "%";
@@ -2158,6 +2297,7 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa5Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok5).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn5).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
+				wpiszTekstWyprawy("akcja", "wyprawa5", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa5Procent").innerHTML = Math.round(width5) + "%";
 				document.getElementById("wyprawa5Postac").style.left = width5 * 0.85 + "%";
