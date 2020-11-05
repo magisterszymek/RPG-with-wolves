@@ -1150,14 +1150,16 @@ function odczyt() {
 		localStorage.setItem("Crafting", JSON.stringify(craftingArray));
 	}
 	
-	if(drewno >= 5 && pradawnyLasStolarz == true){
+	if(drewno <= 4 || pradawnyLasStolarz == false){
 		document.getElementById("naprawMost").style.background = "gray";
 		document.getElementById("naprawMost").setAttribute("disabled", "");
 	}
 	rozmowaGrotaC1 = "Most jest... cholera. Dobrze, posprzątam tu nieco, zabiorę potrzebne rzeczy i... widzimy się w obozie, " + nick + "."
 	if(pradawnyLasDroga == true && blokadaZniszczonaDroga == false){ document.getElementById("zniszczonaDrogaWyprawa").remove(); }
-	if(blokadaZniszczonaDroga == false){ document.getElementById("naprawMost").style.background = "gray"; }
-	if(blokadaZniszczonaDroga == false){ document.getElementById("naprawMost").setAttribute("disabled", ""); }
+	if(blokadaZniszczonaDroga == false){ 
+		document.getElementById("naprawMost").style.background = "gray";
+		document.getElementById("naprawMost").setAttribute("disabled", "");
+	}
 	if(blokadaDolina == false){ dolina.style.display = "inline"; }
 	if(blokadaWioska == false){ wioska.style.display = "inline"; }
 	zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
@@ -1332,10 +1334,11 @@ function lokacja(lokacja){
 			craftingWlaczony = false;
 			obozWlaczony = true;
 			if(blokadaZniszczonaDroga == false){
-				if(drewno <= 5 || pradawnyLasStolarz == false){
+				if(drewno <= 4 || pradawnyLasStolarz == false){
 					document.getElementById("naprawMost").style.background = "gray";
+					document.getElementById("naprawMost").removeAttribute("disabled");
 				} else if(drewno >= 5 && pradawnyLasStolarz == true){
-					document.getElementById("naprawMost").style.background = "";
+					document.getElementById("naprawMost").style.background = "#82b74b";
 					document.getElementById("naprawMost").removeAttribute("disabled");
 				}
 			};
@@ -2049,7 +2052,6 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 					document.getElementById(wyprawaLok1).innerHTML = "Obóz";
 					document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 					wpiszTekstWyprawy("akcja", "wyprawa1", "Wyprawa zakończona!");
-					clearInterval(liczenieWyprawa1);
 					return;
 				} else {
 					losuj1 = Math.floor(Math.random() * 1000) + 1;
@@ -2077,7 +2079,6 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 					document.getElementById(wyprawaLok2).innerHTML = "Obóz";
 					document.getElementById(wyprawaOkn2).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 					wpiszTekstWyprawy("akcja", "wyprawa2", "Wyprawa zakończona!");
-					clearInterval(liczenieWyprawa2);
 					return;
 				} else {
 					losuj2 = Math.floor(Math.random() * 1000) + 1;
@@ -2105,7 +2106,6 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 					document.getElementById(wyprawaLok3).innerHTML = "Obóz";
 					document.getElementById(wyprawaOkn3).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 					wpiszTekstWyprawy("akcja", "wyprawa3", "Wyprawa zakończona!");
-					clearInterval(liczenieWyprawa3);
 					return;
 				} else {
 					losuj3 = Math.floor(Math.random() * 1000) + 1;
@@ -2133,7 +2133,6 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 					document.getElementById(wyprawaLok4).innerHTML = "Obóz";
 					document.getElementById(wyprawaOkn4).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 					wpiszTekstWyprawy("akcja", "wyprawa4", "Wyprawa zakończona!");
-					clearInterval(liczenieWyprawa4);
 					return;
 				} else {
 					losuj4 = Math.floor(Math.random() * 1000) + 1;
@@ -2161,7 +2160,6 @@ function trwanieWyprawy(wyprawa, lokacja, dlugosc){
 					document.getElementById(wyprawaLok5).innerHTML = "Obóz";
 					document.getElementById(wyprawaOkn5).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
 					wpiszTekstWyprawy("akcja", "wyprawa5", "Wyprawa zakończona!");
-					clearInterval(liczenieWyprawa5);
 					return;
 				} else {
 					losuj5 = Math.floor(Math.random() * 1000) + 1;
@@ -2186,7 +2184,8 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 		var width1 = 0;
 		var liczenieWyprawa1 = setInterval(klatka1, dlugosc);
 		function klatka1() {
-			if (width1 >= 100) {
+			if (width1 >= 100 || wyprawaTrwa1 == false) {
+				if(wyprawaTrwa1 == true){ wpiszTekstWyprawy("akcja", "wyprawa1", "Wyprawa zakończona!"); }
 				wyprawaTrwa1 = false;
 				clearInterval(liczenieWyprawa1);
 				element.style.width = 0 + '%';
@@ -2194,7 +2193,6 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa1Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok1).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn1).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
-				wpiszTekstWyprawy("akcja", "wyprawa1", "Wyprawa zakończona!");
 				if(lokacja == "ZniszczonaDroga"){
 					pradawnyLasDroga = true;
 					blokadaZniszczonaDroga = false;
@@ -2219,7 +2217,8 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 		  var width2 = 0;
 		  var liczenieWyprawa2 = setInterval(klatka2, dlugosc);
 		  function klatka2() {
-			if (width2 >= 100) {
+			if (width2 >= 100 || wyprawaTrwa2 == false) {
+				if(wyprawaTrwa2 == true){ wpiszTekstWyprawy("akcja", "wyprawa2", "Wyprawa zakończona!"); }
 				wyprawaTrwa2 = false;
 				clearInterval(liczenieWyprawa2);
 				element.style.width = 0 + '%'
@@ -2227,7 +2226,6 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa2Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok2).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn2).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
-				wpiszTekstWyprawy("akcja", "wyprawa2", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa2Procent").innerHTML = Math.round(width2) + "%";
 				document.getElementById("wyprawa2Postac").style.left = width2 * 0.85 + "%";
@@ -2243,7 +2241,8 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 		  var width3 = 0;
 		  var liczenieWyprawa3 = setInterval(klatka3, dlugosc);
 		  function klatka3() {
-			if (width3 >= 100) {
+			if (width3 >= 100 || wyprawaTrwa3 == false) {
+				if(wyprawaTrwa3 == true){ wpiszTekstWyprawy("akcja", "wyprawa3", "Wyprawa zakończona!"); }
 				wyprawaTrwa3 = false;
 				clearInterval(liczenieWyprawa3);
 				element.style.width = 0 + '%'
@@ -2251,7 +2250,6 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa3Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok3).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn3).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
-				wpiszTekstWyprawy("akcja", "wyprawa3", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa3Procent").innerHTML = Math.round(width3) + "%";
 				document.getElementById("wyprawa3Postac").style.left = width3 * 0.85 + "%";
@@ -2267,7 +2265,8 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 		  var width4 = 0;
 		  var liczenieWyprawa4 = setInterval(klatka4, dlugosc);
 		  function klatka4() {
-			if (width4 >= 100) {
+			if (width4 >= 100 || wyprawaTrwa4 == false) {
+				if(wyprawaTrwa4 == true){ wpiszTekstWyprawy("akcja", "wyprawa4", "Wyprawa zakończona!"); }
 				wyprawaTrwa4 = false;
 				clearInterval(liczenieWyprawa4);
 				element.style.width = 0 + '%'
@@ -2275,7 +2274,6 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa4Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok4).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn4).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
-				wpiszTekstWyprawy("akcja", "wyprawa4", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa4Procent").innerHTML = Math.round(width4) + "%";
 				document.getElementById("wyprawa4Postac").style.left = width4 * 0.85 + "%";
@@ -2291,7 +2289,8 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 		  var width5 = 0;
 		  var liczenieWyprawa5 = setInterval(klatka5, dlugosc);
 		  function klatka5() {
-			if (width5 >= 100) {
+			if (width5 >= 100 || wyprawaTrwa5 == false) {
+				if(wyprawaTrwa5 == true){ wpiszTekstWyprawy("akcja", "wyprawa5", "Wyprawa zakończona!"); }
 				wyprawaTrwa5 = false;
 				clearInterval(liczenieWyprawa5);
 				element.style.width = 0 + '%'
@@ -2299,7 +2298,6 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				document.getElementById("wyprawa5Postac").style.left = 0 + "%";
 				document.getElementById(wyprawaLok5).innerHTML = "Obóz";
 				document.getElementById(wyprawaOkn5).style.backgroundImage = "url('Obrazy/Wyprawy/Obóz.png')";
-				wpiszTekstWyprawy("akcja", "wyprawa5", "Wyprawa zakończona!");
 			} else {
 				document.getElementById("wyprawa5Procent").innerHTML = Math.round(width5) + "%";
 				document.getElementById("wyprawa5Postac").style.left = width5 * 0.85 + "%";
