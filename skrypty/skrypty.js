@@ -564,15 +564,15 @@ function loot(nazwaPrzeciwnik, wyprawa){
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){ 
-				utworzPrzedmiot("grzyb_1", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+				utworzPrzedmiot("grzyb_1", "crafting", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){
-				utworzPrzedmiot("grzyb_2", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+				utworzPrzedmiot("grzyb_2", "crafting", "Obrazy/Przedmioty/Czerwony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 2){
-				utworzPrzedmiot("grzyb_3", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+				utworzPrzedmiot("grzyb_3", "crafting", "Obrazy/Przedmioty/Niebieski_grzyb.png");
 			}
 			break;
 		}
@@ -585,15 +585,15 @@ function loot(nazwaPrzeciwnik, wyprawa){
 		case "Doświadczony grzybiarz":{
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){ 
-				utworzPrzedmiot("grzyb_1", "skladnik", "Obrazy/Przedmioty/Zielony_grzyb.png");
+				utworzPrzedmiot("grzyb_1", "crafting", "Obrazy/Przedmioty/Zielony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){
-				utworzPrzedmiot("grzyb_2", "skladnik", "Obrazy/Przedmioty/Czerwony_grzyb.png");
+				utworzPrzedmiot("grzyb_2", "crafting", "Obrazy/Przedmioty/Czerwony_grzyb.png");
 			}
 			losowe = Math.floor(Math.random() * 10) + 1;
 			if(losowe <= 4){
-				utworzPrzedmiot("grzyb_3", "skladnik", "Obrazy/Przedmioty/Niebieski_grzyb.png");
+				utworzPrzedmiot("grzyb_3", "crafting", "Obrazy/Przedmioty/Niebieski_grzyb.png");
 			}
 			break;
 		}
@@ -768,8 +768,13 @@ function drop(ev) {
     ev.preventDefault();
     var src = document.getElementById(ev.dataTransfer.getData("src"));
     var srcParent = src.parentNode;
-	var tgt = ev.currentTarget.firstElementChild;
+	var tgt = ev.currentTarget.childNodes[1];
 	var str = ev.currentTarget;
+	
+	if(src.className == "slotLicznik"){
+		return;
+	}
+	
 	if(tgt != null){
 		if(tgt.alt == "buty" && src.alt != "buty"){
 			return;
@@ -849,10 +854,92 @@ function drop(ev) {
 			break;
 		}
 		default:{
-			if(tgt == null){
+			if(src.alt == "crafting"){
+				if(typeof str.childNodes[1] !== "undefined" && str.childNodes[1].alt !== "crafting"){
+					return;
+				}
+				if(typeof str.childNodes[1] !== "undefined"){
+					if(str.childNodes[1].lang !== srcParent.childNodes[1].lang){
+						return;
+					}
+				}
+				if(tgt == null){
+					var data = ev.dataTransfer.getData("src");
+					ev.target.appendChild(document.getElementById(data));
+					if(typeof srcParent.childNodes[1] !== "undefined"){ srcParent.childNodes[1].style.display = 'inline'; }
+					if(typeof str.childNodes[1] !== "undefined"){ str.childNodes[1].style.display = 'inline'; }
+					strLiczba = str.childElementCount;
+					srcLiczba = srcParent.childElementCount;
+					str.childNodes[0].innerHTML = strLiczba - 1;
+					srcParent.childNodes[0].innerHTML = srcLiczba - 1;
+					if(strLiczba <= 2){
+						str.childNodes[0].style.display = 'none';
+					} else {
+						str.childNodes[0].style.display = 'inline';
+					}
+					if(srcLiczba <= 2){
+						srcParent.childNodes[0].style.display = 'none';
+					} else {
+						srcParent.childNodes[0].style.display = 'inline';
+					}
+				} else if(typeof str.childNodes[8] == "undefined" && tgt.alt == "crafting"){
+					var data = ev.dataTransfer.getData("src");
+					ev.target.parentNode.appendChild(document.getElementById(data));
+					str.childNodes[1].style.display = 'inline';
+					if(typeof srcParent.childNodes[1] !== "undefined"){ srcParent.childNodes[1].style.display = 'inline'; }
+					if(typeof str.childNodes[2] !== "undefined"){ str.childNodes[2].style.display = 'none'; }
+					if(typeof str.childNodes[3] !== "undefined"){ str.childNodes[3].style.display = 'none'; }
+					if(typeof str.childNodes[4] !== "undefined"){ str.childNodes[4].style.display = 'none'; }
+					if(typeof str.childNodes[5] !== "undefined"){ str.childNodes[5].style.display = 'none'; }
+					if(typeof str.childNodes[6] !== "undefined"){ str.childNodes[6].style.display = 'none'; }
+					if(typeof str.childNodes[7] !== "undefined"){ str.childNodes[7].style.display = 'none'; }
+					if(typeof str.childNodes[8] !== "undefined"){ str.childNodes[8].style.display = 'none'; }
+					strLiczba = str.childElementCount;
+					srcLiczba = srcParent.childElementCount;
+					str.childNodes[0].innerHTML = strLiczba - 1;
+					srcParent.childNodes[0].innerHTML = srcLiczba - 1;
+					if(strLiczba <= 2){
+						str.childNodes[0].style.display = 'none';
+					} else {
+						str.childNodes[0].style.display = 'inline';
+					}
+					if(srcLiczba <= 2){
+						srcParent.childNodes[0].style.display = 'none';
+					} else {
+						srcParent.childNodes[0].style.display = 'inline';
+					}
+				} else if(typeof str.childNodes[8] !== "undefined"){
+					return;
+				} else {
+					ev.currentTarget.replaceChild(src, tgt);
+					srcParent.appendChild(tgt);
+					if(typeof srcParent.childNodes[1] !== "undefined"){ srcParent.childNodes[1].style.display = 'inline'; }
+					if(typeof str.childNodes[1] !== "undefined"){ str.childNodes[1].style.display = 'inline'; }
+					strLiczba = str.childElementCount;
+					srcLiczba = srcParent.childElementCount;
+					str.childNodes[0].innerHTML = strLiczba - 1;
+					srcParent.childNodes[0].innerHTML = srcLiczba - 1;
+					if(strLiczba <= 2){
+						str.childNodes[0].style.display = 'none';
+					} else {
+						str.childNodes[0].style.display = 'inline';
+					}
+					if(srcLiczba <= 2){
+						srcParent.childNodes[0].style.display = 'none';
+					} else {
+						srcParent.childNodes[0].style.display = 'inline';
+					}
+				}
+			} else if(tgt == null){
 				var data = ev.dataTransfer.getData("src");
 				ev.target.appendChild(document.getElementById(data));
 			} else {
+				if(parseInt(str.childNodes[0].innerHTML) == 1){
+					str.childNodes[0].style.display = 'none';
+					srcParent.childNodes[0].style.display = 'none';
+				} else {
+					return;
+				}
 				ev.currentTarget.replaceChild(src, tgt);
 				srcParent.appendChild(tgt);
 			}
@@ -907,16 +994,58 @@ function zapamietajZakladke(bool) {
 function pusta(){ // Pusta funkcja do debuggingu
 }
 
+var i = 1;
+
 	// Funkcja od wybierania slotów dla przedmiotów
-function wybieranieSlotu(){
+function wybieranieSlotu(rodzaj, nazwa){
 	liczba = 1;
+	slotWazny = false;
 	slotWolny = "slot" + liczba;
 	slotWolny2 = document.getElementById(slotWolny);
-	while(slotWolny2.hasChildNodes() == true || slotWolny2.hidden == true){
-		liczba += 1;
-		slotWolny = "slot" + liczba;
-		slotWolny2 = document.getElementById(slotWolny);
+	slotWolnyId = window[slotWolny2.id];
+	slotWolnyLiczba = slotWolnyId.childNodes.length;
+	while(rodzaj == "crafting"){
+		if(slotWazny == true){ break; }
+		while(slotWolnyLiczba <= 8){
+			if(slotWazny == true){ break; }
+			for (i = 1; i <= 8; i++) {
+				if(typeof slotWolny2.childNodes[i] == "undefined"){
+					console.log(slotWolny2.childNodes[i]);
+					slotWazny = true;
+					break;
+				} else if (slotWolny2.childNodes[i].alt !== "crafting" || slotWolny2.childNodes[i].lang !== nazwa) {
+					liczba += 1;
+					slotWolny = "slot" + liczba;
+					slotWolny2 = document.getElementById(slotWolny);
+					slotWolnyId = window[slotWolny2.id];
+					slotWolnyLiczba = slotWolnyId.childNodes.length;
+					break;
+				} else if (slotWolny2.childNodes[i].alt == "crafting") {
+					chil = slotWolny2.childNodes[i];
+					if(chil.lang == nazwa){
+					slotWazny = true;
+					break;
+					}
+				}
+			}
+		}
+		if(slotWazny == false){
+			liczba += 1;
+			slotWolny = "slot" + liczba;
+			slotWolny2 = document.getElementById(slotWolny);
+			slotWolnyId = window[slotWolny2.id];
+			slotWolnyLiczba = slotWolnyId.childNodes.length;
+			if(slotWolnyId == "slot160"){ break; }
+		}
 	}
+	if(rodzaj !== "crafting"){
+		while(slotWolny2.childElementCount >= 2|| slotWolny2.hidden == true){
+			liczba += 1;
+			slotWolny = "slot" + liczba;
+			slotWolny2 = document.getElementById(slotWolny);
+		}
+	}
+	if(slotWolny2.hidden == true){ liczba = 160; }
 	slotWolny = "slot" + liczba;
 }
 
@@ -925,7 +1054,7 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	przedmiot = window[nazwa];
 	wpiszTekst("item", przedmiot[0]);
 	itemIdMax = 1;
-	wybieranieSlotu();
+	wybieranieSlotu(rodzaj, nazwa);
 	var item = document.createElement('img');
 	tymczasowe = "itemId" + itemIdMax;
 	tymczasowe2 = document.getElementById(tymczasowe);
@@ -942,10 +1071,18 @@ function utworzPrzedmiot(nazwa, rodzaj, grafika){
 	item.draggable = true;
 	item.lang = nazwa;
 	slot = document.getElementById(slotWolny);
+	slotLiczba = slot.childElementCount;
+	if(slotLiczba <= 1){
+		slot.childNodes[0].style.display = 'none';
+	} else {
+		item.style.display = "none";
+		slot.childNodes[0].style.display = 'inline';
+	}
 	slot.appendChild(item);
 	if(slot.id == "slot160"){
 		slot.removeChild(item);
 	}
+	slot.childNodes[0].innerHTML = slotLiczba;
 }
 
 	// Funkcja do sprawdzania wyposażenia i dodawania jego statystyk
@@ -1031,10 +1168,17 @@ function sprawdzWyposazenieNull(){
 	document.getElementById("pancerzKoncowy").innerHTML = pancerzKoncowy;
 }
 
-function zapis() {
+function zapis(pierwszyRaz) {
 	if(walkaTrwa == null){} else {
 	var liczba = 1;
 	arr = [];
+	if(pierwszyRaz == true){
+		while (liczba <= 159) {
+			slot = window["slot" + liczba];
+			slot.childNodes[0].innerHTML = 0;
+			liczba += 1;
+		}
+	}
 	while (liczba <= 159) {
 		slot = "slot" + liczba;
 		calySlot = document.getElementById(slot).outerHTML;
@@ -1068,7 +1212,7 @@ function odczyt() {
 		}
 	}
 	else {
-		zapis();
+		zapis(true);
     }
 	if (localStorage.getItem("Wyposazenie") !== null) {
 		wyposazenieArray = JSON.parse(localStorage.getItem("Wyposazenie"));
@@ -1469,7 +1613,7 @@ function crafting(przedmiot, doBazy, element){
 				if(doBazy == true){
 					drewno += 1;
 				} else {
-					utworzPrzedmiot("crft_2", "skladnik", "Obrazy/Przedmioty/Drewno.png");
+					utworzPrzedmiot("crft_2", "crafting", "Obrazy/Przedmioty/Drewno.png");
 				}
 			}
 			document.getElementById("licznikKlodyCrafting").innerHTML = klody;
@@ -1675,17 +1819,25 @@ function wrzucPrzedmioty(przedmiot){
 			while (liczba <= 159) {
 				slot = "slot" + liczba;
 				calySlotCrafting = document.getElementById(slot);
-					if(calySlotCrafting.hasChildNodes() == true){
-						calySlotChild = calySlotCrafting.childNodes[0];
-						if(calySlotChild.lang == "crft_1"){
-							calySlotCrafting.removeChild(calySlotChild);
-							klody += 1;
-							document.getElementById("licznikKlody").innerHTML = klody;
-							document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+				for (i = 1; i <= 8; i++) {
+					if(typeof calySlotCrafting.childNodes[1] == "undefined"){
+						liczba += 1;
+						break;
+					} else if (calySlotCrafting.childNodes[1].alt !== "crafting" || calySlotCrafting.childNodes[1].lang !== "crft_1") {
+						liczba += 1;
+						break;
+					} else if (calySlotCrafting.childNodes[1].alt == "crafting") {
+						chil = calySlotCrafting.childNodes[1];
+						calySlotCrafting.removeChild(chil);
+						calySlotCrafting.childNodes[0].innerHTML -= 1;
+						calySlotCrafting.childNodes[0].style.display = "none";
+						klody += 1;
+						document.getElementById("licznikKlody").innerHTML = klody
+						document.getElementById("licznikKlody").innerHTML = klody;
 						}
 					}
 				liczba += 1;
-			}
+				}
 			break;
 		}
 		case "drewno":{
@@ -1693,17 +1845,25 @@ function wrzucPrzedmioty(przedmiot){
 			while (liczba <= 159) {
 				slot = "slot" + liczba;
 				calySlotCrafting = document.getElementById(slot);
-					if(calySlotCrafting.hasChildNodes() == true){
-						calySlotChild = calySlotCrafting.childNodes[0];
-						if(calySlotChild.lang == "crft_2"){
-							calySlotCrafting.removeChild(calySlotChild);
-							drewno += 1;
-							document.getElementById("licznikDrewno").innerHTML = drewno;
-							document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
+				for (i = 1; i <= 8; i++) {
+					if(typeof calySlotCrafting.childNodes[1] == "undefined"){
+						liczba += 1;
+						break;
+					} else if (calySlotCrafting.childNodes[1].alt !== "crafting" || calySlotCrafting.childNodes[1].lang !== "crft_2") {
+						liczba += 1;
+						break;
+					} else if (calySlotCrafting.childNodes[1].alt == "crafting") {
+						chil = calySlotCrafting.childNodes[1];
+						calySlotCrafting.removeChild(chil);
+						calySlotCrafting.childNodes[0].innerHTML -= 1;
+						calySlotCrafting.childNodes[0].style.display = "none";
+						klody += 1;
+						document.getElementById("licznikKlody").innerHTML = klody
+						document.getElementById("licznikKlody").innerHTML = klody;
 						}
 					}
 				liczba += 1;
-			}
+				}
 			break;
 		}
 	}
