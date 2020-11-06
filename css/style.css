@@ -179,6 +179,20 @@ button:hover {
 	filter: brightness(80%);
 }
 
+.slotLicznik {
+	position: absolute;
+	display: none;
+	right: 0;
+	bottom: 0;
+	width: 18%;
+	height: 20%;
+	margin: 4%;
+	float: right;
+	background: white;
+	text-align: center;
+	border: 1px solid black;
+}
+
 .slotCrafting {
 	border: 1px solid black;
 	background-color: #ddd;
