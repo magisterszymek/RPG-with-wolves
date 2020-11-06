@@ -1,3 +1,66 @@
+function debug(typ){
+	switch(typ){
+		case "sztylet":{
+			utworzPrzedmiot("prdm_bron_a_1", "bron", "Obrazy/Przedmioty/Sztylet.png");
+			break;
+		}
+		case "klody":{
+			klody += 10;
+			document.getElementById("licznikKlody").innerHTML = klody;
+			document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+			break;
+		}
+		case "mapa":{
+			blokadaPosterunekWilkow = false;	// Blokada przycisku "Posterunek wilków"
+			blokadaZrujnowanyOboz = false;	// Blokada przycisku "Zrujnowany obóz"
+			blokadaLesnaDroga2 = false;		// Blokada przycisku "Leśna droga [2]"
+			blokadaZniszczonaDroga = false;	// Blokada przycisku "Zniszczona droga"
+			blokadaGrota = false;		// Blokada przycisku "Grota"
+			blokadaLesnaDroga3 = false; 		// Blokada przycisku "Leśna droga [3]"
+			blokadaWiezaMaga = false;		// Blokada przycisku "Wieża maga"
+			blokadaGrzybowePole = false;		// Blokada przycisku "Grzybowe pole"
+			blokadaWyjscieZLasu = false;		// Blokada przycisku "Wyjście z lasu"
+			blokadaWioska = false;				// Blokada przycisku "Wioska"
+			blokadaDolina = false;		// Blokada przycisku "Dolina"
+			blokadaMoczary = false;		// Blokada przycisku "Moczary"
+			break;
+		}
+		case "wszystko":{
+			blokadaPosterunekWilkow = false;	// Blokada przycisku "Posterunek wilków"
+			blokadaZrujnowanyOboz = false;	// Blokada przycisku "Zrujnowany obóz"
+			blokadaLesnaDroga2 = false;		// Blokada przycisku "Leśna droga [2]"
+			blokadaZniszczonaDroga = false;	// Blokada przycisku "Zniszczona droga"
+			blokadaGrota = false;		// Blokada przycisku "Grota"
+			blokadaLesnaDroga3 = false; 		// Blokada przycisku "Leśna droga [3]"
+			blokadaWiezaMaga = false;		// Blokada przycisku "Wieża maga"
+			blokadaGrzybowePole = false;		// Blokada przycisku "Grzybowe pole"
+			blokadaWyjscieZLasu = false;		// Blokada przycisku "Wyjście z lasu"
+			blokadaWioska = false;				// Blokada przycisku "Wioska"
+			blokadaDolina = false;		// Blokada przycisku "Dolina"
+			blokadaMoczary = false;		// Blokada przycisku "Moczary"
+			hidden = "slot"
+			for(i = 1; i < 160; i++){
+				document.getElementById(hidden + i).removeAttribute("hidden");
+			}
+			hidden = "wyprawy"
+			for(i = 2; i < 6; i++){
+				document.getElementById(hidden + i).removeAttribute("hidden");
+			}
+			przepisyDrewno = true;
+			przepisyDrewnoSpecjalne = true;
+			przepisyMiedziane = true;
+			przepisyZelazne = true;
+			klody += 100;
+			drewno += 100;
+			document.getElementById("licznikKlody").innerHTML = klody;
+			document.getElementById("licznikKlodyCrafting").innerHTML = klody;
+			document.getElementById("licznikDrewno").innerHTML = drewno;
+			document.getElementById("licznikDrewnoCrafting").innerHTML = drewno;
+			break;
+		}
+	}
+}
+
 // ---------- Array'e ----------
 // Główne array'e (poza tymi od zapisu) wykorzystywane do przechowywania informacji o przedmiotach i przeciwnikach.
 
@@ -177,7 +240,7 @@
 			var blokadaWiezaMaga = true;		// Blokada przycisku "Wieża maga"
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
 			var blokadaWyjscieZLasu = true;		// Blokada przycisku "Wyjście z lasu"
-			var blokadaWioska					// Blokada przycisku "Wioska"
+			var blokadaWioska = true;			// Blokada przycisku "Wioska"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 			
@@ -1626,8 +1689,8 @@ function crafting(przedmiot, doBazy, element){
 				while (liczba <= 159) {
 					slot = "slot" + liczba;
 					calySlotCrafting = document.getElementById(slot);
-						if(calySlotCrafting.hasChildNodes() == true){
-							calySlotChild = calySlotCrafting.childNodes[0];
+						if(calySlotCrafting.childNodes.length >= 2){
+							calySlotChild = calySlotCrafting.childNodes[1];
 							if(calySlotChild.lang == "prdm_bron_a_1"){
 								calySlotCrafting.removeChild(calySlotChild);
 								drewno -= 1;
@@ -1654,8 +1717,8 @@ function crafting(przedmiot, doBazy, element){
 					while (liczba <= 159) {
 						slot = "slot" + liczba;
 						calySlotCrafting = document.getElementById(slot);
-							if(calySlotCrafting.hasChildNodes() == true){
-								calySlotChild = calySlotCrafting.childNodes[0];
+							if(calySlotCrafting.childNodes.length >= 2){
+								calySlotChild = calySlotCrafting.childNodes[1];
 								if(calySlotChild.lang == "prdm_bron_a_1"){
 									slotCrafting = calySlotCrafting;
 								}
@@ -1678,11 +1741,11 @@ function crafting(przedmiot, doBazy, element){
 						liczba += 1;
 					}
 				if(slotCrafting1 != "nic" && slotCrafting2 != "nic" && slotCrafting3 != "nic"){
-					calySlotChild = slotCrafting1.childNodes[0];
+					calySlotChild = slotCrafting1.childNodes[1];
 					slotCrafting1.removeChild(calySlotChild);
-					calySlotChild = slotCrafting2.childNodes[0];
+					calySlotChild = slotCrafting2.childNodes[1];
 					slotCrafting2.removeChild(calySlotChild);
-					calySlotChild = slotCrafting3.childNodes[0];
+					calySlotChild = slotCrafting3.childNodes[1];
 					slotCrafting3.removeChild(calySlotChild);
 					drewno -= 1;
 					utworzPrzedmiot("prdm_bron_a_3", "bron", "Obrazy/Przedmioty/Nakładka_na_łapę.png");
