@@ -9,6 +9,14 @@
 	<div id="ladowanieZdjecie"></div>
 </head>
 <body onload="zapamietajZakladke(false)" onbeforeunload="zapamietajZakladke(true)">
+
+	<div class="DEBUG" id="debugDiv">	<!-- DO USUNIĘCIA PÓŹNIEJ -->
+		<button class="przyciskDebug" onclick="debug('sztylet')">Dodaj 1 sztylet</button>
+		<button class="przyciskDebug" onclick="debug('klody')">Dodaj 10 kłód do magazynu</button>
+		<button class="przyciskDebug" onclick="debug('mapa')">Odblokuj wszystkie przyciski</button>
+		<button class="przyciskDebug" onclick="debug('wszystko')">Odblokuj WSZYSTKO</button>
+	</div>
+	
 	<div class="pasekNawigacji noselect">
 		<div class="przyciskNawigacji" style="background:var(--zakladka-walka-color);" onclick="zakladka(0);">Walka</div>
 		<div class="przyciskNawigacji" style="background:var(--zakladka-ekwipunek-color);" onclick="zakladka(1);">Ekwipunek</div>
