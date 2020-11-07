@@ -36,6 +36,9 @@ function debug(typ){
 			blokadaGrzybowePole = false;		// Blokada przycisku "Grzybowe pole"
 			blokadaWyjscieZLasu = false;		// Blokada przycisku "Wyjście z lasu"
 			blokadaWioska = false;				// Blokada przycisku "Wioska"
+			blokadaChataMysliwych = false;		// Blokada przycisku "Chata myśliwych"
+			blokadaPole = false;			// Blokada przycisku "Pole"
+			blokadaCentrum = false;			// Blokada przycisku "Centrum"
 			blokadaDolina = false;		// Blokada przycisku "Dolina"
 			blokadaMoczary = false;		// Blokada przycisku "Moczary"
 			hidden = "slot"
@@ -241,6 +244,9 @@ function debug(typ){
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
 			var blokadaWyjscieZLasu = true;		// Blokada przycisku "Wyjście z lasu"
 			var blokadaWioska = true;			// Blokada przycisku "Wioska"
+			var	blokadaChataMysliwych = true;		// Blokada przycisku "Chata myśliwych"
+			var	blokadaPole = true;			// Blokada przycisku "Pole"
+			var	blokadaCentrum = true;			// Blokada przycisku "Centrum"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
 			
@@ -407,7 +413,8 @@ function walka(typ){
 							wpiszTekst("odblokowanieLokacji", "Dolina");
 							wpiszTekst("odblokowanieLokacji", "Wioska");
 							blokadaDolina = false;
-							blokadaWioska = false
+							blokadaWioska = false;
+							blokadaChataMysliwych = false;
 						}
 					}
 				}
@@ -1642,6 +1649,18 @@ function lokacja(lokacja){
 			rozpocznijWalke("wyjscieZLasu", 1);
 			break;
 		}
+		case "wioska":{
+			mapa.src = "Obrazy/Mapa/Wioska.png";
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
+			las.style.display = "none";
+			wioska.style.display = "none";
+			dolina.style.display = "none";
+			pole.style.display = "inline";
+			chataMysliwych.style.display = "inline";
+			centrum.style.display = "inline";
+			cofnij.style.display = "inline";
+			break;
+		}
 		case "cofnij":{
 			document.getElementsByClassName("crafting")[0].hidden=true;
 			document.getElementsByClassName("oboz")[0].hidden=true;
@@ -1661,6 +1680,9 @@ function lokacja(lokacja){
 			lesnaDroga3.style.display = "none";
 			wyjscieZLasu.style.display = "none";
 			cofnij.style.display = "none";
+			pole.style.display = "none";
+			chataMysliwych.style.display = "none";
+			centrum.style.display = "none";
 			zakonczRozmowe();
 			break;
 		}
@@ -2419,7 +2441,7 @@ function liczenieProgressu(wyprawa, idPaska, dlugosc, lokacja){
 				if(lokacja == "ZniszczonaDroga"){
 					pradawnyLasDroga = true;
 					blokadaZniszczonaDroga = false;
-					if(mapa.src == "Obrazy/Mapa/PradawnyLas.png"){
+					if(mapa.src == "https://magisterszymek.github.io/RPG-with-wolves/Obrazy/Mapa/PradawnyLas.png"){
 						mapa.src = "Obrazy/Mapa/PradawnyLasNaprawionaDroga.png";
 						zniszczonaDroga.style.display = "inline";
 					}
