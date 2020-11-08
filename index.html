@@ -505,9 +505,36 @@
 			Składniki: <span id="craftingKoszt"> </span><br />
 		</div>
 	</div>
-	<div class="alfa" hidden>
-			<button class="przyciskDefaultowy" onclick="lokacja('obozWilkow')" style="background-color: white;">Cofnij</button><br /><br />
+	
+	<!-- ROZMOWY Z ALFĄ -->
+	
+	<div class="alfa" id="alfa" hidden>
+		<!-- zakładka jeden-->
+		<div class="alfaRozmowa">
+			<div class="gracz noselect">
+				<div class="nick"><span class="duze">&nbsp;</span></div>
+				<div class="alfaPrzyciski">
+					<button class="przyciskRozmowy" onclick="">4</button>
+					<button class="przyciskRozmowy" onclick="lokacja('obozWilkow')" style="background-color: white; color: black;">Cofnij</button>
+				</div>
+			</div>
+			<div class="przeciwnik noselect">
+				<div class="nick"><span class="duze">&nbsp;</span></div>
+				<div class="nick"><span class="duze">Alfa</span></div>
+				<div class="ataki">
+					<img alt="przeciwnik" class="nodrag" src="Obrazy/Postacie/Wilk.png" />
+				</div>
+			</div>
+			<div class="opcjeWalki">
+
+			</div>
+			<div class="logi" id="logiAlfa">
+			</div>
+		</div>
 	</div>
+	</div>
+	<!-- KONIEC ROZMÓW Z ALFĄ -->
+	
 <div style="background-image: url('Obrazy/Ładowanie/Podróż.png'); background-position: center center; background-repeat: no-repeat; background-size: 100%; background-color: rgba(0, 0, 0, 0.3); z-index: 1;" class="wyborNicku" id="podroz" hidden="">
 	<img id="dalej1" class="podrozPostac" style="top: 50%; left: 20%" src="Obrazy/Ładowanie/Dalej.png"></img>
 	<img id="dalej2" class="podrozPostac" style="top: 50%; left: 45%" src="Obrazy/Ładowanie/Dalej.png"></img>
