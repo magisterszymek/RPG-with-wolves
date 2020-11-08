@@ -131,7 +131,6 @@ button:hover {
 	height: 95%;
 	position: absolute;
 	background: var(--zakladka-walka-color);
-	background-image: url('Obrazy/Tła/Mapa.png');
 	background-size: 100%;
 	background-repeat: no-repeat;
 	z-index:-1;
@@ -646,11 +645,25 @@ button:hover {
 	filter: brightness(110%);
 }
 .alfa {
-	z-index: 1;
-	height: 95%;
 	width: 100%;
+	height: 95%;
+	padding: 1%;
 	position: absolute;
-	background-color: brown;
+	background: brown;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	z-index: 1;
+}
+.alfaRozmowa {
+	width: 60%;
+	height: 100%;
+	position: relative;
+	margin: auto;
+	background: rgba(0, 0, 0, 0.1);
+}
+.alfaPrzyciski {
+	width: 100%;
+	height: 79%;
 }
 .podrozPostac {
 	height: 20%;
