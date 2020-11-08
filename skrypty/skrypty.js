@@ -273,9 +273,11 @@ function zakladka(NrZakladki) {
 		case 0:{
 		if(obozWlaczony == true){
 			document.getElementsByClassName("oboz")[0].hidden = false;
-		} else if(craftingWlaczony == true){
+		}
+		if(craftingWlaczony == true){
 			document.getElementsByClassName("crafting")[0].hidden = false;
-		} else if(alfaWlaczony == true){
+		}
+		if(alfaWlaczony == true){
 			document.getElementsByClassName("alfa")[0].hidden = false;
 		}
 		document.getElementById("zakladkaWalka").style.zIndex="0";
@@ -1377,6 +1379,7 @@ function odczyt() {
 	if(blokadaDolina == false){ dolina.style.display = "inline"; }
 	if(blokadaWioska == false){ wioska.style.display = "inline"; }
 	zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
+	alfa.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 }
 
 function reset() {
@@ -1662,6 +1665,7 @@ function lokacja(lokacja){
 			break;
 		}
 		case "cofnij":{
+			document.getElementsByClassName("alfa")[0].hidden=true;
 			document.getElementsByClassName("crafting")[0].hidden=true;
 			document.getElementsByClassName("oboz")[0].hidden=true;
 			las.style.display = "inline";
