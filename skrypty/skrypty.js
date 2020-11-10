@@ -21,6 +21,8 @@ function debug(typ){
 			blokadaGrzybowePole = false;		// Blokada przycisku "Grzybowe pole"
 			blokadaWyjscieZLasu = false;		// Blokada przycisku "Wyjście z lasu"
 			blokadaWioska = false;				// Blokada przycisku "Wioska"
+			blokadaPole = false;
+			blokadaCentrum = false;
 			blokadaDolina = false;		// Blokada przycisku "Dolina"
 			blokadaMoczary = false;		// Blokada przycisku "Moczary"
 			break;
@@ -36,7 +38,6 @@ function debug(typ){
 			blokadaGrzybowePole = false;		// Blokada przycisku "Grzybowe pole"
 			blokadaWyjscieZLasu = false;		// Blokada przycisku "Wyjście z lasu"
 			blokadaWioska = false;				// Blokada przycisku "Wioska"
-			blokadaChataMysliwych = false;		// Blokada przycisku "Chata myśliwych"
 			blokadaPole = false;			// Blokada przycisku "Pole"
 			blokadaCentrum = false;			// Blokada przycisku "Centrum"
 			blokadaDolina = false;		// Blokada przycisku "Dolina"
@@ -135,6 +136,20 @@ function debug(typ){
 	var prze_wyjscieZLasu_ = [ // Przeciwnicy z "Wyjście z lasu"
 	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 5, 0.5, 2],
 	["Grzybiarz", "Grzybiarz", "Idzie do grzybowego pola.", 20, 2, 2, 1, 1],
+	];
+	var prze_chataMysliwych_ = [ // Przeciwnicy z "Chata myśliwych"
+	["Młody myśliwy", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 5, 0.5, 2],
+	["Myśliwy", "Myśliwy", "Upolował już kilka zwierząt.", 25, 5, 7, 0.5, 2],
+	["Strażnik Vala", "Strażnik_Vala", "Wynajęty przez Vala, czołowego myśliwego.", 30, 7, 6, 1, 3],
+	];
+	var prze_pole_ = [ // Przeciwnicy z "Pole"
+	["Myśliwy", "Myśliwy", "Upolował już kilka zwierząt.", 25, 5, 7, 0.5, 2],
+	];
+	var prze_centrum_ = [ // Przeciwnicy z "Centrum"
+	["Wieśniak", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 4, 0.5, 2],
+	["Myśliwy", "Myśliwy", "Upolował już kilka zwierząt.", 25, 5, 7, 0.5, 2],
+	["Strażnik Vala", "Strażnik_Vala", "Wynajęty przez Vala, czołowego myśliwego.", 30, 7, 6, 1, 3],
+	["Monsieur Val", "Monsieur_Val", "Znany myśliwy, zatrudniony przez zarządcę wioski w celu zlikwidowania wilków z pobliskiego lasu", 30, 5, 10, 2, 4],
 	];
 	var prze_wiezaMaga_ = [ // Przeciwnicy z "Wieża maga" NIEWYKORZYSTYWANE
 	["Magiczne pole", "Magiczne_pole", "Stworzone do obrony wieży.", 1, 2000, 30, 0, 1],
@@ -244,7 +259,6 @@ function debug(typ){
 			var blokadaGrzybowePole = true;		// Blokada przycisku "Grzybowe pole"
 			var blokadaWyjscieZLasu = true;		// Blokada przycisku "Wyjście z lasu"
 			var blokadaWioska = true;			// Blokada przycisku "Wioska"
-			var	blokadaChataMysliwych = true;		// Blokada przycisku "Chata myśliwych"
 			var	blokadaPole = true;			// Blokada przycisku "Pole"
 			var	blokadaCentrum = true;			// Blokada przycisku "Centrum"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
@@ -329,7 +343,7 @@ function rozpocznijWalke(biom, trudnosc){
 		if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
 			walkaTrwa = true;  // Określa że walka trwa
 			blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
-			wybierzPrzeciwnika(biom, trudnosc);  // Wywołuje funkcję do wybrania przeciwnika
+			wybierzPrzeciwnika(biom, trudnosc);
 			setTimeout(function(){
 				wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
 				wpiszTekst("linia");
@@ -340,6 +354,45 @@ function rozpocznijWalke(biom, trudnosc){
 		}
 	}, 300);
 }
+
+
+//TODO: Synchroniczny setTimeout z walką (od 381 do 388)
+//
+//function rozpocznijWalkeBoss(biom, trudnosc){
+//	zakonczRozmowe();
+//	ekranPodrozy();
+//	sprawdzWyposazenie("walka");
+//	setTimeout(function(){
+//		obrazeniaKoncowe = obrazeniaBazowe + obrazeniaEkwipunek;
+//		if(zdrowieKoncowe >= 0.1 && blokadaWalki == false && walkaTrwa == false){  // Walka rozpocznie się tylko gdy gracz ma więcej niż 0.1 punktów zdrowia, blokada walki nie jest włączona i nie jest w trakcie trwającej już walki
+//			walkaTrwa = true;  // Określa że walka trwa
+//			blokadaWalki = true;  //Blokuje rozpoczęcie nowej walki
+//				switch(biom){
+//					case "centrum":{
+//						for (i = 1; i <= 7; i++) {
+//							switch(i){
+//								case 1:{ wybierzPrzeciwnika("centrum", 1); break;}
+//								case 2:{ wybierzPrzeciwnika("centrum", 1); break;}
+//								case 3:{ wybierzPrzeciwnika("centrum", 1); break;}
+//								case 4:{ wybierzPrzeciwnika("centrum", 2); break;}
+//								case 5:{ wybierzPrzeciwnika("centrum", 2); break;}
+//								case 6:{ wybierzPrzeciwnika("centrum", 3); break;}
+//								case 7:{ wybierzPrzeciwnika("centrum", 4); break;}
+//							}
+//							setTimeout(function(){
+//								wpiszTekst("linia");  // Puste linie dla logów walki, aby oddzielić je między sobą
+//								wpiszTekst("linia");
+//								wpiszTekst("walkaPoczatek", nazwaPrzeciwnik);  // Wpisuje do logów że przeciwnik zaatakował gracza
+//								interval = setInterval(walka, 1000);  // Rozpoczyna funkcję odpowiedzialną za automatyczne zadawanie obrażeń podczas walki, defaultowo wywoływana raz na sekundę
+//								interval2 = setInterval(kondycjaLiczenie, 250);  // Rozpoczyna funkcję regenerującą kondycje
+//							}, 1500);
+//						}
+//						break;
+//					}
+//				}
+//		}
+//	}, 300);
+//}
 
 	// Funkcja odpowiedzialna za loopa walki
 function walka(typ){
@@ -416,7 +469,6 @@ function walka(typ){
 							wpiszTekst("odblokowanieLokacji", "Wioska");
 							blokadaDolina = false;
 							blokadaWioska = false;
-							blokadaChataMysliwych = false;
 						}
 					}
 				}
@@ -425,6 +477,7 @@ function walka(typ){
 			clearInterval(interval);
 			clearInterval(interval2);
 			odswiezZmienne("koniecWalki");
+			koniecWalki = true;
 		}
 }
   
@@ -494,6 +547,30 @@ function wybierzPrzeciwnika(biom, trudnosc){
 					losowe = 4;
 				}
 				break;
+			}
+			case "chataMysliwych":{
+				if(losowe <= 200){
+					losowe = 0;
+				} else if(losowe > 200 && losowe <= 700){
+					losowe = 1;
+				} else {
+					losowe = 2;
+				}
+				break;
+			}
+			case "pole":{
+				losowe = 0;
+			}
+			case "centrum":{
+				if(trudnosc == 1){
+					losowe = 0;
+				} else if(trudnosc == 2){
+					losowe = 1;
+				} else if(trudnosc == 3){
+					losowe = 2;
+				} else if(trudnosc == 4){
+					losowe = 3;
+				}
 			}
 		}
 	biomTymczasowe = "prze_" + biom + "_";
@@ -829,6 +906,8 @@ wybierzCios("zwykly");
 // ----- Funkcje ekwipunku -----
 
 function allowDrop(ev) {
+	document.getElementById('opisDiv').style.display = "none";
+	document.getElementById('opisDiv').style.zIndex = "-100";
     ev.preventDefault();
 }
 
@@ -1259,7 +1338,7 @@ function zapis(pierwszyRaz) {
 	}
 	wyposazenieArray = [document.getElementById("slotHelm").outerHTML, document.getElementById("slotNapiersnik").outerHTML, document.getElementById("slotSpodnie").outerHTML, document.getElementById("slotButy").outerHTML, document.getElementById("slotBron").outerHTML];
 	statystykiArray = [nick, nickWpisano, pancerzHelm, pancerzNapiersnik, pancerzSpodnie, pancerzButy, pancerzKoncowy, zdrowieBazowe, zdrowieEkwipunek, zdrowieKoncowe, kondycjaBazowa, kondycjaEkwipunek, kondycjaKoncowa, obrazeniaBazowe, obrazeniaEkwipunek, szybkoscBazowa, szybkoscEkwipunek, szybkoscKoncowa];
-	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaDolina,  blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+	blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaPole, blokadaCentrum, blokadaDolina,  blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	magazynArray = [klody, drewno];
 	craftingArray = [przepisyDrewno, przepisyDrewnoSpecjalne, przepisyMiedziane, przepisyZelazne];
 	localStorage.setItem("Ekwipunek", JSON.stringify(arr));
@@ -1335,15 +1414,17 @@ function odczyt() {
 		blokadaGrzybowePole = blokadyArray[6];
 		blokadaWyjscieZLasu = blokadyArray[7];
 		blokadaWioska = blokadyArray[8];
-		blokadaDolina = blokadyArray[9];
-		blokadaMoczary = blokadyArray[10];
-		bossZrujnowanyOboz = blokadyArray[11];
-		pradawnyLasDroga = blokadyArray[12];
-		pradawnyLasStolarz = blokadyArray[13];
-		pradawnyLasMost = blokadyArray[14];
-		zniszczoneDrzewa = blokadyArray[15];
+		blokadaPole = blokadyArray[9];
+		blokadaCentrum = blokadyArray[10];
+		blokadaDolina = blokadyArray[11];
+		blokadaMoczary = blokadyArray[12];
+		bossZrujnowanyOboz = blokadyArray[13];
+		pradawnyLasDroga = blokadyArray[14];
+		pradawnyLasStolarz = blokadyArray[15];
+		pradawnyLasMost = blokadyArray[16];
+		zniszczoneDrzewa = blokadyArray[17];
 	} else {
-		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
+		blokadyArray = [blokadaPosterunekWilkow, blokadaZrujnowanyOboz, blokadaLesnaDroga2, blokadaZniszczonaDroga, blokadaGrota, blokadaLesnaDroga3, blokadaGrzybowePole, blokadaWyjscieZLasu, blokadaWioska, blokadaPole, blokadaCentrum, blokadaDolina, blokadaMoczary, bossZrujnowanyOboz, pradawnyLasDroga, pradawnyLasStolarz, pradawnyLasMost, zniszczoneDrzewa];
 	}
 	if (localStorage.getItem("Magazyn") !== null){
 		magazynArray = JSON.parse(localStorage.getItem("Magazyn"));
@@ -1388,7 +1469,7 @@ function reset() {
 	location.reload();
 }
 
-document.onmouseover = function opis(id) {
+$(document).on('mouseover', function(id){
 	if(id.target.lang != "" && id.target.alt != "" && id.target.draggable == true){
 		przedmiotOpis = window[id.target.lang];
 		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
@@ -1407,6 +1488,32 @@ document.onmouseover = function opis(id) {
 		document.getElementById("opisTyp").innerHTML = "";
 		document.getElementById("opisCena").innerHTML = przedmiotOpis[3];
 		}
+	offset = $(id.target).offset();
+	posY = offset.top - $(window).scrollTop();
+	posX = offset.left - $(window).scrollLeft(); 
+	$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
+	} else if(typeof id.target.childNodes[1] !== "undefined" && id.target.childNodes[1].lang != "" && id.target.childNodes[1].alt != "" && id.target.childNodes[1].draggable == true){
+		przedmiotOpis = window[id.target.childNodes[1].lang];
+		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
+		document.getElementById("opisOpis").innerHTML = przedmiotOpis[1];
+		document.getElementById("opisRodzaj").innerHTML = przedmiotOpis[2];
+		document.getElementById("opisCena").innerHTML = przedmiotOpis[5];
+		document.getElementById("opisRodzajTekst").innerHTML = "Rodzaj:";
+		document.getElementById("opisWartosc").innerHTML = "Wartość:";
+		if(przedmiotOpis[2] == "Broń"){
+			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+		} else if(przedmiotOpis[2] == "Hełm" || przedmiotOpis[2] == "Napierśnik" || przedmiotOpis[2] == "Spodnie" || przedmiotOpis[2] == "Buty"){
+			document.getElementById("opisTyp").innerHTML = "Pancerz:";
+			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+		} else { 
+		document.getElementById("opisTyp").innerHTML = "";
+		document.getElementById("opisCena").innerHTML = przedmiotOpis[3];
+		}
+	offset = $(id.target.childNodes[1]).offset();
+	posY = offset.top - $(window).scrollTop();
+	posX = offset.left - $(window).scrollLeft(); 
+	$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
 	} else {
 		document.getElementById("opisPrzedmiot").innerHTML = "";
 		document.getElementById("opisOpis").innerHTML = "";
@@ -1416,8 +1523,9 @@ document.onmouseover = function opis(id) {
 		document.getElementById("opisCena").innerHTML = "";
 		document.getElementById("opisTyp").innerHTML = "";
 		document.getElementById("opisStatystyka").innerHTML = "";
+		$('#opisDiv').css({"z-index": "-100", "display": "none"});
 	}
-}
+});
 
 	// Funkcja służąca do odświeżania czy zapisywania zmiennych, aby uniknąć spaghetti w kodzie
 function odswiezZmienne(rodzaj){
@@ -1435,7 +1543,6 @@ function odswiezZmienne(rodzaj){
 		break;
 		}
 		case "koniecWalki":{
-			walkaKoniec = true;
 			walkaTrwa = false;
 			blokadaWalki = false;
 			nazwaPrzeciwnik = "Brak przeciwnika";
@@ -1654,7 +1761,7 @@ function lokacja(lokacja){
 		}
 		case "wioska":{
 			mapa.src = "Obrazy/Mapa/Wioska.png";
-			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/PradawnyLas.png')";
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Pole.png')";
 			las.style.display = "none";
 			wioska.style.display = "none";
 			dolina.style.display = "none";
@@ -1662,6 +1769,21 @@ function lokacja(lokacja){
 			chataMysliwych.style.display = "inline";
 			centrum.style.display = "inline";
 			cofnij.style.display = "inline";
+			break;
+		}
+		case "chataMysliwych":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/ChataMyśliwych.png')";
+			rozpocznijWalke("chataMysliwych", 1);
+			break;
+		}
+		case "pole":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Pole.png')";
+			rozpocznijWalke("pole", 1);
+			break;
+		}
+		case "centrum":{
+			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Centrum.png')";
+			rozpocznijWalkeBoss("centrum");
 			break;
 		}
 		case "cofnij":{
