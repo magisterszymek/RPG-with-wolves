@@ -4,6 +4,7 @@
 	<title>RPG-with-wolves</title>
 	<link rel="icon" href="Obrazy/Inne/icon.png">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="skrypty/skrypty.js"></script>
 	<link type="text/css" rel="stylesheet" href="css/style.css" />
 	<div id="ladowanieZdjecie"></div>
@@ -53,7 +54,8 @@
 			</div>
 		</div>
 		<div class="mapa">
-			<button style="font-size: 0.7vw; position: absolute; top: 32%; right: 11%; background-color: #38c95f; border: solid black 1px;" onclick="lokacja('pradawnyLas')" id="las">Pradawny las</button>
+			<!-- POCZĄTEK PRADAWNEGO LASU -->
+			<button style="font-size: 0.7vw; position: absolute; top: 32%; right: 11%; background-color: rgba(56, 201, 95, 0.75); border: solid black 1px;" onclick="lokacja('pradawnyLas')" id="las">Pradawny las</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 16%; right: 8%; background-color: #a35c2a; border: solid black 1px; display: none;" id="obozWilkow" onclick="lokacja('obozWilkow')">Obóz wilków</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 13%; right: 15%; background-color: #38c95f; border: solid black 1px; display: none;" id="lesnaDroga1" onclick="lokacja('lesnaDroga1')">Leśna droga [1]</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 24%; right: 14.5%; background-color: #a35c2a; border: solid black 1px; display: none;" id="posterunekWilkow" onclick="lokacja('posterunekWilkow')">Posterunek wilków</button>
@@ -64,11 +66,25 @@
 			<button style="font-size: 0.7vw; position: absolute; top: 47%; right: 10%; background-color: #1e9e2b; border: solid black 1px; display: none;" id="zniszczonaDroga" onclick="lokacja('zniszczonaDroga')">Naprawiona droga</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 38%; right: 1%; background-color: #869691; border: solid black 1px; display: none;" id="grota" onclick="lokacja('grota')">Grota</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 51%; right: 30.5%; background-color: #38c95f; border: solid black 1px; display: none;" id="wyjscieZLasu" onclick="lokacja('wyjscieZLasu')">Wyjście z lasu</button>
-			<button style="font-size: 0.7vw; position: absolute; top: 42%; right: 12.5%; background-color: rgb(56, 201, 95); border: 1px solid black; display: none;" onclick="lokacja('wioska')" id="wioska">Wioska</button>
+			
+			<!-- POCZĄTEK WIOSKI -->
+			<button style="font-size: 0.7vw; position: absolute; top: 42%; right: 12.5%; background-color: rgba(204, 136, 0, 0.75); border: 1px solid black; display: none;" onclick="lokacja('wioska')" id="wioska">Wioska</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 5%; right: 26%; background-color: #e6e600; border: 1px solid black; display: none;" onclick="lokacja('chataMysliwych')" id="chataMysliwych">Chata myśliwych</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 14%; right: 16.5%; background-color: #5ed900; border: 1px solid black; display: none;" onclick="lokacja('pole')" id="pole">Pole</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 36%; right: 25%; background-color: #e60000; border: 1px solid black; display: none;" onclick="lokacja('centrum')" id="centrum">Centrum</button>
-			<button style="font-size: 0.7vw; position: absolute; top: 37%; right: 19.5%; background-color: rgb(56, 201, 95); border: 1px solid black; display: none;" onclick="lokacja('dolina')" id="dolina">Dolina</button>
+			
+			<!-- POCZĄTEK DOLINY -->
+			<button style="font-size: 0.7vw; position: absolute; top: 37%; right: 19.5%; background-color: rgba(56, 201, 95, 0.75); border: 1px solid black; display: none;" onclick="lokacja('dolina')" id="dolina">Dolina</button>
+			
+			<button style="font-size: 0.7vw; position: absolute; top: 26%; right: 21%; background-color: rgba(145, 145, 145, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('OpuszczoneWrota')" id="OpuszczoneWrota">Opuszczone wrota</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 49%; right: 16.4%; background-color: rgba(121, 48, 217, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('moczary')" id="moczary">Moczary</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 41%; right: 27%; background-color: rgba(166, 166, 166, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('podgorze')" id="podgorze">Podgórze</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 46%; right: 7.5%; background-color: rgba(219, 174, 129, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('drogaNaWschod')" id="drogaNaWschod">Droga na wschód</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 37%; right: 34.5%; background-color: rgba(219, 174, 129, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('glownyTrakt1')" id="glownyTrakt1">Główny trakt [1]</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 37.9%; right: 43.7%; background-color: rgba(204, 136, 0, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('firon')" id="firon">Firon</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 29%; right: 39.5%; background-color: rgba(219, 174, 129, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('glownyTrakt2')" id="glownyTrakt2">Główny trakt [2]</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 18.5%; right: 43.8%; background-color: rgb(252, 252, 252, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('Alesver')" id="Alesver">Alesver</button>
+			<button style="font-size: 0.7vw; position: absolute; top: 21.5%; right: 32%; background-color: rgb(252, 252, 252, 0.75); border: 1px solid black; display: inline;" onclick="lokacja('wrotaDoEderfordu')" id="wrotaDoEderfordu">Wrota do Ederfordu</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 56.8%; background-color: white; border: solid black 1px; display: none;" id="cofnij" onclick="lokacja('cofnij')">Cofnij do mapy</button>
 			<button style="font-size: 0.7vw; position: absolute; top: 56.8%; background-color: white; border: solid black 1px; display: none;" id="cofnijOboz" onclick="lokacja('pradawnyLas')">Cofnij do lasu</button>
 			<button class="przyciskGory" hidden="" onclick="rozpocznijWalke('gory', 1)">Góry</button>
