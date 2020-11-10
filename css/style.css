@@ -257,6 +257,8 @@ button:hover {
 	top: 50%;
 	position: absolute;
 	color: #2a3b2f;
+	z-index: 100;
+	display: none;
 }
 
 .zakladkaMenu {
