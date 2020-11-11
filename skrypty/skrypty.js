@@ -906,12 +906,12 @@ wybierzCios("zwykly");
 // ----- Funkcje ekwipunku -----
 
 function allowDrop(ev) {
-	document.getElementById('opisDiv').style.display = "none";
-	document.getElementById('opisDiv').style.zIndex = "-100";
     ev.preventDefault();
 }
 
 function drag(ev) {
+	document.getElementById('opisDiv').style.display = "none";
+	document.getElementById('opisDiv').style.zIndex = "-100";
     ev.dataTransfer.setData("src", ev.target.id);
 }
 
@@ -1479,19 +1479,17 @@ $(document).on('mouseover', function(id){
 		document.getElementById("opisRodzajTekst").innerHTML = "Rodzaj:";
 		document.getElementById("opisWartosc").innerHTML = "Wartość:";
 		if(przedmiotOpis[2] == "Broń"){
-			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
-			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+			document.getElementById("opisTyp").innerHTML = "Obrażenia:" + przedmiotOpis[3] + "<br />";
 		} else if(przedmiotOpis[2] == "Hełm" || przedmiotOpis[2] == "Napierśnik" || przedmiotOpis[2] == "Spodnie" || przedmiotOpis[2] == "Buty"){
-			document.getElementById("opisTyp").innerHTML = "Pancerz:";
-			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+			document.getElementById("opisTyp").innerHTML = "Pancerz:" + przedmiotOpis[3]  + "<br />";
 		} else { 
 		document.getElementById("opisTyp").innerHTML = "";
 		document.getElementById("opisCena").innerHTML = przedmiotOpis[3];
 		}
-	offset = $(id.target).offset();
-	posY = offset.top - $(window).scrollTop();
-	posX = offset.left - $(window).scrollLeft(); 
-	$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
+		offset = $(id.target).offset();
+		posY = offset.top - $(window).scrollTop();
+		posX = offset.left - $(window).scrollLeft(); 
+		$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
 	} else if(typeof id.target.childNodes[1] !== "undefined" && id.target.childNodes[1].lang != "" && id.target.childNodes[1].alt != "" && id.target.childNodes[1].draggable == true){
 		przedmiotOpis = window[id.target.childNodes[1].lang];
 		document.getElementById("opisPrzedmiot").innerHTML = przedmiotOpis[0];
@@ -1501,20 +1499,19 @@ $(document).on('mouseover', function(id){
 		document.getElementById("opisRodzajTekst").innerHTML = "Rodzaj:";
 		document.getElementById("opisWartosc").innerHTML = "Wartość:";
 		if(przedmiotOpis[2] == "Broń"){
-			document.getElementById("opisTyp").innerHTML = "Obrażenia:";
-			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+			document.getElementById("opisTyp").innerHTML = "Obrażenia:" + przedmiotOpis[3] + "<br />";
 		} else if(przedmiotOpis[2] == "Hełm" || przedmiotOpis[2] == "Napierśnik" || przedmiotOpis[2] == "Spodnie" || przedmiotOpis[2] == "Buty"){
-			document.getElementById("opisTyp").innerHTML = "Pancerz:";
-			document.getElementById("opisStatystyka").innerHTML = przedmiotOpis[3];
+			document.getElementById("opisTyp").innerHTML = "Pancerz:" + przedmiotOpis[3]  + "<br />";
 		} else { 
 		document.getElementById("opisTyp").innerHTML = "";
 		document.getElementById("opisCena").innerHTML = przedmiotOpis[3];
 		}
-	offset = $(id.target.childNodes[1]).offset();
-	posY = offset.top - $(window).scrollTop();
-	posX = offset.left - $(window).scrollLeft(); 
-	$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
-	} else {
+		offset = $(id.target.childNodes[1]).offset();
+		console.log(id.target.childNodes[1]);
+		posY = offset.top - $(window).scrollTop();
+		posX = offset.left - $(window).scrollLeft(); 
+		$('#opisDiv').css({ "left": posX, "top": posY, "z-index": "100", "display": "inline"});
+	} else if(id.target.id !== "opisDiv"){
 		document.getElementById("opisPrzedmiot").innerHTML = "";
 		document.getElementById("opisOpis").innerHTML = "";
 		document.getElementById("opisRodzaj").innerHTML = "";
@@ -1522,7 +1519,6 @@ $(document).on('mouseover', function(id){
 		document.getElementById("opisWartosc").innerHTML = "";
 		document.getElementById("opisCena").innerHTML = "";
 		document.getElementById("opisTyp").innerHTML = "";
-		document.getElementById("opisStatystyka").innerHTML = "";
 		$('#opisDiv').css({"z-index": "-100", "display": "none"});
 	}
 });
