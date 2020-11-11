@@ -24,7 +24,15 @@ function debug(typ){
 			blokadaPole = false;
 			blokadaCentrum = false;
 			blokadaDolina = false;		// Blokada przycisku "Dolina"
+			blokadaOpuszczoneWrota = false; // Blokada przycisku "Opuszczone wrota"
 			blokadaMoczary = false;		// Blokada przycisku "Moczary"
+			blokadaPodgorze = false;		// Blokada przycisku "Podgórze"
+			blokadaDrogaNaWschod = false;	// Blokada przycisku "Droga na wschód"
+			blokadaGlownyTrakt1 = false;		// Blokada przycisku "Główny trakt [1]"
+			blokadaFiron = false;	// Blokada przycisku "Firon"
+			blokadaGlownyTrakt2 = false;	// Blokada przycisku "Główny trakt [2]"
+			blokadaAlesver = false;	// Blokada przycisku "Alesver"
+			blokadaWrotaDoEderfordu = false;	// Blokada przycisku "Wrota do Ederfordu"
 			break;
 		}
 		case "wszystko":{
@@ -41,7 +49,15 @@ function debug(typ){
 			blokadaPole = false;			// Blokada przycisku "Pole"
 			blokadaCentrum = false;			// Blokada przycisku "Centrum"
 			blokadaDolina = false;		// Blokada przycisku "Dolina"
+			blokadaOpuszczoneWrota = false; // Blokada przycisku "Opuszczone wrota"
 			blokadaMoczary = false;		// Blokada przycisku "Moczary"
+			blokadaPodgorze = false;		// Blokada przycisku "Podgórze"
+			blokadaDrogaNaWschod = false;	// Blokada przycisku "Droga na wschód"
+			blokadaGlownyTrakt1 = false;		// Blokada przycisku "Główny trakt [1]"
+			blokadaFiron = false;	// Blokada przycisku "Firon"
+			blokadaGlownyTrakt2 = false;	// Blokada przycisku "Główny trakt [2]"
+			blokadaAlesver = false;	// Blokada przycisku "Alesver"
+			blokadaWrotaDoEderfordu = false;	// Blokada przycisku "Wrota do Ederfordu"
 			hidden = "slot"
 			for(i = 1; i < 160; i++){
 				document.getElementById(hidden + i).removeAttribute("hidden");
@@ -146,7 +162,7 @@ function debug(typ){
 	["Myśliwy", "Myśliwy", "Upolował już kilka zwierząt.", 25, 5, 7, 0.5, 2],
 	];
 	var prze_centrum_ = [ // Przeciwnicy z "Centrum"
-	["Wieśniak", "Młody_myśliwy", "Niedoświadczony, ale nie beznadziejny.", 25, 3, 4, 0.5, 2],
+	["Wieśniak", "Wieśniak", "Nie wie co się dzieje.", 25, 3, 4, 0.5, 2],
 	["Myśliwy", "Myśliwy", "Upolował już kilka zwierząt.", 25, 5, 7, 0.5, 2],
 	["Strażnik Vala", "Strażnik_Vala", "Wynajęty przez Vala, czołowego myśliwego.", 30, 7, 6, 1, 3],
 	["Monsieur Val", "Monsieur_Val", "Znany myśliwy, zatrudniony przez zarządcę wioski w celu zlikwidowania wilków z pobliskiego lasu", 30, 5, 10, 2, 4],
@@ -262,7 +278,15 @@ function debug(typ){
 			var	blokadaPole = true;			// Blokada przycisku "Pole"
 			var	blokadaCentrum = true;			// Blokada przycisku "Centrum"
 			var blokadaDolina = true;		// Blokada przycisku "Dolina"
+			var blokadaOpuszczoneWrota = true; // Blokada przycisku "Opuszczone wrota"
 			var blokadaMoczary = true;		// Blokada przycisku "Moczary"
+			var blokadaPodgorze = true;		// Blokada przycisku "Podgórze"
+			var blokadaDrogaNaWschod = true;	// Blokada przycisku "Droga na wschód"
+			var blokadaGlownyTrakt1 = true;		// Blokada przycisku "Główny trakt [1]"
+			var blokadaFiron = true;	// Blokada przycisku "Firon"
+			var blokadaGlownyTrakt2 = true;	// Blokada przycisku "Główny trakt [2]"
+			var blokadaAlesver = true;	// Blokada przycisku "Alesver"
+			var blokadaWrotaDoEderfordu = true;	// Blokada przycisku "Wrota do Ederfordu"
 			
 		// Kamienie milowe - Naprawy, osiągnięcia i inne zdarzenia zmieniające wygląd mapy i odblokowujące nowe lokacje
 			var pradawnyLasDroga = false;	// Czy droga w pradawnym lesie jest naprawiona
@@ -477,7 +501,7 @@ function walka(typ){
 			clearInterval(interval);
 			clearInterval(interval2);
 			odswiezZmienne("koniecWalki");
-			koniecWalki = true;
+			walkaKoniec = true;
 		}
 }
   
@@ -1625,9 +1649,7 @@ function lokacja(lokacja){
 		case "pradawnyLas":{
 			obozWlaczony = false;
 			document.getElementsByClassName("oboz")[0].hidden=true;
-			las.style.display = "none";
-			wioska.style.display = "none";
-			dolina.style.display = "none";
+			ukryjPrzyciskiMapa();
 			if(pradawnyLasDroga == false && pradawnyLasMost == false){
 				mapa.src = "Obrazy/Mapa/PradawnyLas.png";
 			} else if(pradawnyLasDroga == true && pradawnyLasMost == false){
@@ -1758,9 +1780,7 @@ function lokacja(lokacja){
 		case "wioska":{
 			mapa.src = "Obrazy/Mapa/Wioska.png";
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Pole.png')";
-			las.style.display = "none";
-			wioska.style.display = "none";
-			dolina.style.display = "none";
+			ukryjPrzyciskiMapa();
 			pole.style.display = "inline";
 			chataMysliwych.style.display = "inline";
 			centrum.style.display = "inline";
@@ -1779,7 +1799,7 @@ function lokacja(lokacja){
 		}
 		case "centrum":{
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Centrum.png')";
-			rozpocznijWalkeBoss("centrum");
+			rozpocznijWalke("centrum", 1);
 			break;
 		}
 		case "cofnij":{
@@ -1789,6 +1809,15 @@ function lokacja(lokacja){
 			las.style.display = "inline";
 			if(blokadaWioska == false){ wioska.style.display = "inline"; }
 			if(blokadaDolina == false){ dolina.style.display = "inline"; }
+			if(blokadaOpuszczoneWrota == false){ opuszczoneWrota.style.display = "inline"; }
+			if(blokadaMoczary == false){ moczary.style.display = "inline"; }
+			if(blokadaPodgorze == false){ podgorze.style.display = "inline"; }
+			if(blokadaDrogaNaWschod == false){ drogaNaWschod.style.display = "inline"; }
+			if(blokadaGlownyTrakt1 == false){ glownyTrakt1.style.display = "inline"; }
+			if(blokadaFiron == false){ firon.style.display = "inline"; }
+			if(blokadaGlownyTrakt2 == false){ glownyTrakt2.style.display = "inline"; }
+			if(blokadaAlesver == false){ alesver.style.display = "inline"; }
+			if(blokadaWrotaDoEderfordu == false){ wrotaDoEderfordu.style.display = "inline"; }
 			zakladkaWalka.style.backgroundImage = "url('Obrazy/Tła/Mapa.png')";
 			mapa.src = "Obrazy/Mapa/Mapa.png";
 			obozWilkow.style.display = "none";
@@ -1801,10 +1830,10 @@ function lokacja(lokacja){
 			grota.style.display = "none";
 			lesnaDroga3.style.display = "none";
 			wyjscieZLasu.style.display = "none";
-			cofnij.style.display = "none";
 			pole.style.display = "none";
 			chataMysliwych.style.display = "none";
 			centrum.style.display = "none";
+			cofnij.style.display = "none";
 			zakonczRozmowe();
 			break;
 		}
@@ -1812,6 +1841,21 @@ function lokacja(lokacja){
 	}
 }
 
+function ukryjPrzyciskiMapa(){
+	las.style.display = "none";
+	wioska.style.display = "none";
+	dolina.style.display = "none";
+	opuszczoneWrota.style.display = "none";
+	moczary.style.display = "none";
+	podgorze.style.display = "none";
+	drogaNaWschod.style.display = "none";
+	glownyTrakt1.style.display = "none";
+	firon.style.display = "none";
+	glownyTrakt2.style.display = "none";
+	alesver.style.display = "none";
+	wrotaDoEderfordu.style.display = "none";
+}
+	
 function crafting(przedmiot, doBazy, element){
 	switch(przedmiot){
 		case "drewno":{
